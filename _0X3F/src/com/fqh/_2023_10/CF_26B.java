@@ -1,4 +1,4 @@
-package _2023_10;
+package com.fqh._2023_10;
 
 import java.io.*;
 import java.util.ArrayDeque;
