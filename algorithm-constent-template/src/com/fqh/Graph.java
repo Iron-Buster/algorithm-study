@@ -79,7 +79,7 @@ a(n) = C(n, 2)-n/2+1  n%2==1
             long w = in.nextLong();
             edges[i] = new Edge(u, v, w);
         }
-        Arrays.sort(edges, (a, b) -> Long.compare(a.w, b.w));
+        Arrays.sort(edges, 1, m + 1, (a, b) -> Long.compare(a.w, b.w));
         for (int i = 1; i <= m; ++i) {
             if (!mp.containsKey(edges[i].u)) {
                 mp.put(edges[i].u, ++cnt);
@@ -89,11 +89,11 @@ a(n) = C(n, 2)-n/2+1  n%2==1
             }
             int u = mp.get(edges[i].u);
             int v = mp.get(edges[i].v);
-            long w = mp.get(edges[i].w);
+            long w = edges[i].w;
             if (dis[u][v] == 0) {
-                dis[u][v] = dis[u][v] = (long) 1e16;
+                dis[u][v] = dis[v][u] = (long) 1e16;
             }
-            dis[u][v] = dis[u][v] = Math.min(dis[u][v], w);
+            dis[u][v] = dis[v][u] = Math.min(dis[u][v], w);
             if (i >= k) break;
         }
         init();
@@ -315,8 +315,45 @@ https://codeforces.com/problemset/problem/1176/E
     }
 
 
+    // BFS 应用：求无向无权图最小环长度
+// 好题 https://codeforces.com/problemset/problem/1325/E
+// LC2608 https://leetcode.cn/problems/shortest-cycle-in-a-graph/
+/* 注意不能提前推出（哪怕是遍历完一个找到环的点的所有邻居）
+*/
 
-
+    class Pair {
+        int v;
+        int fa;
+        public Pair(int v, int fa) {
+            this.v = v;
+            this.fa = fa;
+        }
+    }
+    public int shortestCycleBFS(int n, List<Integer>[] g) {
+        int INF = Integer.MAX_VALUE;
+        int ans = INF;
+        int[] dis = new int[n];
+        for (int st = 0; st < g.length; ++st) {
+            Arrays.fill(dis, -1);
+            dis[st] = 0;
+            var q = new ArrayDeque<Pair>();
+            q.offer(new Pair(st, -1));
+            while (!q.isEmpty()) {
+                var p = q.poll();
+                int v = p.v;
+                int fa = p.fa;
+                for (int w : g[v]) {
+                    if (dis[w] == -1) {
+                        dis[w] = dis[v] + 1;
+                        q.offer(new Pair(w, v));
+                    } else if (w != fa) {
+                        ans = Math.min(ans, dis[w] + dis[v] + 1);
+                    }
+                }
+            }
+        }
+        return ans;
+    }
 
 
 
