@@ -74,7 +74,13 @@ https://zhuanlan.zhihu.com/p/553192435
 // todo https://codeforces.com/contest/884/problem/E
 
 
+import java.util.Scanner;
+
 public class UnionFindTemplate {
+
+    public static void main(String[] args) {
+
+    }
 }
 
 // 普通并查集
@@ -194,5 +200,85 @@ class EdgeWeightUnionFind {
     public boolean same(int x, int y) {
         return find(x) == find(y);
     }
-
 }
+
+
+
+
+// 数组标记/区间合并相关
+// - 经典模型是一维区间覆盖染色，通过倒序+并查集解决
+// - 顺带补充下二维的情况（非并查集）：LC2718 https://leetcode.cn/problems/sum-of-matrix-after-queries/
+// - [1851. 包含每个查询的最小区间](https://leetcode.cn/problems/minimum-interval-to-include-each-query/)
+// - [2382. 删除操作后的最大子段和](https://leetcode.cn/problems/maximum-segment-sum-after-removals/)
+// - [2334. 元素值大于变化阈值的子数组](https://leetcode.cn/problems/subarray-with-elements-greater-than-varying-threshold/)
+// - [2612. 最少翻转操作数](https://leetcode.cn/problems/minimum-reverse-operations/)
+// - https://codeforces.com/problemset/problem/724/D
+// - https://codeforces.com/problemset/problem/827/A
+// - https://codeforces.com/problemset/problem/1157/E
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 倒序并查集 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//CF722C倒序并查集
+//给你n个正数以及一个排列 让你按照排列中的顺序依次摧毁这n个数 每摧毁一次求一下连通块的最大和
+//倒着并查集：先将所有点摧毁，再倒序连接，维护最大和
+class InReverseUnionFind {
+    int[] fa;
+    int[] sum;      // sum[i]表示第i个集合的和
+    boolean[] vis;  // 标记第i个数是否已添加
+
+    public InReverseUnionFind(int n) {
+        this.fa = new int[n]; // n大小从1开始 -> n+1
+        this.sum = new int[n];
+        this.vis = new boolean[n];
+        for (int i = 0; i < n; ++i) {
+            fa[i] = i;
+        }
+    }
+
+    public int find(int x) {
+        while (x != fa[x]) {
+            fa[x] = fa[fa[x]];
+            x = fa[x];
+        }
+        return x;
+    }
+
+    public void merge(int x, int y) {
+        int f_x = find(x);
+        int f_y = find(y);
+        if (f_x != f_y) {
+            fa[f_y] = f_x;
+            sum[f_x] += sum[f_y];
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        InReverseUnionFind unionFind = new InReverseUnionFind(n);
+        for (int i = 0; i < n; ++i) {
+            unionFind.sum[i] = sc.nextInt();
+        }
+        int m = sc.nextInt();
+        int[] queries = new int[m];
+        for (int i = 0; i < m; ++i) {
+            queries[i] = sc.nextInt();
+        }
+        long[] res = new long[m];
+        long ans = 0;
+        for (int i = m - 1; i >= 0; --i) {
+            res[i] = ans;
+            int q = queries[i];
+            unionFind.vis[q] = true;
+            if (q - 1 >= 0 && unionFind.vis[q - 1]) {
+                unionFind.merge(q, q - 1);
+            }
+            if (q + 1 < n && unionFind.vis[q + 1]) {
+                unionFind.merge(q, q + 1);
+            }
+            ans = Math.max(ans, unionFind.sum[unionFind.find(q)]);
+        }
+        for (int i = 0; i < n; ++i) {
+            System.out.println(res[i]);
+        }
+    }
+}
+
