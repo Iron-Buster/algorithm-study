@@ -23,9 +23,9 @@ public class LC_228 {
 //
 //                "a->b" ，如果 a != b
 //    "a" ，如果 a == b
-public List<String> summaryRanges(int[] nums) {
-    return f(nums);
-}
+    public List<String> summaryRanges(int[] nums) {
+        return f(nums);
+    }
 
     List<String> f(int[] a) {
         int n = a.length;
