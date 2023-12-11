@@ -74,5 +74,6 @@ public class LC_2192 {
         int n = 8;
         int[][] edges = {{0,3},{0,4},{1,3},{2,4},{2,7},{3,5},{3,6},{3,7},{4,6}};
         System.out.println(new LC_2192().getAncestors(n, edges));
+
     }
 }
