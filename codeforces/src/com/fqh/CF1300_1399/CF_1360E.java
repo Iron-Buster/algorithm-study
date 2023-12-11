@@ -1,22 +1,15 @@
-package com.fqh.CF500_599;
+package com.fqh.CF1300_1399;
 
 import java.io.*;
-import java.util.ArrayDeque;
-import java.util.HashSet;
 import java.util.List;
 import java.util.StringTokenizer;
 
 /**
  * @Author: vq
- * @Date: 2023/12/1 14:26
+ * @Date: 2023/12/1 15:34
  * @Version V1.0
  */
-public class CF_520B {
-//    B. Two Buttons
-//    瓦夏发现了一个奇怪的装置。设备前面板上有一个红色按钮、一个蓝色按钮和一个显示正整数的显示屏。
-//    点击红色按钮后，设备将显示的数字乘以 2。点击蓝色按钮后，设备从显示屏上的数字中减去 1。
-//    如果某个时候数字不再是正数，设备就会崩溃。显示屏可以显示任意大的数字。最初，显示屏上显示的数字是 n 。
-//    鲍勃希望在显示屏上显示数字 m 。他最少要点击几次才能达到这个结果？
+public class CF_1360E {
 
 
     static final int MAXN = 200010;
@@ -27,37 +20,27 @@ public class CF_520B {
     static int n;
     static int m;
 
-    //BFS找最短路径
     static void solve() throws Exception {
         n = in.nextInt();
-        m = in.nextInt();
-        if (n >= m) {
-            out.println(n - m);
-            return;
+        int[][] a = new int[n + 1][n + 1];
+        for (int i = 1; i <= n; ++i) {
+            a[i] = in.nextIntArray();
         }
-        var q = new ArrayDeque<int[]>();
-        q.offer(new int[]{n, 0});
-        int ans = 0;
-        while (!q.isEmpty()) {
-            int[] p = q.poll();
-            int cur = p[0], step = p[1];
-            if (cur == m) {
-                ans = step;
-                break;
+        boolean ok = true;
+        for (int i = 1; i <= n - 1; ++i) {
+            for (int j = 1; j <= n - 1; ++j) {
+                if (a[i][j] == 1 && a[i + 1][j] != 1 && a[i][j + 1] != 1) {
+                    ok = false;
+                    break;
+                }
             }
-            if (cur - 1 >= 0 && !vis[cur]) {
-                q.offer(new int[]{cur - 1, step + 1});
-            }
-            if (cur <= 2 * m && cur != 0 && !vis[cur]) {
-                q.offer(new int[]{cur * 2, step + 1});
-            }
-            vis[cur] = true;
         }
-        out.println(ans);
+        if (ok) out.println("YES");
+        else out.println("NO");
     }
 
     public static void main(String[] args) throws Exception {
-        int T = 1;
+        int T = in.nextInt();
         while (T-- > 0) {
             solve();
         }
@@ -115,6 +98,15 @@ public class CF_520B {
 
         public double nextDouble() throws IOException {
             return Double.parseDouble(next());
+        }
+
+        public int[] nextIntArray() throws IOException {
+            String s = in.nextLine();
+            int[] arr = new int[s.length() + 1];
+            for (int i = 0; i < s.length(); ++i) {
+                arr[i + 1] = s.charAt(i) - '0';
+            }
+            return arr;
         }
     }
 }
