@@ -1,4 +1,4 @@
-package com.fqh.位运算;
+package com.fqh.位运算.XOR;
 
 /**
  * @Author: vq
