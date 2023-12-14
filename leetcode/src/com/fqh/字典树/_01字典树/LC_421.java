@@ -1,4 +1,4 @@
-package com.fqh._01字典树;
+package com.fqh.字典树._01字典树;
 
 /**
  * @Author: vq
@@ -10,7 +10,7 @@ public class LC_421 {
 //[421. 数组中两个数的最大异或值](https://leetcode.cn/problems/maximum-xor-of-two-numbers-in-an-array/) ~2000
 
     public int findMaximumXOR(int[] nums) {
-        var tire = new ZeroOneTire();
+        var tire = new ZeroOneTrie();
         int ans = 0;
         for (int x : nums) {
             tire.put(x);
@@ -20,7 +20,7 @@ public class LC_421 {
     }
 
 
-    class ZeroOneTire {
+    class ZeroOneTrie {
 
         class Trie01Node {
             Trie01Node[] son = new Trie01Node[2];
