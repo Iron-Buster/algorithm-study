@@ -43,7 +43,7 @@ public class StringTemplate {
 /**
  * 0-1 trie
  */
-class ZeroOneTire {
+class ZeroOneTrie {
 
     class Trie01Node {
         Trie01Node[] son = new Trie01Node[2];
