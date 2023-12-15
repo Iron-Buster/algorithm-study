@@ -40,7 +40,7 @@ public class WeightedIntervalScheduling {
      * @param overlap   是否允许选择的区间端点重合.默认为False.
      * @return
      */
-    static int weightedIntervalScheduling(int[][] intervals, boolean overlap) {
+    public static int weightedIntervalScheduling(int[][] intervals, boolean overlap) {
         int n = intervals.length;
         Arrays.sort(intervals, (a, b) -> a[1] - b[1]);
         int[] pre = new int[n];
