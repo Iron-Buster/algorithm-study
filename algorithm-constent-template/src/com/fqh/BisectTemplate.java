@@ -52,6 +52,7 @@ public class BisectTemplate {
     }
 
     /**
+     * 返回 `target` 在 `a` 中最左边的插入位置。
      * a = [start, end, score]
      * @param a         二维数组
      * @param target    搜索的值
@@ -73,6 +74,7 @@ public class BisectTemplate {
 
 
     /**
+     * 返回 `target` 在 `a` 中最右边的插入位置。
      * a = [start, end, score]
      * @param a         二维数组
      * @param target    搜索的值
