@@ -9,7 +9,7 @@ package com.fqh;
 /**
  * 字符串相关模板
  */
-public class StringTemplate {
+public class TrieTemplate {
 }
 
 /*
