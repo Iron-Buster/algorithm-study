@@ -1,6 +1,4 @@
-package com.fqh.competition.wk373;
-
-import java.util.Arrays;
+package com.fqh.contests.wk373;
 
 /**
  * @Author: vq

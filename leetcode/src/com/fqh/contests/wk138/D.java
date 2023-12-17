@@ -1,4 +1,4 @@
-package com.fqh.competition.wk138;
+package com.fqh.contests.wk138;
 
 import java.util.HashMap;
 import java.util.PriorityQueue;

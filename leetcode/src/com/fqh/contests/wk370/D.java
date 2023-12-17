@@ -1,4 +1,4 @@
-package com.fqh.competition.wk370;
+package com.fqh.contests.wk370;
 
 import java.util.Arrays;
 

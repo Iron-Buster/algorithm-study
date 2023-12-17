@@ -1,8 +1,4 @@
-package com.fqh.competition.wk370;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+package com.fqh.contests.wk370;
 
 /**
  * @Author: vq

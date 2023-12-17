@@ -1,4 +1,4 @@
-package com.fqh.competition.bw118;
+package com.fqh.contests.bw118;
 
 import java.util.Arrays;
 

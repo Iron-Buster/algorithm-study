@@ -1,4 +1,4 @@
-package com.fqh.competition.bw119;
+package com.fqh.contests.bw119;
 
 import java.util.HashSet;
 

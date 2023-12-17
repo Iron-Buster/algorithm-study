@@ -1,4 +1,4 @@
-package com.fqh.competition.wk373;
+package com.fqh.contests.wk373;
 
 /**
  * @Author: vq

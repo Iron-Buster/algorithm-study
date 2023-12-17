@@ -1,4 +1,4 @@
-package com.fqh.competition.bw85;
+package com.fqh.contests.bw85;
 
 import java.util.*;
 
