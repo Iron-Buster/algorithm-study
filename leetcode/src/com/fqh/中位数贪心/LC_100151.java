@@ -81,11 +81,11 @@ public class LC_100151 {
     public long minimumCost(int[] nums) {
         Arrays.sort(nums);
         int n = nums.length;
-        int idx = bisectLeft2(pal, nums[(n - 1) / 2]);
-        if (pal.get(idx) <= nums[n / 2]) {
-            return cost(idx, nums);
+        int idx = bisectRight2(pal, nums[(n - 1) / 2]); // 二分找离中位数最近的回文数
+        if (pal.get(idx) <= nums[n / 2]) {              // 回文数在中位数范围内
+            return cost(idx, nums);                     // 直接变成 pal[i]
         }
-        return Math.min(cost(idx - 1, nums), cost(idx, nums));
+        return Math.min(cost(idx - 1, nums), cost(idx, nums)); // 枚举离中位数最近的两个回文数 pal[i-1] 和 pal[i]
     }
 
     /**
@@ -100,6 +100,26 @@ public class LC_100151 {
         while (left <= right) {
             int mid = (left + right) >> 1;
             if (a.get(mid) < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return left;
+    }
+
+    /**
+     * 返回 `target` 在 `a` 中最右边的插入位置。
+     * 存在多个相同的值时，返回最右边的位置。
+     * @param a         list集合
+     * @param target    搜索的值
+     * @return
+     */
+    public static int bisectRight2(List<Integer> a, long target) {
+        int left = 0, right = a.size() - 1;
+        while (left <= right) {
+            int mid = (left + right) >> 1;
+            if (a.get(mid) <= target) {
                 left = mid + 1;
             } else {
                 right = mid - 1;
