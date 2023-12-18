@@ -153,6 +153,15 @@ class PrefixSum {
         return sum;
     }
 
+    // 后缀和
+    static int[] suffixSum(int[] a) {
+        int[] sum = new int[a.length + 1];
+        for (int i = a.length - 1; i >= 0; i--) {
+            sum[i] = sum[i + 1] + a[i];
+        }
+        return sum;
+    }
+
     // 二维前缀和     sum2d
     // LC221 https://leetcode.cn/problems/maximal-square/
     // LC1277 https://leetcode.cn/problems/count-square-submatrices-with-all-ones/

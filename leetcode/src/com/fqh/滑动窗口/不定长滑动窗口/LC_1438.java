@@ -1,4 +1,4 @@
-package com.fqh.滑动窗口.定长滑动窗口;
+package com.fqh.滑动窗口.不定长滑动窗口;
 
 import java.util.*;
 

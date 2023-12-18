@@ -444,6 +444,33 @@ class DijkstraTemplate {
         return false;
     }
 
+    // dijk求最长路
+    // 经典Dijsktra可在全负权边图中跑最长路、全正权边图中跑最短路
+    static long dijkstra2(int start, int end) {
+        var pq = new PriorityQueue<Edge>((a, b) -> Long.compare(a.w, b.w));
+        pq.offer(new Edge(start, -1));
+        dist[start] = 1;
+        while (!pq.isEmpty()) {
+            var p = pq.poll();
+            int u = p.v;
+            long w = p.w;
+            w *= -1;
+            if (u == end) {
+                return w;
+            }
+            vis[u] = true;
+            for (Edge next : g[u]) {
+                int v = next.v;
+                long next_w = next.w;
+                if (!vis[v] && dist[v] < dist[u] + next_w) {
+                    dist[v] = dist[u] + next_w;
+                    pq.offer(new Edge(v, -dist[v]));
+                }
+            }
+        }
+        return -1;
+    }
+
     static void solve() throws IOException {
         int n = in.nextInt();
         int m = in.nextInt();
