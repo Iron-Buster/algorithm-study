@@ -1,17 +1,14 @@
-package com.fqh.div3.round_913;
+package com.fqh.div3.ROUND_916;
 
 import java.io.*;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * @Author: vq
- * @Date: 2023/12/6 10:42
+ * @Date: 2023/12/19 23:21
  * @Version V1.0
  */
-public class C {
+public class D {
 
 
     static final int MAXN = 200010;
@@ -22,16 +19,35 @@ public class C {
     static int n;
     static int m;
 
+    //每种活动找最大的三天然后暴力枚举所有可能判断是否可行更新答案即可.
     static void solve() throws Exception {
         int n = in.nextInt();
-        String s = in.nextLine();
-        int mx = 0;
-        int[] map = new int[26];
-        for (char x : s.toCharArray()) {
-            map[x - 'a']++;
-            mx = Math.max(mx, map[x - 'a']);
+        Pair[] a = new Pair[n];
+        Pair[] b = new Pair[n];
+        Pair[] c = new Pair[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = new Pair(in.nextInt(), i + 1);
         }
-        out.println(Math.max(n % 2 == 0 ? 1 : 0, n - 2 * (n - mx)));
+        for (int i = 0; i < n; i++) {
+            b[i] = new Pair(in.nextInt(), i + 1);
+        }
+        for (int i = 0; i < n; i++) {
+            c[i] = new Pair(in.nextInt(), i + 1);
+        }
+        Arrays.sort(a);
+        Arrays.sort(b);
+        Arrays.sort(c);
+        int ans = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
+                    if (a[i].index != b[j].index && a[i].index != c[k].index && b[j].index != c[k].index) {
+                        ans = Math.max(ans, a[i].value + b[j].value + c[k].value);
+                    }
+                }
+            }
+        }
+        out.println(ans);
     }
 
     public static void main(String[] args) throws Exception {
@@ -42,16 +58,20 @@ public class C {
         out.close();
     }
 
-    static class Pair {
-        char ch;
-        int cnt;
+    static class Pair implements Comparable<Pair> {
+        int value;
+        int index;
 
-        public Pair(char ch, int cnt) {
-            this.ch = ch;
-            this.cnt = cnt;
+        public Pair(int value, int index) {
+            this.value = value;
+            this.index = index;
+        }
+
+        @Override
+        public int compareTo(Pair o) {
+            return Integer.compare(o.value, this.value);
         }
     }
-
 
     static InputReader in = new InputReader();
     static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));

@@ -1,4 +1,4 @@
-package com.fqh.div3.round_913;
+package com.fqh.div3.ROUND_916;
 
 import java.io.*;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.StringTokenizer;
 
 /**
  * @Author: vq
- * @Date: 2023/12/6 10:12
+ * @Date: 2023/12/19 22:25
  * @Version V1.0
  */
-public class A {
+public class B {
 
 
     static final int MAXN = 200010;
@@ -21,15 +21,26 @@ public class A {
     static int m;
 
     static void solve() throws Exception {
-        String s = in.nextLine();
-        for (int i = 1; i <= 8; ++i) {
-            if (s.charAt(1) - '0' == i) continue;
-            out.println(s.charAt(0) + "" + i);
+        int n = in.nextInt();
+        int k = in.nextInt();
+        if (k == 0) {
+            for (int i = n; i >= 1; i--) {
+                out.print(i + " ");
+            }
+        } else if (k == n - 1) {
+            for (int i = 1; i <= n; i++) {
+                out.print(i + " ");
+            }
+        } else {
+            // 前k个递增，然后全部递减
+            for (int i = n - k; i <= n; i++) {
+                out.print(i + " ");
+            }
+            for (int i = n - k - 1; i >= 1; i--) {
+                out.print(i + " ");
+            }
         }
-        for (int i = 0; i < 8; ++i) {
-            if (s.charAt(0) - 'a' == i) continue;
-            out.println((char) ('a' + i) + "" + s.charAt(1));
-        }
+        out.println();
     }
 
     public static void main(String[] args) throws Exception {

@@ -1,17 +1,15 @@
-package com.fqh.div3.round_913;
+package com.fqh.div3.ROUND_913;
 
 import java.io.*;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
 /**
  * @Author: vq
- * @Date: 2023/12/6 10:22
+ * @Date: 2023/12/6 10:12
  * @Version V1.0
  */
-public class B {
+public class A {
 
 
     static final int MAXN = 200010;
@@ -23,39 +21,15 @@ public class B {
     static int m;
 
     static void solve() throws Exception {
-        String ss = in.nextLine();
-        char[] s = ss.toCharArray();
-        var q1 = new ArrayDeque<Integer>();
-        var q2 = new ArrayDeque<Integer>();
-        var ans = new ArrayList<Character>();
-        for (int i = 0; i < s.length; ++i) {
-            if (s[i] == 'b') {
-                ans.add('*');
-                if (q1.size() > 0) {
-                    int idx = q1.pollLast();
-                    ans.set(idx, '*');
-                }
-            } else if (s[i] == 'B') {
-                ans.add('*');
-                if (q2.size() > 0) {
-                    int idx = q2.pollLast();
-                    ans.set(idx, '*');
-                }
-            } else {
-                ans.add(s[i]);
-                if (s[i] >= 'a' && s[i] <= 'z') { // 小写
-                    q1.addLast(i);
-                } else {                          // 大写
-                    q2.addLast(i);
-                }
-            }
+        String s = in.nextLine();
+        for (int i = 1; i <= 8; ++i) {
+            if (s.charAt(1) - '0' == i) continue;
+            out.println(s.charAt(0) + "" + i);
         }
-        for (int i = 0; i < ans.size(); ++i) {
-            if (ans.get(i) != '*') {
-                out.print(ans.get(i));
-            }
+        for (int i = 0; i < 8; ++i) {
+            if (s.charAt(0) - 'a' == i) continue;
+            out.println((char) ('a' + i) + "" + s.charAt(1));
         }
-        out.println();
     }
 
     public static void main(String[] args) throws Exception {
