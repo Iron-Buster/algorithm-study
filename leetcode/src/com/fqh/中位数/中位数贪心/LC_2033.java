@@ -1,4 +1,4 @@
-package com.fqh.中位数贪心;
+package com.fqh.中位数.中位数贪心;
 
 import java.util.ArrayList;
 import java.util.Collections;

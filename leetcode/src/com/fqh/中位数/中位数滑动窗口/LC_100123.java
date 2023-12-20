@@ -1,4 +1,4 @@
-package com.fqh.中位数滑动窗口;
+package com.fqh.中位数.中位数滑动窗口;
 
 import java.util.Arrays;
 
