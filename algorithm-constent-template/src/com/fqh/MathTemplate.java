@@ -367,7 +367,7 @@ class Prime {
 /**
  * 同余 逆元
  */
-class Congruence_And_Inverse {
+class CongruenceInverse {
     /* 涉及到 0 与逆元的题目（mod 为质数）
 		使用场景：计算过程中会有 mod^k * x % mod，但是后面又要除掉 mod^k，得到 x
 		        如果直接取模，会得到 0，没法保留 x 的信息
@@ -466,3 +466,63 @@ class Congruence_And_Inverse {
 	gcd(i,j) = sum_d d * [gcd(i,j) == d]
 	这样就可以把【GCD 求和】转换成【互质约束计数】了
 	*/
+
+
+/**
+ * 容斥原理
+ */
+class InclusionExclusion {
+
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 倍数求和>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    public static int multiSum(int upper, int num) {
+        /**
+         [1,upper]内num的倍数的和.
+         即num为首项,(upper//num)*num为末项的等差数列和.
+         */
+        int first = num;
+        int last = (upper / num) * num;
+        int count = 1 + (last - first) / num;
+        return (first + last) * count / 2;
+    }
+
+    public static int multiCount(int upper, int num) {
+        /** [1,upper]内num的倍数的个数 */
+        return upper / num;
+    }
+
+//# 闭区间 [0,r] 内模mod与k同余的数的个数
+    public static int  modCount(int right, int k, int mod) {
+        /** 区间 [0,right] 内模mod与k同余的数的个数 */
+//        assert 0 <= k < mod
+        return (right - k + mod) / mod;
+    }
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+    class Solution {
+        //https://leetcode.cn/problems/sum-multiples/
+        // 6391. 倍数求和
+        //给你一个正整数 n ，请你计算在 [1，n] 范围内能被 3、5、7 整除的所有整数之和。
+        //返回一个整数，用于表示给定范围内所有满足约束条件的数字之和。
+
+
+        // 设能被3整除的数字集合为A
+        // 设能被5整除的数字集合为B
+        // 设能被7整除的数字集合为C
+        // 根据容斥原理：
+        // |A∪B∪C|=|A|+|B|+|C|-|A∩B|-|B∩C|-|A∩C|+|A∩B∩C|
+        // 其中左边是所有集合的∪，右边是集合的各种搭配，每个搭配都是若干集合的交集
+        // 且每一项前面的正负号取决于集合的个数——奇数个数为+，偶数个数为-
+        public int sumOfMultiples(int n) {
+            /** 请你计算在 [1,n] 范围内能被 3、5、7 整除的所有整数之和。*/
+            return multiSum(n, 3)
+                    + multiSum(n, 5)
+                    + multiSum(n, 7)
+                    - multiSum(n, 15)
+                    - multiSum(n, 21)
+                    - multiSum(n, 35)
+                    + multiSum(n, 105);
+        }
+    }
+}
