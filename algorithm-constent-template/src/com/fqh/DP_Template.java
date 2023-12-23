@@ -6,6 +6,11 @@ package com.fqh;
  * @Version V1.0
  */
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
 /**
  * 动态规划模板
  */
@@ -111,3 +116,106 @@ LC629 https://leetcode.cn/problems/k-inverse-pairs-array/ https://www.luogu.com.
 https://www.lanqiao.cn/problems/240/learning/
 https://atcoder.jp/contests/abc282/tasks/abc282_g
  */
+
+
+/**
+ * 树形DP
+ */
+// 没有上司的舞会
+class LG_P1352 {
+
+    static final int MAXN = 200010;
+    static int[] w = new int[MAXN];
+    static int[] b = new int[MAXN];
+    static boolean[] vis = new boolean[MAXN];
+    static List<Integer>[] g;
+    static int n;
+    static int m;
+
+    // f[u][1] 表示以u为根节点的子树并且包括u的总快乐指数
+    // f[u][0] 表示以u为根节点的子树并且不包括u的总快乐指数
+    static int[][] f = new int[10010][2];
+    static boolean[] fa = new boolean[10010];
+
+//    状态计算
+//    记点u的子节点是s,
+//    1.选u，f[u][1] += f[s][0]
+//    2.不选u，f[u][0] += max(f[s][1], f[s][0])
+
+//    从根节点u开始dfs一遍
+//    从根到叶深搜，从叶到根返回时，做DP，累加f值
+
+    static void dfs(int u) { // 深搜节点 + 后序DP
+        f[u][1] = w[u]; // 选u的快乐指数
+        for (int son : g[u]) {
+            dfs(son);  // 取u的子节点
+            f[u][0] += Math.max(f[son][0], f[son][1]);
+            f[u][1] += f[son][0];
+        }
+    }
+
+    static void solve() throws Exception {
+        n = in.nextInt();
+        g = new List[n + 1];
+        for (int i = 1; i <= n; i++) {
+            w[i] = in.nextInt();
+            g[i] = new ArrayList<>();
+            fa[i] = false;
+        }
+        for (int i = 1; i <= n - 1; i++) {
+            String s = in.nextLine();
+            String[] ss = s.split(" ");
+            int x = Integer.parseInt(ss[0]);
+            int y = Integer.parseInt(ss[1]);
+            g[y].add(x);
+            fa[x] = true;
+        }
+        int root = 1;
+        while (fa[root]) root++;
+        dfs(root);
+        out.println(Math.max(f[root][0], f[root][1]));
+    }
+
+    public static void main(String[] args) throws Exception {
+        int T = 1;
+        while (T-- > 0) {
+            solve();
+        }
+        out.close();
+    }
+
+    static InputReader in = new InputReader();
+    static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+    static class InputReader {
+        private StringTokenizer st;
+        private BufferedReader bf;
+
+        public InputReader() {
+            bf = new BufferedReader(new InputStreamReader(System.in));
+            st = null;
+        }
+
+        public String next() throws IOException {
+            while (st == null || !st.hasMoreTokens()) {
+                st = new StringTokenizer(bf.readLine());
+            }
+            return st.nextToken();
+        }
+
+        public String nextLine() throws IOException {
+            return bf.readLine();
+        }
+
+        public int nextInt() throws IOException {
+            return Integer.parseInt(next());
+        }
+
+        public long nextLong() throws IOException {
+            return Long.parseLong(next());
+        }
+
+        public double nextDouble() throws IOException {
+            return Double.parseDouble(next());
+        }
+    }
+}
