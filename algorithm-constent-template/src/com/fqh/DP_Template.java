@@ -118,24 +118,27 @@ https://atcoder.jp/contests/abc282/tasks/abc282_g
  */
 
 
+
+
 /**
  * 树形DP
  */
-// 没有上司的舞会
-class LG_P1352 {
+class TreeDP {
+    // 没有上司的舞会
+    static class LG_P1352 {
 
-    static final int MAXN = 200010;
-    static int[] w = new int[MAXN];
-    static int[] b = new int[MAXN];
-    static boolean[] vis = new boolean[MAXN];
-    static List<Integer>[] g;
-    static int n;
-    static int m;
+        static final int MAXN = 200010;
+        static int[] w = new int[MAXN];
+        static int[] b = new int[MAXN];
+        static boolean[] vis = new boolean[MAXN];
+        static List<Integer>[] g;
+        static int n;
+        static int m;
 
-    // f[u][1] 表示以u为根节点的子树并且包括u的总快乐指数
-    // f[u][0] 表示以u为根节点的子树并且不包括u的总快乐指数
-    static int[][] f = new int[10010][2];
-    static boolean[] fa = new boolean[10010];
+        // f[u][1] 表示以u为根节点的子树并且包括u的总快乐指数
+        // f[u][0] 表示以u为根节点的子树并且不包括u的总快乐指数
+        static int[][] f = new int[10010][2];
+        static boolean[] fa = new boolean[10010];
 
 //    状态计算
 //    记点u的子节点是s,
@@ -145,77 +148,186 @@ class LG_P1352 {
 //    从根节点u开始dfs一遍
 //    从根到叶深搜，从叶到根返回时，做DP，累加f值
 
-    static void dfs(int u) { // 深搜节点 + 后序DP
-        f[u][1] = w[u]; // 选u的快乐指数
-        for (int son : g[u]) {
-            dfs(son);  // 取u的子节点
-            f[u][0] += Math.max(f[son][0], f[son][1]);
-            f[u][1] += f[son][0];
-        }
-    }
-
-    static void solve() throws Exception {
-        n = in.nextInt();
-        g = new List[n + 1];
-        for (int i = 1; i <= n; i++) {
-            w[i] = in.nextInt();
-            g[i] = new ArrayList<>();
-            fa[i] = false;
-        }
-        for (int i = 1; i <= n - 1; i++) {
-            String s = in.nextLine();
-            String[] ss = s.split(" ");
-            int x = Integer.parseInt(ss[0]);
-            int y = Integer.parseInt(ss[1]);
-            g[y].add(x);
-            fa[x] = true;
-        }
-        int root = 1;
-        while (fa[root]) root++;
-        dfs(root);
-        out.println(Math.max(f[root][0], f[root][1]));
-    }
-
-    public static void main(String[] args) throws Exception {
-        int T = 1;
-        while (T-- > 0) {
-            solve();
-        }
-        out.close();
-    }
-
-    static InputReader in = new InputReader();
-    static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
-    static class InputReader {
-        private StringTokenizer st;
-        private BufferedReader bf;
-
-        public InputReader() {
-            bf = new BufferedReader(new InputStreamReader(System.in));
-            st = null;
-        }
-
-        public String next() throws IOException {
-            while (st == null || !st.hasMoreTokens()) {
-                st = new StringTokenizer(bf.readLine());
+        static void dfs(int u) { // 深搜节点 + 后序DP
+            f[u][1] = w[u]; // 选u的快乐指数
+            for (int son : g[u]) {
+                dfs(son);  // 取u的子节点
+                f[u][0] += Math.max(f[son][0], f[son][1]);
+                f[u][1] += f[son][0];
             }
-            return st.nextToken();
         }
 
-        public String nextLine() throws IOException {
-            return bf.readLine();
+        static void solve() throws Exception {
+            n = in.nextInt();
+            g = new List[n + 1];
+            for (int i = 1; i <= n; i++) {
+                w[i] = in.nextInt();
+                g[i] = new ArrayList<>();
+                fa[i] = false;
+            }
+            for (int i = 1; i <= n - 1; i++) {
+                String s = in.nextLine();
+                String[] ss = s.split(" ");
+                int x = Integer.parseInt(ss[0]);
+                int y = Integer.parseInt(ss[1]);
+                g[y].add(x);
+                fa[x] = true;
+            }
+            int root = 1;
+            while (fa[root]) root++;
+            dfs(root);
+            out.println(Math.max(f[root][0], f[root][1]));
         }
 
-        public int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        public static void main(String[] args) throws Exception {
+            int T = 1;
+            while (T-- > 0) {
+                solve();
+            }
+            out.close();
         }
 
-        public long nextLong() throws IOException {
-            return Long.parseLong(next());
+        static InputReader in = new InputReader();
+        static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+        static class InputReader {
+            private StringTokenizer st;
+            private BufferedReader bf;
+
+            public InputReader() {
+                bf = new BufferedReader(new InputStreamReader(System.in));
+                st = null;
+            }
+
+            public String next() throws IOException {
+                while (st == null || !st.hasMoreTokens()) {
+                    st = new StringTokenizer(bf.readLine());
+                }
+                return st.nextToken();
+            }
+
+            public String nextLine() throws IOException {
+                return bf.readLine();
+            }
+
+            public int nextInt() throws IOException {
+                return Integer.parseInt(next());
+            }
+
+            public long nextLong() throws IOException {
+                return Long.parseLong(next());
+            }
+
+            public double nextDouble() throws IOException {
+                return Double.parseDouble(next());
+            }
+        }
+    }
+}
+
+/**
+ * 状态压缩DP
+ */
+class StateCompressDP {
+    // 互不侵犯
+    static class LG_P1896 {
+
+        static final int MAXN = 200010;
+        static int[] a = new int[MAXN];
+        static int[] b = new int[MAXN];
+        static boolean[] vis = new boolean[MAXN];
+
+        static int m;
+        // 每行的所有状态：000，001，010，X（011），100，101，X（110），X（111）
+        // 每行的合法状态：000，001，010，100，101
+        // 1.行内合法：如果 !(i&i>>1)为true，则i合法
+        // 2.行间兼容：如果 !(a&b) && !(a&b>>1) && !(a&b<<1)为true，则ab兼容
+        // b: [0 0 0],[0 0 1],[0 1 0],[1 0 0],[1 0 1]
+        // a: [0 0 0],[0 0 1],[0 1 0],[1 0 0],[1 0 1]
+        // 3.状态表示：f[i,j,a]表示前i行已经放了j个国王，第i行的第a个状态的方案数
+        // 4.状态计算：f[i,j,a] = SUM(f[i-1,j-c[a],b])
+        // 5.总方案数：ans = SUM(f[n,k,a])
+        static int n; // 棋盘行数
+        static int k; // 国王总数
+        static int cnt; // 同一行的合法状态个数
+        static int[] s = new int[1<<12]; // 同一行的合法状态集
+        static int[] num = new int[1<<12]; // 每个合法状态包含的国王数
+        static long[][][] f = new long[12][144][1<<12];
+        static void solve() throws Exception {
+            n = in.nextInt();
+            k = in.nextInt();
+            cnt = 0;
+            s = new int[1<<12];
+            num = new int[1<<12];
+            f = new long[12][144][1<<12];
+            // 预处理
+            for (int i = 0; i < (1<<n); i++) { // 枚举一行的所以状态
+                if ((i&i>>1) == 0) { // 如果不存在相邻的1
+                    s[cnt++] = i; // 保存一行的合法状态
+                    for (int j = 0; j < n; j++) {
+                        num[i] += (i>>j&1); // 统计每个合法状态包含的国王数
+                    }
+                }
+            }
+            f[0][0][0] = 1; // 不放国王也是一种方案
+            for (int i = 1; i <= n + 1; i++) { // 枚举行
+                for (int j = 0; j <= k; j++) { // 枚举国王数
+                    for (int a = 0; a < cnt; a++) { // 枚举第i行的合法状态
+                        for (int b = 0; b < cnt; b++) { // 枚举i-1行的合法状态
+                            int c = num[s[a]]; // 第i行第a个状态的国王数
+                            // 可以继续放国王，不存在同列的1，不存在斜角的1
+                            if ((j >= c) && ((s[b] & s[a]) == 0)
+                                    && ((s[b] & (s[a] << 1)) == 0) && ((s[b] & (s[a] >> 1)) == 0)) {
+                                f[i][j][a] += f[i-1][j-c][b]; // 从第i-1行向第i行转移
+                            }
+                        }
+                    }
+                }
+            }
+            out.println(f[n+1][k][0]); // 第n+1行什么都不放，相当于只在1~n行放国王
         }
 
-        public double nextDouble() throws IOException {
-            return Double.parseDouble(next());
+        public static void main(String[] args) throws Exception {
+            int T = 1;
+            while (T-- > 0) {
+                solve();
+            }
+            out.close();
+        }
+
+        static InputReader in = new InputReader();
+        static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+
+        static class InputReader {
+            private StringTokenizer st;
+            private BufferedReader bf;
+
+            public InputReader() {
+                bf = new BufferedReader(new InputStreamReader(System.in));
+                st = null;
+            }
+
+            public String next() throws IOException {
+                while (st == null || !st.hasMoreTokens()) {
+                    st = new StringTokenizer(bf.readLine());
+                }
+                return st.nextToken();
+            }
+
+            public String nextLine() throws IOException {
+                return bf.readLine();
+            }
+
+            public int nextInt() throws IOException {
+                return Integer.parseInt(next());
+            }
+
+            public long nextLong() throws IOException {
+                return Long.parseLong(next());
+            }
+
+            public double nextDouble() throws IOException {
+                return Double.parseDouble(next());
+            }
         }
     }
 }
