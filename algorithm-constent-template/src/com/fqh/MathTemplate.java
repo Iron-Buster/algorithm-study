@@ -258,7 +258,7 @@ class Prime {
                 primes.add(i);
                 vis[i] = true;
                 for (int j = i * i; j <= mx; j += i) {
-                    vis[i] = true;
+                    vis[j] = true;
                 }
             }
         }
@@ -512,6 +512,7 @@ class InclusionExclusion {
         // 设能被7整除的数字集合为C
         // 根据容斥原理：
         // |A∪B∪C|=|A|+|B|+|C|-|A∩B|-|B∩C|-|A∩C|+|A∩B∩C|
+        // |AUB| = |A| + |B| - |A∩B|
         // 其中左边是所有集合的∪，右边是集合的各种搭配，每个搭配都是若干集合的交集
         // 且每一项前面的正负号取决于集合的个数——奇数个数为+，偶数个数为-
         public int sumOfMultiples(int n) {
