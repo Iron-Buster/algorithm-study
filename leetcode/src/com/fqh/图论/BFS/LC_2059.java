@@ -1,4 +1,4 @@
-package com.fqh.rating.R1800_1899;
+package com.fqh.图论.BFS;
 
 import java.util.ArrayDeque;
 import java.util.HashSet;
