@@ -21,7 +21,7 @@ public class LC_878 {
                 r = mid;
             }
         }
-        return l;
+        return l % 1000000007;
     }
 
     // 最大公约数
