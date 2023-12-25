@@ -1,6 +1,4 @@
-package com.fqh;
-
-import java.util.HashMap;
+package com.fqh.二分查找;
 
 /**
  * @Author: vq

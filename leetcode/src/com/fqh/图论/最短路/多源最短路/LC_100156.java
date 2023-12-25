@@ -1,4 +1,4 @@
-package com.fqh.最短路.多源最短路;
+package com.fqh.图论.最短路.多源最短路;
 
 import java.util.Arrays;
 

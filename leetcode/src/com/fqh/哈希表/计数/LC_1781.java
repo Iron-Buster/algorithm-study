@@ -1,4 +1,4 @@
-package com.fqh.哈希表计数;
+package com.fqh.哈希表.计数;
 
 /**
  * @Author: vq

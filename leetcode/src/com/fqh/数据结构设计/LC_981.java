@@ -1,4 +1,4 @@
-package com.fqh;
+package com.fqh.数据结构设计;
 
 import java.util.ArrayList;
 import java.util.HashMap;

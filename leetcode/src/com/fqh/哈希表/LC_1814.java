@@ -1,4 +1,4 @@
-package com.fqh;
+package com.fqh.哈希表;
 
 import java.util.HashMap;
 

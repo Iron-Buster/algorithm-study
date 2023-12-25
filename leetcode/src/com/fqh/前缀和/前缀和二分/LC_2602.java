@@ -1,4 +1,4 @@
-package com.fqh.前缀和二分;
+package com.fqh.前缀和.前缀和二分;
 
 import com.fqh.BisectTemplate;
 
