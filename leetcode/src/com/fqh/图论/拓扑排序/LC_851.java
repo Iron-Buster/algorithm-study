@@ -9,16 +9,18 @@ import java.util.*;
  **/
 public class LC_851 {
 
-    Map<Integer, TreeSet<Integer>> map = new HashMap<>();
+//    Map<Integer, TreeSet<Integer>> map = new HashMap<>();
+    Map<Integer, Integer> map = new HashMap<>();
     // 相似题目：LC_2192 有向无环图中一个节点的所有祖先
     public int[] loudAndRich(int[][] richer, int[] quiet) {
         int n = quiet.length;
         topoSort(n, richer, quiet);
         int[] ans = new int[n];
         for (int i = 0; i < n; i++) {
-            TreeSet<Integer> tset = map.get(i);
-            if (tset.size() == 0) continue;
-            ans[i] = tset.first();
+//            TreeSet<Integer> tset = map.get(i);
+//            if (tset.size() == 0) continue;
+//            ans[i] = tset.first();
+            ans[i] = map.get(i);
         }
         return ans;
     }
@@ -38,16 +40,21 @@ public class LC_851 {
                 q.offer(i);
             }
             // 用平衡树维护安静值
-            map.computeIfAbsent(i, v -> new TreeSet<>((x, y) -> quiet[x] - quiet[y]));
-            map.get(i).add(i); // 自己也要算上
+//            map.computeIfAbsent(i, v -> new TreeSet<>((x, y) -> quiet[x] - quiet[y]));
+//            map.get(i).add(i); // 自己也要算上
+            map.put(i, i);
         }
         while (!q.isEmpty()) {
             int u = q.poll();
             for (int v : g[u]) {
-                for (Integer fa : map.get(u)) { // 继承u的祖先节点
-                    map.get(v).add(fa);
+//                for (Integer fa : map.get(u)) { // 继承u的祖先节点
+//                    map.get(v).add(fa);
+//                }
+//                map.get(v).add(u);
+                // 不用平衡树，维护一下最安静的值从祖先往下传递就行
+                if (quiet[map.get(v)] > quiet[map.get(u)]) {
+                    map.put(v, map.get(u));
                 }
-                map.get(v).add(u);
                 degree[v]--;
                 if (degree[v] == 0) {
                     q.offer(v);
