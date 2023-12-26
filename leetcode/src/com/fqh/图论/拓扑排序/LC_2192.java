@@ -27,6 +27,7 @@ public class LC_2192 {
 
 
     Map<Integer, TreeSet<Integer>> map = new HashMap<>();
+    //相似题目: LC_851 喧闹和富有
     public List<List<Integer>> getAncestors(int n, int[][] edges) {
         // 从入度为0的点出发进行拓扑排序，过程中将父节点的fa（祖先集合）加入到当前节点的fa（祖先集合）中
         topoSort(n, edges);
