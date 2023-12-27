@@ -172,9 +172,9 @@ class PrefixSum {
     // https://codeforces.com/problemset/problem/611/C
 
     static int[][] matrixSum(int[][] a) {
-        int n = a.length;
-        int m = a[0].length;
-        int[][] g = new int[n + 1][m + 1];
+        int m = a.length;
+        int n = a[0].length;
+        int[][] g = new int[m + 1][n + 1];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 int x = i + 1;
