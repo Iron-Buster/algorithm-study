@@ -171,22 +171,26 @@ class PrefixSum {
     // https://codeforces.com/problemset/problem/1731/D
     // https://codeforces.com/problemset/problem/611/C
 
-    static void matrixSum(int[][] a) {
+    static int[][] matrixSum(int[][] a) {
         int n = a.length;
         int m = a[0].length;
-        int[][] sum = new int[n + 1][m + 1];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                int v = a[i][j];
-                sum[i + 1][j + 1] = sum[i + 1][j] + sum[i][j + 1] - sum[i][j] + v;
+        int[][] g = new int[n + 1][m + 1];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                int x = i + 1;
+                int y = j + 1;
+                g[x][y] = a[i][j] + g[x-1][y] + g[x][y-1] - g[x-1][y-1];
             }
         }
+        return g;
     }
 
     // 类似前缀和的左闭右开
     // r1<=r<r2 && c1<=c<c2
-    static int query(int r1, int c1, int r2, int c2, int[][] sum) {
-        return sum[r2][c2] - sum[r2][c1] - sum[r1][c2] + sum[r1][c1];
+    static int query(int x1, int y1, int x2, int y2, int[][] g) {
+        // 求某一段区域和 [i, j] 的模板是 sum[x2][y2] - sum[x1 - 1][y2] - sum[x2][y1 - 1] + sum[x1 - 1][y1 - 1];（模板部分）
+        x1++; y1++; x2++; y2++;
+        return g[x2][y2] - g[x1-1][y2] - g[x2][y1-1] + g[x1-1][y1-1];
     }
 }
 
