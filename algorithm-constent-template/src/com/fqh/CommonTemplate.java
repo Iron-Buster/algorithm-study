@@ -6,8 +6,10 @@ package com.fqh;
  * @Version V1.0
  */
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * 基础算法
@@ -400,4 +402,70 @@ class OfflineQuery {
 - [1938. 查询最大基因差](https://leetcode.cn/problems/maximum-genetic-difference-query/) 2503
 - [2736. 最大和查询](https://leetcode.cn/problems/maximum-sum-queries/) 2533
 */
+}
+
+/**
+ * 灵茶8题
+ */
+class LingChaBaTi {
+
+    //子数组 +w+
+    //https://www.luogu.com.cn/problem/U360300
+    static class A {
+        public static void solve() throws IOException {
+            int n = in.nextInt();
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) {
+                a[i] = in.nextInt();
+            }
+            int ans = 0;
+            for (int i = 0; i < n; i++) {
+                ans += a[i] * (i + 1) * (n - i);
+            }
+            out.println(ans);
+        }
+
+        public static void main(String[] args) throws Exception {
+            int T = 1;
+            while (T-- > 0) {
+                solve();
+            }
+            out.close();
+        }
+
+        static InputReader in = new InputReader();
+        static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+        static class InputReader {
+            private StringTokenizer st;
+            private BufferedReader bf;
+
+            public InputReader() {
+                bf = new BufferedReader(new InputStreamReader(System.in));
+                st = null;
+            }
+
+            public String next() throws IOException {
+                while (st == null || !st.hasMoreTokens()) {
+                    st = new StringTokenizer(bf.readLine());
+                }
+                return st.nextToken();
+            }
+
+            public String nextLine() throws IOException {
+                return bf.readLine();
+            }
+
+            public int nextInt() throws IOException {
+                return Integer.parseInt(next());
+            }
+
+            public long nextLong() throws IOException {
+                return Long.parseLong(next());
+            }
+
+            public double nextDouble() throws IOException {
+                return Double.parseDouble(next());
+            }
+        }
+    }
 }
