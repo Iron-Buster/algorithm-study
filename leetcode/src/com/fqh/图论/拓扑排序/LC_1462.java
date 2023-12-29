@@ -9,6 +9,7 @@ import java.util.*;
  **/
 public class LC_1462 {
 
+    //TODO 位运算优化
     Map<Integer, HashSet<Integer>> map = new HashMap<>();
     // 一模一样的题目 LC_2192-有向无环图中一个节点的所有祖先
     public List<Boolean> checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {
@@ -16,7 +17,7 @@ public class LC_1462 {
         List<Boolean> ans = new ArrayList<>();
         for (int[] q : queries) {
             int u = q[0], v = q[1];
-           ans.add(map.get(v).contains(u));
+            ans.add(map.get(v).contains(u));
         }
         return ans;
     }
@@ -68,5 +69,18 @@ public class LC_1462 {
 //    你也得到一个数组 queries ，其中 queries[j] = [uj, vj]。对于第 j 个查询，您应该回答课程 uj 是否是课程 vj 的先决条件。
 //
 //    返回一个布尔数组 answer ，其中 answer[j] 是第 j 个查询的答案。
+
+//    输入：numCourses = 2, prerequisites = [[1,0]], queries = [[0,1],[1,0]]
+//    输出：[false,true]
+//    解释：课程 0 不是课程 1 的先修课程，但课程 1 是课程 0 的先修课程。
+
+    public static void main(String[] args) {
+        int num = 2;
+        int[][] prerequisites = {{1,0}};
+        int[][] queries = {{0,1},{1,0}};
+        System.out.println(new LC_1462().checkIfPrerequisite(num, prerequisites, queries));
+    }
+
+
 
 }
