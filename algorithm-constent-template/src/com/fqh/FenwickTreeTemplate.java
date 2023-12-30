@@ -67,8 +67,8 @@ public class FenwickTreeTemplate {
     public static void main(String[] args) throws Exception {
         int T = 1;
         while (T-- > 0) {
-//            solve();
-            solve2();
+            solve();
+//            solve2();
         }
         out.close();
     }
