@@ -25,10 +25,10 @@ public class LCR_170 {
         }
         FenwickTree ft = new FenwickTree(tset.size() + 1);
         int ans = 0;
-        for (int i = n - 1; i >= 0; i--) {
+        for (int i = 0; i < n; i++) {
             Integer index = map.get(nums[i]);
+            ans += ft.query(tset.size()) - ft.query(index);
             ft.change(index, 1);
-            ans += ft.query(index - 1);
         }
         return ans;
     }

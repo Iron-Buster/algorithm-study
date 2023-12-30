@@ -2,6 +2,7 @@ package com.fqh.树状数组;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
@@ -16,13 +17,26 @@ public class LC_2426 {
         // 式子变形 nums1[i] - nums2[i] <= nums1[j] - nums2[j] + diff.
         // 设 a[i] = nums1[i] - nums2[i]，那么 a[i] <= a[j] + diff
         int n = nums1.length;
-        int MX = (int) (4e4 + 10);
-        FenwickTree ft = new FenwickTree();
+        // 离散化
+        TreeSet<Long> tset = new TreeSet<>();
+        for (int i = 0; i < n; i++) {
+            tset.add((long) (nums1[i] - nums2[i] - diff));
+        }
+        TreeMap<Long, Integer> map = new TreeMap<>();
+        int rank = 1;
+        for (long x : tset) {
+            map.put(x, rank++);
+        }
+        FenwickTree ft = new FenwickTree(tset.size() + 1);
         long ans = 0;
         for (int i = 0; i < n; i++) {
-            int x = nums1[i] - nums2[i];
-            ans += ft.query(x + MX + diff);
-            ft.change(x + MX, 1);
+            long val = nums1[i] - nums2[i];
+            Map.Entry<Long, Integer> entry = map.floorEntry(val);
+            if (entry != null) {
+                ans += ft.query(entry.getValue());
+            }
+            Integer index = map.floorEntry(val - diff).getValue();
+            ft.change(index, 1);
         }
         return ans;
     }
