@@ -7,21 +7,24 @@ package com.fqh.数论.容斥原理;
  */
 public class LC_878 {
 
+    static final int MOD = (int) 1e9 + 7;
     // 设能被a整除的数字集合大小为A
     // 设能被b整除的数字集合大小为B
     // 容斥原理 |AUB| = |A| + |B| - |A∩B|
+
     public int nthMagicalNumber(int n, int a, int b) {
-        int lcm = lcm(a, b);
-        int l = 0, r = (int) 1e9;
+        long lcm = lcm(a, b);
+        long l = 0, r = (long) 4e13;
         while (l < r) {
-            int mid = (l + r) >> 1;
-            if ((mid / a + mid / b - mid / lcm) < n) {
+            long mid = (l + r) >> 1;
+            if (mid / a + mid / b - mid / lcm < n) {
                 l = mid + 1;
             } else {
                 r = mid;
             }
         }
-        return l % 1000000007;
+        l %= MOD;
+        return (int) l;
     }
 
     // 最大公约数
