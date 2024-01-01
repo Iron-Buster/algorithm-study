@@ -144,12 +144,12 @@ class FenwickTree {
 }
 
 
-class LC_FenwickTree {
+class FenwickTree2 {
     int n;
     int[] s = new int[100005]; // 区间和
     int[] a = new int[500005];
 
-    public LC_FenwickTree(int n) {
+    public FenwickTree2(int n) {
         this.n = n;
     }
 
@@ -167,6 +167,21 @@ class LC_FenwickTree {
         int t = 0;
         while (x > 0) {
             t += s[x];
+            x -= lowbit(x);
+        }
+        return t;
+    }
+
+    public void change2(int x, int k) {    // 向后修 维护前缀最值
+        while (x <= n) {
+            s[x] = Math.max(s[x], k);
+            x += lowbit(x);
+        }
+    }
+    public int query2(int x) { // 向前查（前缀和） 查询前缀最值
+        int t = 0;
+        while (x > 0) {
+            t = Math.max(t, s[x]);
             x -= lowbit(x);
         }
         return t;
