@@ -7,7 +7,10 @@ package com.fqh;
  */
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 /**
  * 树状数组
@@ -137,5 +140,49 @@ class FenwickTree {
             x -= lowbit(x);
         }
         return t;
+    }
+}
+
+
+class LC_FenwickTree {
+    int n;
+    int[] s = new int[100005]; // 区间和
+    int[] a = new int[500005];
+
+    public LC_FenwickTree(int n) {
+        this.n = n;
+    }
+
+    public int lowbit(int x) { // 提取x的低位2次幂数（去掉二进制最后一位1）
+        return x & -x;
+    }
+
+    public void change(int x, int k) {    // 向后修
+        while (x <= n) {
+            s[x] += k;
+            x += lowbit(x);
+        }
+    }
+    public int query(int x) { // 向前查（前缀和）
+        int t = 0;
+        while (x > 0) {
+            t += s[x];
+            x -= lowbit(x);
+        }
+        return t;
+    }
+
+    public Map<Integer, Integer> f(int[] a) {
+        // 离散化
+        TreeSet<Integer> tset = new TreeSet<>();
+        for (int x : a) {
+            tset.add(x);
+        }
+        Map<Integer, Integer> map = new HashMap<>();
+        int rank = 1;
+        for (Integer x : tset) {
+            map.put(x, rank++);
+        }
+        return map;
     }
 }
