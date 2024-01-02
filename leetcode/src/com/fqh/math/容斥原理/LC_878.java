@@ -1,4 +1,4 @@
-package com.fqh.数论.容斥原理;
+package com.fqh.math.容斥原理;
 
 /**
  * @Author: vq
