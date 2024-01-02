@@ -7,10 +7,11 @@
 - ❇️ Total: 144题
 - ✅ AC:    55题
 
-🤖 LC-RATING(1600-1700)
-- ❇️ Total: 144题
-- ✅ AC:    55题
+🤖 LC-RATING(1700-1800)
+- ❇️ Total: 135题
+- ✅ AC:    52题
 
+🤖 LC-RATING(1800-1900)
 🤖 LC-RATING(1900-2000)
 
 每天刷3道mid，1道hard，1道easy
