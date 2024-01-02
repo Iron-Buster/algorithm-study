@@ -6,9 +6,10 @@ package com.fqh;
  * @Version V1.0
  */
 
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * 数论
@@ -524,6 +525,79 @@ class InclusionExclusion {
                     - multiSum(n, 21)
                     - multiSum(n, 35)
                     + multiSum(n, 105);
+        }
+    }
+}
+
+// 裴蜀定理 https://oi-wiki.org/math/number-theory/bezouts/#%E5%AE%9A%E4%B9%89
+// 一定存在整数 x,y，满足 ax + by = gcd(a, b)
+
+// 裴蜀定理推广1：一定存在整数 x,y，满足 ax + by = gcd(a, b) * n
+// 例 4x + 6y = 8，有整数解 x = -4, y = 4
+
+// 裴蜀定理推广2：一定存在整数 x1...xi，满足 AiXi = gcd(A1, A2, A3, A4...An)
+// 例 4x1 + 6x2 + 2x3 = 4，有整数解 x1 = 1, x2 = 0, x3 = 0
+class Bezouts {
+
+    // https://www.luogu.com.cn/problem/P4549
+    static class LG_P4549 {
+
+        public static void solve() throws IOException {
+            int n = in.nextInt();
+            int a = 0;
+            int s = 0;
+            for (int i = 1; i <= n; i++) {
+                a = in.nextInt();
+                s = gcd(s, Math.abs(a));
+            }
+            out.println(s);
+        }
+
+        public static int gcd(int a, int b) {
+            return b == 0 ? a : gcd(b, a % b);
+        }
+
+        public static void main(String[] args) throws Exception {
+            int T = 1;
+            while (T-- > 0) {
+                solve();
+            }
+            out.close();
+        }
+
+        static InputReader in = new InputReader();
+        static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+        static class InputReader {
+            private StringTokenizer st;
+            private BufferedReader bf;
+
+            public InputReader() {
+                bf = new BufferedReader(new InputStreamReader(System.in));
+                st = null;
+            }
+
+            public String next() throws IOException {
+                while (st == null || !st.hasMoreTokens()) {
+                    st = new StringTokenizer(bf.readLine());
+                }
+                return st.nextToken();
+            }
+
+            public String nextLine() throws IOException {
+                return bf.readLine();
+            }
+
+            public int nextInt() throws IOException {
+                return Integer.parseInt(next());
+            }
+
+            public long nextLong() throws IOException {
+                return Long.parseLong(next());
+            }
+
+            public double nextDouble() throws IOException {
+                return Double.parseDouble(next());
+            }
         }
     }
 }
