@@ -330,4 +330,91 @@ class StateCompressDP {
             }
         }
     }
+
+    // 玉米田
+    static class Cornfields {
+
+        // 1.行内合法：如果!(i&i>>i)为true，则i合法
+        // 2.行间兼容：如果!(a&b) && (a & g[i]) == a为true，则a,b兼容
+        // 3.状态表示：f[i,a]表示已经种植了前i行，第i行第a个状态时的方案数
+        // 4.状态计算：f[i,a] = SUM(f[i-1,b])
+        // 5.总方案数：ans=SUM(f[n,a])
+
+        static final int MOD = (int) 1e9;
+        static int n, m; // 玉米田的行数，列数
+        static int[] g = new int[14]; // 各行的状态值
+        static int cnt; // 同一行的合法状态个数
+        static int[] s = new int[1<<14]; // 一行的合法状态集
+        static int[][] f = new int[14][1<<14];
+        public static void solve() throws IOException {
+            n = in.nextInt();
+            m = in.nextInt();
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= m; j++) {
+                    int x = in.nextInt();
+                    g[i] = (g[i] << 1) + x; // 保存各行的状态值
+                }
+            }
+            for (int i = 0; i < (1<<m); i++) { // 枚举一行所有的状态
+                if ((i&i>>1) == 0) { // 如果不存在相邻的1
+                    s[cnt++] = i;   // 保存一行的合法状态
+                }
+            }
+            f[0][0] = 1; // 什么都不种也是一种方案
+            for (int i = 1; i <= n + 1; i++) { // 枚举行
+                for (int a = 0; a < cnt; a++) { // 枚举第i行的合法状态
+                    for (int b = 0; b < cnt; b++) { // 枚举i-1行的合法状态
+                        // a种在合法土地上，a b同列不同时为1
+                        if ((s[a] & g[i]) == s[a] && (s[a] & s[b]) == 0) {
+                            f[i][a] = (f[i][a] + f[i-1][b]) % MOD;
+                        }
+                    }
+                }
+            }
+            out.print(f[n+1][0]); // 相当于只在1-n行种植
+        }
+
+        public static void main(String[] args) throws Exception {
+            int T = 1;
+            while (T-- > 0) {
+                solve();
+            }
+            out.close();
+        }
+
+        static InputReader in = new InputReader();
+        static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+        static class InputReader {
+            private StringTokenizer st;
+            private BufferedReader bf;
+
+            public InputReader() {
+                bf = new BufferedReader(new InputStreamReader(System.in));
+                st = null;
+            }
+
+            public String next() throws IOException {
+                while (st == null || !st.hasMoreTokens()) {
+                    st = new StringTokenizer(bf.readLine());
+                }
+                return st.nextToken();
+            }
+
+            public String nextLine() throws IOException {
+                return bf.readLine();
+            }
+
+            public int nextInt() throws IOException {
+                return Integer.parseInt(next());
+            }
+
+            public long nextLong() throws IOException {
+                return Long.parseLong(next());
+            }
+
+            public double nextDouble() throws IOException {
+                return Double.parseDouble(next());
+            }
+        }
+    }
 }
