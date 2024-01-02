@@ -430,9 +430,8 @@ class CongruenceInverse {
             }
         }
     }
-}
 
-	/* 常用结论 & 题型
+    /* 常用结论 & 题型
 
 	第一类：【有互质约束的计数问题】
 	[n == 1] = sum_{d|n} mu(d)
@@ -467,7 +466,7 @@ class CongruenceInverse {
 	gcd(i,j) = sum_d d * [gcd(i,j) == d]
 	这样就可以把【GCD 求和】转换成【互质约束计数】了
 	*/
-
+}
 
 /**
  * 容斥原理
@@ -529,15 +528,18 @@ class InclusionExclusion {
     }
 }
 
-// 裴蜀定理 https://oi-wiki.org/math/number-theory/bezouts/#%E5%AE%9A%E4%B9%89
-// 一定存在整数 x,y，满足 ax + by = gcd(a, b)
-
-// 裴蜀定理推广1：一定存在整数 x,y，满足 ax + by = gcd(a, b) * n
-// 例 4x + 6y = 8，有整数解 x = -4, y = 4
-
-// 裴蜀定理推广2：一定存在整数 x1...xi，满足 AiXi = gcd(A1, A2, A3, A4...An)
-// 例 4x1 + 6x2 + 2x3 = 4，有整数解 x1 = 1, x2 = 0, x3 = 0
+/**
+ * 裴蜀定理
+ */
 class Bezouts {
+    // 裴蜀定理 https://oi-wiki.org/math/number-theory/bezouts/#%E5%AE%9A%E4%B9%89
+    // 一定存在整数 x,y，满足 ax + by = gcd(a, b)
+
+    // 裴蜀定理推广1：一定存在整数 x,y，满足 ax + by = gcd(a, b) * n
+    // 例 4x + 6y = 8，有整数解 x = -4, y = 4
+
+    // 裴蜀定理推广2：一定存在整数 x1...xi，满足 AiXi = gcd(A1, A2, A3, A4...An)
+    // 例 4x1 + 6x2 + 2x3 = 4，有整数解 x1 = 1, x2 = 0, x3 = 0
 
     // https://www.luogu.com.cn/problem/P4549
     static class LG_P4549 {
