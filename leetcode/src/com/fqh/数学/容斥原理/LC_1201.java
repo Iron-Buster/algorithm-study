@@ -1,4 +1,4 @@
-package com.fqh.math.容斥原理;
+package com.fqh.数学.容斥原理;
 
 /**
  * @author ikun

@@ -1,4 +1,4 @@
-package com.fqh.math.裴蜀定理;
+package com.fqh.数学.裴蜀定理;
 
 /**
  * @author ikun

@@ -1,4 +1,4 @@
-package com.fqh.排序后贪心;
+package com.fqh.贪心.排序后贪心;
 
 import java.util.Arrays;
 
