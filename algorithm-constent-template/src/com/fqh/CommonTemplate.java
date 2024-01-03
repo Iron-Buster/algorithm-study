@@ -7,9 +7,7 @@ package com.fqh;
  */
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * 基础算法
@@ -467,5 +465,26 @@ class LingChaBaTi {
                 return Double.parseDouble(next());
             }
         }
+    }
+}
+
+
+/**
+ * 离散化：用于处理值域较大的数组
+ */
+class Discretization {
+
+    public static Map<Integer, Integer> f(int[] a) {
+        // 离散化
+        TreeSet<Integer> tset = new TreeSet<>();
+        for (int x : a) {
+            tset.add(x);
+        }
+        Map<Integer, Integer> map = new HashMap<>();
+        int rank = 1;
+        for (Integer x : tset) {
+            map.put(x, rank++);
+        }
+        return map;
     }
 }

@@ -186,18 +186,4 @@ class FenwickTree2 {
         }
         return t;
     }
-
-    public Map<Integer, Integer> f(int[] a) {
-        // 离散化
-        TreeSet<Integer> tset = new TreeSet<>();
-        for (int x : a) {
-            tset.add(x);
-        }
-        Map<Integer, Integer> map = new HashMap<>();
-        int rank = 1;
-        for (Integer x : tset) {
-            map.put(x, rank++);
-        }
-        return map;
-    }
 }
