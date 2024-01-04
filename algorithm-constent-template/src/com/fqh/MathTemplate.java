@@ -295,21 +295,20 @@ class Prime {
     // 质因数分解（质数及其幂次）prime factorization
     // LC2507 https://leetcode.cn/problems/smallest-value-after-replacing-with-sum-of-prime-factors/
     // LC2584 https://leetcode.cn/problems/split-the-array-to-make-coprime-products/
-    static List<Integer> primeDivisors(int x) {
+    // 分解质因数
+    public static List<Integer> primeDivisors(int x) {
         List<Integer> primes = new ArrayList<>();
-        for (int i = 2; i * i <= x; i++) {
-            if (x % i > 0) {
-                continue;
+        for (int i = 2; i <= x / i; i++) {
+            if (x % i == 0) { // 如果 i 能够整除 x，说明 i 为 x 的一个质因子。
+                int s = 0; //
+                while (x % i == 0) {
+                    x /= i;
+                    s++;
+                }
+                primes.add(i);
             }
-            // e := 1
-            x /= i;
-            for (x /= i; x % i == 0; x /= i) {
-                // e++
-            }
-            primes.add(i);
         }
-        if (x > 1) {
-            // e := 1
+        if (x > 1) { // 说明再经过操作之后 x 留下了一个素数
             primes.add(x);
         }
         return primes;
