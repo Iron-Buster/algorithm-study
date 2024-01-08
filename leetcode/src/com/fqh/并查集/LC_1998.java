@@ -90,6 +90,29 @@ public class LC_1998 {
         }
     }
 
+//    1998. 数组的最大公因数排序
+//            已解答
+//    第 257 场周赛
+//            Q4
+//2429
+//    相关标签
+//            相关企业
+//    提示
+//    给你一个整数数组 nums ，你可以在 nums 上执行下述操作 任意次 ：
+//
+//    如果 gcd(nums[i], nums[j]) > 1 ，交换 nums[i] 和 nums[j] 的位置。其中 gcd(nums[i], nums[j]) 是 nums[i] 和 nums[j] 的最大公因数。
+//    如果能使用上述交换方式将 nums 按 非递减顺序 排列，返回 true ；否则，返回 false 。
+//
+//
+//
+//    示例 1：
+//
+//    输入：nums = [7,21,3]
+//    输出：true
+//    解释：可以执行下述操作完成对 [7,21,3] 的排序：
+//            - 交换 7 和 21 因为 gcd(7,21) = 7 。nums = [21,7,3]
+//            - 交换 21 和 3 因为 gcd(21,3) = 3 。nums = [3,7,21]
+
     public static void main(String[] args) {
         int[] a = {8, 9, 4, 2, 3};
         System.out.println(new LC_1998().gcdSort(a));
