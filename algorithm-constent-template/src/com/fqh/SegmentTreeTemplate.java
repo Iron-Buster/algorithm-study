@@ -21,7 +21,7 @@ public class SegmentTreeTemplate {
 class SegmentTree {
     int n;
     int[] w = new int[N];
-    static int N = 100005;
+    static int N = 10005;
     static Node[] tree = new Node[N * 4];
 
     void pushUp(int p) { // 向上更新
@@ -191,81 +191,7 @@ class LG_3372 {
 }
 
 
-// https://www.luogu.com.cn/problem/SP1716
-//https://www.spoj.com/problems/GSS3/
-class SP_1716 {
 
-    public static void solve() throws IOException {
-        int n = in.nextInt();
-        SegmentTreeIntervalMaxSubSum st = new SegmentTreeIntervalMaxSubSum();
-        for (int i = 1; i <= n; i++) {
-            st.a[i] = in.nextInt();
-        }
-        int m = in.nextInt();
-        st.build(1, 1, n);
-        while (m-- > 0) {
-            String s = in.nextLine();
-            String[] ss = s.split(" ");
-            int k = Integer.parseInt(ss[0]);
-            int x = Integer.parseInt(ss[1]);
-            int y = Integer.parseInt(ss[2]);
-            if (k == 1) {
-                if (x > y) {
-                    int t = x;
-                    x = y;
-                    y = t;
-                }
-                int ans = st.query(1, x, y).mx;
-                out.println(ans);
-            } else {
-                st.change(1, x, y);
-            }
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-        int T = 1;
-        while (T-- > 0) {
-            solve();
-        }
-        out.close();
-    }
-
-    static InputReader in = new InputReader();
-    static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
-    static class InputReader {
-        private StringTokenizer st;
-        private BufferedReader bf;
-
-        public InputReader() {
-            bf = new BufferedReader(new InputStreamReader(System.in));
-            st = null;
-        }
-
-        public String next() throws IOException {
-            while (st == null || !st.hasMoreTokens()) {
-                st = new StringTokenizer(bf.readLine());
-            }
-            return st.nextToken();
-        }
-
-        public String nextLine() throws IOException {
-            return bf.readLine();
-        }
-
-        public int nextInt() throws IOException {
-            return Integer.parseInt(next());
-        }
-
-        public long nextLong() throws IOException {
-            return Long.parseLong(next());
-        }
-
-        public double nextDouble() throws IOException {
-            return Double.parseDouble(next());
-        }
-    }
-}
 
 // 线段树 区间最大字段和
 class SegmentTreeIntervalMaxSubSum {
@@ -345,6 +271,242 @@ class SegmentTreeIntervalMaxSubSum {
         public Tree() {}
     }
 }
+// 模板题：https://www.luogu.com.cn/problem/SP1716
+//https://www.spoj.com/problems/GSS3/
+class SP_1716 {
 
+    public static void solve() throws IOException {
+        int n = in.nextInt();
+        SegmentTreeIntervalMaxSubSum st = new SegmentTreeIntervalMaxSubSum();
+        for (int i = 1; i <= n; i++) {
+            st.a[i] = in.nextInt();
+        }
+        int m = in.nextInt();
+        st.build(1, 1, n);
+        while (m-- > 0) {
+            String s = in.nextLine();
+            String[] ss = s.split(" ");
+            int k = Integer.parseInt(ss[0]);
+            int x = Integer.parseInt(ss[1]);
+            int y = Integer.parseInt(ss[2]);
+            if (k == 1) {
+                if (x > y) {
+                    int t = x;
+                    x = y;
+                    y = t;
+                }
+                int ans = st.query(1, x, y).mx;
+                out.println(ans);
+            } else {
+                st.change(1, x, y);
+            }
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        int T = 1;
+        while (T-- > 0) {
+            solve();
+        }
+        out.close();
+    }
+
+    static InputReader in = new InputReader();
+    static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+    static class InputReader {
+        private StringTokenizer st;
+        private BufferedReader bf;
+
+        public InputReader() {
+            bf = new BufferedReader(new InputStreamReader(System.in));
+            st = null;
+        }
+
+        public String next() throws IOException {
+            while (st == null || !st.hasMoreTokens()) {
+                st = new StringTokenizer(bf.readLine());
+            }
+            return st.nextToken();
+        }
+
+        public String nextLine() throws IOException {
+            return bf.readLine();
+        }
+
+        public int nextInt() throws IOException {
+            return Integer.parseInt(next());
+        }
+
+        public long nextLong() throws IOException {
+            return Long.parseLong(next());
+        }
+
+        public double nextDouble() throws IOException {
+            return Double.parseDouble(next());
+        }
+    }
+}
+
+// 线段树 区间GCD
+class SegmentTreeIntervalGCD {
+    static final int N = 100005;
+    static Tree[] tree = new Tree[N];
+    long[] a = new long[N];
+    long[] b = new long[N]; // 差分序列数组
+
+    static class Tree { // 线段树
+        int l, r;
+        long sum, d; // 差分序列区间和，最大公约数
+
+        public Tree(int l, int r, long sum, long d) {
+            this.l = l;
+            this.r = r;
+            this.sum = sum;
+            this.d = d;
+        }
+        public Tree() {}
+    }
+
+    public long gcd(long a, long b) {
+        while (a != 0) {
+            long temp = a;
+            a = b % a;
+            b = temp;
+        }
+        return b;
+    }
+
+    void pushUp(Tree u, Tree l, Tree r) {
+        u.sum = l.sum + r.sum;
+        u.d = gcd(l.d, r.d);
+    }
+
+    void build(int u, int l, int r) { // 建树
+        tree[u] = new Tree(l, r, b[l], b[l]);
+        if (l == r) return;
+        int mid = l + r >> 1;
+        int ls = u << 1;
+        int rs = u << 1 | 1;
+        build(ls, l, mid);
+        build(rs, mid + 1, r);
+        pushUp(tree[u], tree[ls], tree[rs]);
+    }
+
+    void change(int u, int x, long v) { // 点修
+        if (tree[u].l == tree[u].r) {
+           tree[u].sum += v;
+           tree[u].d += v;
+            return;
+        }
+        int mid = tree[u].l + tree[u].r >> 1;
+        int ls = u << 1;
+        int rs = u << 1 | 1;
+        if (x <= mid) {
+            change(ls, x, v);
+        } else {
+            change(rs, x, v);
+        }
+        pushUp(tree[u], tree[ls], tree[rs]);
+    }
+
+    Tree query(int u, int l, int r) { // 区查
+        if (l <= tree[u].l && tree[u].r <= r) {
+            return tree[u];
+        }
+        int mid = tree[u].l + tree[u].r >> 1;
+        int ls = u << 1;
+        int rs = u << 1 | 1;
+        if (r <= mid) {
+            return query(ls, l, r);
+        }
+        if (l > mid) {
+            return query(rs, l, r);
+        }
+        Tree T = new Tree();
+        pushUp(T, query(ls, l, r), query(rs, l, r));
+        return T;
+    }
+}
+
+// 模板题 https://www.luogu.com.cn/problem/P1890
+class LG_P1890 {
+
+    public static void solve() throws IOException {
+        int n = in.nextInt();
+        int m = in.nextInt();
+        SegmentTreeIntervalGCD st = new SegmentTreeIntervalGCD();
+        for (int i = 1; i <= n; i++) {
+            st.a[i] = in.nextInt();
+            st.b[i] = st.a[i] - st.a[i-1]; // 差分序列
+        }
+        st.build(1, 1, n);
+        while (m-- > 0) {
+            String s = in.nextLine();
+            String[] ss = s.split(" ");
+            int l = Integer.parseInt(ss[0]), r = Integer.parseInt(ss[1]);
+
+            // 如果题目需要对a进行区间修改
+            boolean ok = false;
+            if (ok) {
+                long v = in.nextLong();
+                st.change(1, l, v);
+                if (r + 1 <= n) {
+                    st.change(1, r + 1, -v); // r=n时，越界
+                }
+            }
+
+            SegmentTreeIntervalGCD.Tree L;
+            SegmentTreeIntervalGCD.Tree R = new SegmentTreeIntervalGCD.Tree();
+            L = st.query(1, 1, l); // a[l] = sum(b[1~l])
+            if (l + 1 <= r) {
+                R = st.query(1, l + 1, r); // b[l+1~r]的gcd
+            }
+            out.println(Math.abs(st.gcd(L.sum, R.d)));
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        int T = 1;
+        while (T-- > 0) {
+            solve();
+        }
+        out.close();
+    }
+
+    static InputReader in = new InputReader();
+    static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+    static class InputReader {
+        private StringTokenizer st;
+        private BufferedReader bf;
+
+        public InputReader() {
+            bf = new BufferedReader(new InputStreamReader(System.in));
+            st = null;
+        }
+
+        public String next() throws IOException {
+            while (st == null || !st.hasMoreTokens()) {
+                st = new StringTokenizer(bf.readLine());
+            }
+            return st.nextToken();
+        }
+
+        public String nextLine() throws IOException {
+            return bf.readLine();
+        }
+
+        public int nextInt() throws IOException {
+            return Integer.parseInt(next());
+        }
+
+        public long nextLong() throws IOException {
+            return Long.parseLong(next());
+        }
+
+        public double nextDouble() throws IOException {
+            return Double.parseDouble(next());
+        }
+    }
+}
 
 
