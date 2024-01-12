@@ -11,6 +11,10 @@ import java.util.TreeSet;
  **/
 public class LC_2398 {
 
+    // 🎈思路：通过最大连续可以想到滑动窗口求解，对于如何快速找到子数组的最大值，
+    // 可以用平衡树来维护（Java中的有序集合TreeSet）。如果窗口内的开销大于了budget，说明需要缩小窗口，同时需要判断TreeSet中的最大值是否需要被移除，
+    // 所以我们需要一个map来记录每个time出现的次数，如果出现次数=0，从map移除的同时也需要从TreeSet中移除。
+
     // 滑动窗口 + 有序集合
     public int maximumRobots(int[] time, int[] run, long budget) {
         var tset = new TreeSet<Integer>((a, b) -> b.compareTo(a));
