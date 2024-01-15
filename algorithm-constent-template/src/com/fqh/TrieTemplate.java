@@ -124,6 +124,21 @@ class ZeroOneTrie {
         return ans;
     }
 
+    // 返回 v 与 trie 上所有数的最大异或值，trie 不能是空的
+    public int maxXor2(int v) {
+        Trie01Node cur = root;
+        int ans = 0;
+        for (int i = trieBitLen - 1; i >= 0; i--) {
+            int b = v >> i & 1;
+            if (cur.son[b ^ 1] != null && cur.son[b ^ 1].cnt > 0) {
+                ans |= 1 << i;
+                b ^= 1;
+            }
+            cur = cur.son[b];
+        }
+        return ans;
+    }
+
     // 返回 v 与 trie 上所有数的第 k 大异或值
     // k 从 1 开始
     // 如果 k 超过 trie 中元素个数，返回 0
