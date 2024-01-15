@@ -53,20 +53,6 @@ public class LC_1803 {
             }
         }
 
-        public int maxXor(int v) {
-            Trie01Node cur = root;
-            int ans = 0;
-            for (int i = trieBitLen - 1; i >= 0; i--) {
-                int b = v >> i & 1;
-                if (cur.son[b ^ 1] != null) {
-                    ans |= 1 << i;
-                    b ^= 1;
-                }
-                cur = cur.son[b];
-            }
-            return ans;
-        }
-
         // 求与 v 异或值不超过 limit 的元素个数
         public int countLimitXOR(int v, int limit) {
             limit++;
