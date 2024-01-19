@@ -33,6 +33,8 @@ public class LC_2921 {
             ft.change(index, profits[i]);
         }
         Arrays.fill(ft.s, 0);
+        // 从后往前枚举，rank大的在前面被change并且维护最大值，
+        // 然后rank小的往前查可以查询到前面rank维护的最大值
         for (int i = n - 1; i >= 1; i--) {
             int r = tset.size();
             int index = map.get(prices[i]);
@@ -77,5 +79,11 @@ public class LC_2921 {
             }
             return t;
         }
+    }
+
+    public static void main(String[] args) {
+        int[] p = {10, 2, 3, 4};
+        int[] pf = {100,2,7,10};
+        System.out.println(new LC_2921().maxProfit(p, pf));
     }
 }
