@@ -51,7 +51,7 @@ public class LC_2907 {
         }
         int[] left = new int[n];
         int[] right = new int[n];
-        LC_2921.FenwickTree ft = new LC_2921.FenwickTree(tset.size() + 1);
+        FenwickTree ft = new FenwickTree(tset.size() + 1);
         for (int i = 0; i < n - 1; i++) {
             int index = map.get(prices[i]);
             left[i] = ft.query(index - 1);
