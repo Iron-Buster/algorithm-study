@@ -8,10 +8,35 @@ import java.util.TreeSet;
 /**
  * @author ikun
  * @version v1.0.0
- * @since 2024/1/18 23:38
+ * @since 2024/1/20 10:28
  **/
-public class LC_2921 {
+public class LC_2907 {
 
+//    2907. 价格递增的最大利润三元组 I
+//    中等
+//            相关标签
+//    相关企业
+//            提示
+//    给定两个长度为 n 的 下标从 0 开始 的数组 prices 和 profits。商店里有 n 件商品，其中第 i 件商品的价格为 prices[i]，利润为 profits[i]。
+//
+//    我们必须按照以下条件选择三件商品：
+//
+//    prices[i] < prices[j] < prices[k]，其中 i < j < k。
+//    如果我们选择满足上述条件的索引 i，j 和 k 的商品，那么利润就是 profits[i] + profits[j] + profits[k]。
+//
+//    返回我们能得到的最大利润，如果无法选择三件满足条件的商品，则返回 -1。
+//
+//
+//
+//    示例 1：
+//
+//    输入： prices = [10,2,3,4], profits = [100,2,7,10]
+//    输出： 19
+//    解释： 我们不能选择索引为 i=0 的商品，因为不存在索引 j 和 k 满足条件。
+//    所以我们能选择的唯一三元组是索引为 1，2 和 3 的商品，这是一个有效的选择，因为 prices[1] < prices[2] < prices[3]。
+//    答案就是它们的利润之和，即 2 + 7 + 10 = 19。
+
+    // 一样的题目：2921. 价格递增的最大利润三元组 II
     public int maxProfit(int[] prices, int[] profits) {
         int n = prices.length;
         // 离散化
@@ -26,7 +51,7 @@ public class LC_2921 {
         }
         int[] left = new int[n];
         int[] right = new int[n];
-        FenwickTree ft = new FenwickTree(tset.size() + 1);
+        LC_2921.FenwickTree ft = new LC_2921.FenwickTree(tset.size() + 1);
         for (int i = 0; i < n - 1; i++) {
             int index = map.get(prices[i]);
             left[i] = ft.query(index - 1);
@@ -55,7 +80,7 @@ public class LC_2921 {
 
     class FenwickTree {
         int n;
-        int[] s = new int[5005]; // 区间和
+        int[] s = new int[2005]; // 区间和
 
         public FenwickTree(int n) {
             this.n = n;
@@ -81,24 +106,5 @@ public class LC_2921 {
         }
     }
 
-//    2921. 价格递增的最大利润三元组 II
-//    已解答
-//            困难
-//    相关标签
-//            相关企业
-//    提示
-//    给定长度为 n  的数组 prices 和 profits （下标从 0 开始）。一个商店有 n 个商品，第 i 个商品的价格为 prices[i]，利润为 profits[i]。
-//
-//    需要选择三个商品，满足以下条件：
-//
-//    prices[i] < prices[j] < prices[k]，其中 i < j < k。
-//    如果选择的商品 i, j 和 k 满足以下条件，那么利润将等于 profits[i] + profits[j] + profits[k]。
-//
-//    返回能够获得的 最大利润，如果不可能满足给定条件，返回 -1。
 
-    public static void main(String[] args) {
-        int[] p = {10, 2, 3, 4};
-        int[] pf = {100,2,7,10};
-        System.out.println(new LC_2921().maxProfit(p, pf));
-    }
 }
