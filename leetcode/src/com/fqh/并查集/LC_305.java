@@ -1,6 +1,9 @@
 package com.fqh.并查集;
 
+import com.fqh.contests.bw85.D;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -22,22 +25,34 @@ public class LC_305 {
 //    岛屿 的定义是被「水」包围的「陆地」，通过水平方向或者垂直方向上相邻的陆地连接而成。你可以假设地图网格的四边均被无边无际的「水」所包围。
 
     // TODO
-    public boolean check(int x1, int y1, int x2, int y2) {
-        return (x1-1==x2 && y1 == y2) || (x1+1==x2 && y1==y2) || (x1==x2 && y1-1==y2) || (x1==x2 && y1+1==y2);
-    }
+    static final int[][] DIRS = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
     public List<Integer> numIslands2(int m, int n, int[][] positions) {
         var uf = new UnionFind(m * n);
         var ans = new ArrayList<Integer>();
-        for (int i = 0; i < positions.length; i++) {
-            int x1 = positions[i][0], y1 = positions[i][1];
-            for (int j = i + 1; j < positions.length; j++) {
-                int x2 = positions[i][0], y2 = positions[i][1];
-                if (check(x1, y1, x2, y2)) {
-                    int p1 = x1 * n + y1;
-                    int p2 = x2 * n + y2;
+        var set = new HashSet<Integer>();
+        for (int[] pos : positions) {
+            int p = pos[0] * n + pos[1];
+            uf.parent[p] = p;
+            set.add(p);
+        }
+        var set2 = new HashSet<Integer>();
+        set2.add(positions[0][0] * n + positions[0][1]);
+        ans.add(1);
+        for (int i = 1; i < positions.length; i++) {
+            int x = positions[i][0], y = positions[i][1];
+            int p1 = x * n + y;
+            for (int[] dir : DIRS) {
+                int nx = x + dir[0];
+                int ny = y + dir[1];
+                int p2 = nx * n + ny;
+                if (set.contains(p2)) {
+                    set2.remove(p2); // 用p1来代替p2
                     uf.merge(p1, p2);
                 }
             }
+            int fa = uf.find(p1);
+            set2.add(fa);
+            ans.add(set2.size());
         }
         return ans;
     }
@@ -45,13 +60,10 @@ public class LC_305 {
 
     class UnionFind {
         int[] parent;
-        int[] size;
         public UnionFind(int n) {
             parent = new int[n];
-            size = new int[n];
             for (int i = 0; i < n; ++i) {
                 parent[i] = i;
-                size[i] = 1;
             }
         }
 
@@ -64,21 +76,17 @@ public class LC_305 {
         }
 
         public void merge(int a, int b) {
-            int p_a = find(a);
-            int p_b = find(b);
-            if (p_a == p_b) return;
-            if (size[p_a] < size[p_b]) {
-                parent[p_a] = p_b;
-                size[p_b] += size[p_a];
-            } else {
-                parent[p_b] = p_a;
-                size[p_a] += size[p_b];
-            }
+            int rootA = find(a);
+            int rootB = find(b);
+            if (rootA == rootB) return;
+            parent[rootB] = rootA;
         }
     }
 
     public static void main(String[] args) {
-
+        int m = 3, n = 3;
+        int[][] positions = {{0,0},{0,1},{1,2},{2,1}};
+        System.out.println(new LC_305().numIslands2(m, n, positions));
     }
 
 }
