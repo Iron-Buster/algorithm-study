@@ -1,4 +1,4 @@
-package com.fqh.动态规划.状压DP;
+package com.fqh.动态规划.状压DP.子集型;
 
 import java.util.Arrays;
 import java.util.HashSet;
