@@ -10,33 +10,33 @@ import java.util.List;
  * @since 2024/1/16 21:37
  **/
 public class LC_698 {
-    boolean[][] f = new boolean[17][1<<17];
-    List<Integer> states = new ArrayList<>(); // 存储合法的状态
+
+    int n;
+    int avg;
+    int[] a;
+    Boolean[] f;
     public boolean canPartitionKSubsets(int[] nums, int k) {
-        int n = nums.length;
+        n = nums.length;
         int sum = Arrays.stream(nums).sum();
         if (sum % k != 0) return false;
-        int avg = sum / k; // 组数
-        for (int s = 0; s < (1<<n); s++) { // 枚举集合s
-            int v = 0;
-            for (int j = 0; j < n; j++) {
-                if ((s >> j & 1) == 1) {
-                    v += nums[j];
-                }
-            }
-            // 如果当前选法可以满足这一组的和为avg，则为合法状态
-            if (v == avg) states.add(s);
-        }
-        f[0][0] = true;
-        for (int i = 1; i <= k; i++) {
-            for (int j = 0; j < (1<<n); j++) {
-                for (int state : states) {
-                    if ((j & state) == 1) continue; // 有数字被重复选取
-                    f[i][j | state] = f[i-1][j] | f[i][j | state];
-                }
+        avg = sum / k;
+        a = nums;
+        Arrays.sort(a);
+        f = new Boolean[1<<n];
+        return dfs(0,0);
+    }
+
+    public boolean dfs(int s, int t) {
+        if (s == (1<<n)-1) return true;
+        if (f[s] != null) return f[s];
+        for (int i = 0; i < n; i++) {
+            if ((s >> i & 1) == 1) continue;
+            if (t + a[i] > avg) break;
+            if (dfs(s|(1<<i), (t + a[i]) % avg)) {
+                return f[s] = true;
             }
         }
-        return f[k][(1<<n)-1];
+        return f[s] = false;
     }
 
 //    698. 划分为k个相等的子集
