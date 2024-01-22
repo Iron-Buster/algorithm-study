@@ -60,7 +60,7 @@ public class LC_2305 {
             for (int s = 0; s < 1<<n; s++) {  // 枚举🍪集合
                 f[i][s] = 0x3f3f3f;
                 for (int sub = s; sub > 0; sub=(sub-1)&s) {  //枚举s的子集 sub
-                    f[i][s] = Math.min(f[i][s], f[i-1][s^sub] + sum[sub]);
+                    f[i][s] = Math.min(f[i][s], Math.max( f[i-1][s^sub], sum[sub]));
                 }
             }
         }
