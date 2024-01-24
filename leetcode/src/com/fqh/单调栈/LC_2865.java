@@ -61,7 +61,7 @@ public class LC_2865 {
     }
 
     public static void main(String[] args) {
-        System.out.println(new LC_2865().maximumSumOfHeights(List.of(3, 2, 5, 5, 2, 3)));
+        System.out.println(new LC_2865().maximumSumOfHeights(List.of(5, 3, 4, 1, 1)));
     }
 
 //    2866. 美丽塔 I
