@@ -34,3 +34,7 @@ class Solution:
             if v < 0: return False
             return f(i+1, v) or f(i+1, v-nums[i])
         return f(0, t)
+
+
+if __name__ == '__main__':
+    print(Solution().canPartition([1, 5, 11, 5]))
