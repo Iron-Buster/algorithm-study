@@ -27,7 +27,7 @@ class Solution:
         s = sum(nums)
         if s % 2:
             return False
-        t = s / 2
+        t = s // 2
         @cache
         def f(i: int, v: int) -> bool:
             if i >= len(nums): return v == 0
