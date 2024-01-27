@@ -14,6 +14,7 @@
 # lower <= nums[i] + nums[j] <= upper
 
 
+
 from bisect import *
 from typing import List
 
@@ -22,6 +23,12 @@ class Solution:
     def countFairPairs(self, nums: List[int], lower: int, upper: int) -> int:
         ans = 0
         nums.sort()
+        '''
+            将等式转化一下
+            l = lower - nums[i]
+            r = upper - nums[j]
+            cnt = r - l
+        '''
         for j, x in enumerate(nums):
             l = bisect_left(nums, lower - x, 0, j)
             r = bisect_right(nums, upper - x, 0, j)
