@@ -46,12 +46,14 @@ class Solution:
                           cost: List[int]) -> int:
         ans = 0
         def check(m: int) -> bool:
-            s = 0
-            for i, cnt in enumerate(stock):
-                tot = m * cc[i] - cnt  # 制作m个i合金需要 m * cc[i] - stock[i]个金属
-                if tot <= 0: continue
-                s += tot * cost[i]
-            return s > budget
+            # s = 0
+            # for i, cnt in enumerate(stock):
+            #     tot = m * cc[i] - cnt  # 制作m个i合金需要 m * cc[i] - stock[i]个金属
+            #     if tot <= 0: continue
+            #     s += tot * cost[i]
+            #     if s > budget: return True
+            # return s > budget
+            return sum((m * cc[i] - cnt) * cost[i] for i, cnt in enumerate(stock)) > budget
 
         for cc in composition:
             l = 0
