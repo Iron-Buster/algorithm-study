@@ -30,12 +30,17 @@ public class LC_2861 {
             while (l < r) {
                 long mid = (l + r + 1) >> 1;
                 long s = 0;
+                boolean ok = false;
                 for (int i = 0; i < n; i++) {
                     long tot = mid * cc.get(i) - stock.get(i); // 制作m个i合金需要 m * cc[i] - stock[i]个金属
                     if (tot <= 0) continue;
                     s += tot * cost.get(i);
+                    if (s > budget) {
+                        ok = true;
+                        break;
+                    }
                 }
-                if (s > budget) {
+                if (ok || s > budget) {
                     r = mid - 1;
                 } else {
                     l = mid;
