@@ -55,7 +55,7 @@ class Solution:
 
         for cc in composition:
             l = 0
-            r = 10 ** 8
+            r = 10 ** 10
             while l < r:
                 mid = l + r + 1 >> 1
                 if check(mid):
