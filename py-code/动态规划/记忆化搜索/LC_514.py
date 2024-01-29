@@ -35,11 +35,11 @@ https://leetcode.cn/problems/freedom-trail/description/?envType=daily-question&e
 
 class Solution:
     def findRotateSteps(self, ring: str, key: str) -> int:
+        m = len(ring)
+        n = len(key)
         g = defaultdict(list)
         for i, x in enumerate(ring):
             g[x].append(i)
-        m = len(ring)
-        n = len(key)
         @cache
         def f(i: int, j: int) -> int:
             if i >= n: return 0
