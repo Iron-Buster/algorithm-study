@@ -203,3 +203,72 @@ class LCA {
         }
     }
 }
+
+//https://loj.ac/p/10130
+//#10130. 「一本通 4.4 例 1」点的距离
+class LOJ_10130 {
+
+    static LCA lca;
+
+    public static void solve() throws IOException {
+        int n = in.nextInt();
+        lca = new LCA(n);
+        for (int i = 0; i < n - 1; i++) {
+            int x = in.nextInt();
+            int y = in.nextInt();
+            lca.g[x].add(y);
+            lca.g[y].add(x);
+        }
+        lca.dfs(1, 0);
+        int q = in.nextInt();
+        while (q-- > 0) {
+            int x = in.nextInt();
+            int y = in.nextInt();
+            int LCA = lca.lca(x, y);
+            out.println(lca.dep[x] + lca.dep[y] - 2 * lca.dep[LCA]);
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        int T = 1;
+        while (T-- > 0) {
+            solve();
+        }
+        out.close();
+    }
+
+    static InputReader in = new InputReader();
+    static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+    static class InputReader {
+        private StringTokenizer st;
+        private BufferedReader bf;
+
+        public InputReader() {
+            bf = new BufferedReader(new InputStreamReader(System.in));
+            st = null;
+        }
+
+        public String next() throws IOException {
+            while (st == null || !st.hasMoreTokens()) {
+                st = new StringTokenizer(bf.readLine());
+            }
+            return st.nextToken();
+        }
+
+        public String nextLine() throws IOException {
+            return bf.readLine();
+        }
+
+        public int nextInt() throws IOException {
+            return Integer.parseInt(next());
+        }
+
+        public long nextLong() throws IOException {
+            return Long.parseLong(next());
+        }
+
+        public double nextDouble() throws IOException {
+            return Double.parseDouble(next());
+        }
+    }
+}
