@@ -18,6 +18,8 @@ BUFSIZE = 4096
 MOD = 10 ** 9 + 7
 mod = 998244353
 inf = float('inf')
+
+
 def PF(a):
     return [0] + list(accumulate(a))
 
@@ -26,15 +28,14 @@ def PF(a):
 https://leetcode.cn/problems/missing-number/
 '''
 
+
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
-        mx = sum(nums)
         mask = 0
         for x in nums:
-            if not mask>>x&1:
-                mask |= (1<<x)
-        for i in range(len(nums)+1):
-            if not mask>>i&1:
+            if not mask >> x & 1:
+                mask |= (1 << x)
+        for i in range(len(nums) + 1):
+            if not mask >> i & 1:
                 return i
         return 0
-
