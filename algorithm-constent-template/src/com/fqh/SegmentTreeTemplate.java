@@ -510,3 +510,20 @@ class LG_P1890 {
 }
 
 
+// 线段树 区间最值模板
+class SegmentTreeIntervalMax {
+    static final int N = 50005;
+    int[] a = new int[N];
+    Tree[] tree = new Tree[4 * N];
+    static class Tree { // 线段树
+        int l, r;
+
+        public Tree(int l, int r) {
+            this.l = l;
+            this.r = r;
+        }
+
+        public Tree() {}
+    }
+}
+
