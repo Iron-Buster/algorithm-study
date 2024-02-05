@@ -26,7 +26,7 @@ public class LC_3026 {
         int n = nums.length;
         long[] s = new long[n+1];
         for (int i = 0; i < n; i++) s[i+1] = s[i] + nums[i];
-        var tmap = new TreeMap<Integer, Pair>();
+        var tmap = new HashMap<Integer, Pair>();
         long ans = Long.MIN_VALUE;
         for (int i = 0; i < n; i++) {
             if (tmap.containsKey(nums[i] - k)) {
