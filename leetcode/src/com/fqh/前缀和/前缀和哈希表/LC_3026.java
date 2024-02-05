@@ -1,4 +1,4 @@
-package com.fqh.前缀和.前缀和滑动窗口;
+package com.fqh.前缀和.前缀和哈希表;
 
 import java.util.HashMap;
 import java.util.Map;
