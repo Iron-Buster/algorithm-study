@@ -1,54 +1,40 @@
 package com.fqh.div3.ROUND_923;
 
 import java.io.*;
-import java.util.*;
+import java.util.StringTokenizer;
 
 /**
  * @author ikun
  * @version v1.0.0
- * @since 2024/2/6 22:32
+ * @since 2024/2/7 13:11
  **/
-public class C {
+public class D {
 
 
+    static int[] a = new int[200001];
+    static int[] to = new int[200001];
     public static void solve() throws IOException {
         int n = in.nextInt();
-        int m = in.nextInt();
-        int k = in.nextInt();
-        int[] a = new int[n];
-        int[] b = new int[m];
-        var ll = new HashMap<Integer, Integer>();
-        var rr = new HashMap<Integer, Integer>();
-        for (int i = 0; i < n; i++) {
-            a[i] = in.nextInt();
-            ll.merge(a[i], 1, Integer::sum);
+        to[1] = 0;
+        for (int i = 1; i <= n; i++) a[i] = in.nextInt();
+        for (int i = 2; i <= n; i++) {
+            if (a[i] != a[i-1]) to[i] = i - 1;
+            else to[i] = to[i-1];
         }
-        for (int i = 0; i < m; i++) {
-            b[i] = in.nextInt();
-            rr.merge(b[i], 1, Integer::sum);
-        }
-        int cnt1 = k / 2, cnt2 = k / 2, sum = 0;
-        for (int i = 1; i <= k; i++) {
-            if (!ll.containsKey(i) && !rr.containsKey(i)) {
-                out.println("NO");
-                return;
-            } else if (ll.containsKey(i) && !rr.containsKey(i)) {
-                --cnt1;
-            } else if (rr.containsKey(i) && !ll.containsKey(i)) {
-                --cnt2;
+        int q = in.nextInt();
+        while (q-- > 0) {
+            int l = in.nextInt();
+            int r = in.nextInt();
+            if (to[r] < l) {
+                out.println(-1 + " " + -1);
             } else {
-                ++sum;
+                out.println(to[r] + " " + r);
             }
         }
-        if (cnt1 < 0 || cnt2 < 0) {
-            out.println("NO");
-        } else {
-            out.println("YES");
-        }
+        out.println();
     }
 
     static boolean MULTI_CASE = true;
-
     public static void main(String[] args) throws Exception {
         int T = MULTI_CASE ? in.nextInt() : 1;
         while (T-- > 0) {
@@ -59,7 +45,6 @@ public class C {
 
     static InputReader in = new InputReader();
     static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
-
     static class InputReader {
         private StringTokenizer st;
         private BufferedReader bf;
