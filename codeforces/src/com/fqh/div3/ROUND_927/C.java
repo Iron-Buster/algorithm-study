@@ -1,7 +1,6 @@
 package com.fqh.div3.ROUND_927;
 
 import java.io.*;
-import java.math.BigInteger;
 import java.util.ArrayDeque;
 import java.util.StringTokenizer;
 
@@ -12,16 +11,33 @@ import java.util.StringTokenizer;
  **/
 public class C {
 
-
+    // 给你一个数组，和一个字符串，R代表删除最右边元素，L代表删除最左边元素
+    // 每次操作后，问当前数组的乘积 mod m等于多少
     public static void solve() throws IOException {
         int n = in.nextInt();
         int m = in.nextInt();
         int[] a = new int[n];
         for (int i = 0; i < n; i++) a[i] = in.nextInt();
         String s = in.nextLine();
+        // 反过来计算答案，从最后一个元素累乘，计算答案
         var stk = new ArrayDeque<Integer>();
+        int l = 0, r = n - 1;
+        for (int i = 0; i < n; i++) {
+            if (s.charAt(i) == 'L') {
+                stk.push(l++);
+            } else {
+                stk.push(r--);
+            }
+        }
+        long v = 1;
+        long[] res = new long[n];
         for (int i = n - 1; i >= 0; i--) {
-
+            int j = stk.pop();
+            v = v * a[j] % m;
+            res[i] = v;
+        }
+        for (long x : res) {
+            out.print(x + " ");
         }
         out.println();
     }
