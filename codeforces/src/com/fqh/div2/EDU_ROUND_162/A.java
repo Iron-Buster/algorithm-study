@@ -13,10 +13,27 @@ public class A {
 
 
     public static void solve() throws IOException {
-
+        int n = in.nextInt();
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) a[i] = in.nextInt();
+        boolean ok = false;
+        int ans = 0, cnt0 = 0;
+        for (int i = 0; i < n; i++) {
+            if (a[i] == 1) {
+                if (ok) {
+                    ans += cnt0;
+                    cnt0 = 0;
+                } else {
+                    ok = true;
+                }
+            } else {
+                if (ok) cnt0++;
+            }
+        }
+        out.println(ans);
     }
 
-    static boolean MULTI_CASE = false;
+    static boolean MULTI_CASE = true;
     public static void main(String[] args) throws Exception {
         int T = MULTI_CASE ? in.nextInt() : 1;
         while (T-- > 0) {
