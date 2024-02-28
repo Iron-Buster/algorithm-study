@@ -5,13 +5,13 @@
 
 **部分模板来源与灵神（0x3f）的仓库翻译**
 
-- **🚀algorithem-constent-template (算法竞赛模板)**
-- **🚀atcoder (atcoder题目)**
-- **🚀codeforces (codeforces题目)**
-- **🚀codefun (互联网笔试题目)**
-- **🚀go-code (go代码)**
-- **🚀lanqiao (🏀杯)**
-- **🚀leetcode (力扣题目)**
-- **🚀nowcoder (牛客题目)**
-- **🚀py-code (py代码)**
+- **🥲algorithem-constent-template (算法竞赛模板)**
+- **🥲atcoder (atcoder题目)**
+- **🥲codeforces (codeforces题目)**
+- **🥲codefun (互联网笔试题目)**
+- **🥲go-code (go代码)**
+- **🥲lanqiao (🏀杯)**
+- **🥲leetcode (力扣题目)**
+- **🥲nowcoder (牛客题目)**
+- **🥲py-code (py代码)**
 
