@@ -41,20 +41,16 @@ public class D {
                 b.add(nums[i]);
                 ft2.change(idx, 1);
             } else {
-                if (a.size() < b.size()) {
+                if (a.size() <= b.size()) {
                     a.add(nums[i]);
                     ft1.change(idx, 1);
-                } else if (a.size() > b.size()) {
+                } else {
                     b.add(nums[i]);
                     ft2.change(idx, 1);
-                } else {
-                    a.add(nums[i]);
-                    ft1.change(idx, 1);
                 }
             }
         }
         a.addAll(b);
-        System.out.println(a);
         int[] ans = new int[n];
         for (int i = 0; i < n; i++) {
             ans[i] = a.get(i);
