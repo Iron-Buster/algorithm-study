@@ -12,10 +12,10 @@ public class C {
 
     public int minimumOperationsToWriteY(int[][] grid) {
         int n = grid.length;
-        var map = new HashMap<Integer, Integer>();
         int mid = (n / 2) + 1;
         int j = 0;
         int k = n - 1;
+        var map = new HashMap<Integer, Integer>();
         var set = new HashSet<String>();
         int idx1 = 0;
         for (int i = 0; i < mid; i++) {
