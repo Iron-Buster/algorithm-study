@@ -22,7 +22,6 @@ public class B {
     }
 
     static int query(int x1, int y1, int x2, int y2, int[][] g) {
-        // 求某一段区域和 [i, j] 的模板是 sum[x2][y2] - sum[x1 - 1][y2] - sum[x2][y1 - 1] + sum[x1 - 1][y1 - 1];（模板部分）
         x1++; y1++; x2++; y2++;
         return g[x2][y2] - g[x1-1][y2] - g[x2][y1-1] + g[x1-1][y1-1];
     }
