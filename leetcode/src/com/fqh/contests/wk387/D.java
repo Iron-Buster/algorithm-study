@@ -13,22 +13,20 @@ import java.util.TreeSet;
 public class D {
 
     public int[] resultArray(int[] nums) {
+        List<Integer> a = new ArrayList<>();
+        List<Integer> b = new ArrayList<>();
+        a.add(nums[0]);
+        b.add(nums[1]);
         int n = nums.length;
         var tset = new TreeSet<Integer>();
         for (int x : nums) tset.add(x);
         var map = new HashMap<Integer, Integer>();
         int rank = 1;
-        for (int x : tset) {
-            map.put(x, rank++);
-        }
+        for (int x : tset) map.put(x, rank++);
         FenwickTree ft1 = new FenwickTree(n + 1);
         FenwickTree ft2 = new FenwickTree(n + 1);
         ft1.change(map.get(nums[0]), 1);
         ft2.change(map.get(nums[1]), 1);
-        List<Integer> a = new ArrayList<>();
-        List<Integer> b = new ArrayList<>();
-        a.add(nums[0]);
-        b.add(nums[1]);
         int right = map.size();
         for (int i = 2; i < n; i++) {
             int idx = map.get(nums[i]);
