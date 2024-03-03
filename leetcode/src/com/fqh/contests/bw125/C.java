@@ -13,6 +13,29 @@ import java.util.List;
 public class C {
 
     List<int[]>[] g;
+
+    public int[] countPairsOfConnectableServers(int[][] edges, int signalSpeed) {
+        int n = edges.length + 1;
+        g = new List[n];
+        Arrays.setAll(g, v -> new ArrayList<>());
+        for (int[] edge : edges) {
+            int x = edge[0], y = edge[1], w = edge[2];
+            g[x].add(new int[]{y, w});
+            g[y].add(new int[]{x, w});
+        }
+        int[] ans = new int[n];
+        for (int i = 0; i < n; i++) {
+            int[] res = bfs(i, signalSpeed);
+            int v = 0;
+            for (int j = 0; j < res.length; j++) {
+                for (int k = j + 1; k < res.length; k++) {
+                    v += res[j] * res[k];
+                }
+            }
+            ans[i] = v;
+        }
+        return ans;
+    }
     int[] bfs(int start, int k) {
         List<int[]> ll = g[start];
         int[] res = new int[ll.size()];
@@ -41,27 +64,5 @@ public class C {
             }
         }
         return res;
-    }
-    public int[] countPairsOfConnectableServers(int[][] edges, int signalSpeed) {
-        int n = edges.length + 1;
-        g = new List[n];
-        Arrays.setAll(g, v -> new ArrayList<>());
-        for (int[] edge : edges) {
-            int x = edge[0], y = edge[1], w = edge[2];
-            g[x].add(new int[]{y, w});
-            g[y].add(new int[]{x, w});
-        }
-        int[] ans = new int[n];
-        for (int i = 0; i < n; i++) {
-            int[] res = bfs(i, signalSpeed);
-            int v = 0;
-            for (int j = 0; j < res.length; j++) {
-                for (int k = j + 1; k < res.length; k++) {
-                    v += res[j] * res[k];
-                }
-            }
-            ans[i] = v;
-        }
-        return ans;
     }
 }
