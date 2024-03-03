@@ -10,7 +10,7 @@ import java.util.PriorityQueue;
 public class B {
 
     public int minOperations(int[] nums, int k) {
-        PriorityQueue<Long> pq = new PriorityQueue<Long>();
+        var pq = new PriorityQueue<Long>();
         for (int x : nums) pq.offer((long) x);
         int res = 0;
         while (pq.size() > 1 && pq.peek() < k) {
