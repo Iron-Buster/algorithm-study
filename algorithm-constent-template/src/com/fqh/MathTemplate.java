@@ -258,7 +258,7 @@ class Prime {
             if (!vis[i]) {
                 primes.add(i);
                 vis[i] = true;
-                for (int j = i * i; j <= mx; j += i) {
+                for (int j = i * 2; j <= mx; j += i) {
                     vis[j] = true;
                 }
             }
