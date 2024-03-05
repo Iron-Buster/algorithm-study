@@ -430,11 +430,12 @@ class DijkstraTemplate {
             if (u == end) {
                 return true;
             }
+            if (vis[u]) continue;
             vis[u] = true;
             for (Edge next : g[u]) {
                 int v = next.v;
                 long w = next.w;
-                if (!vis[v] && dist[u] + w < dist[v]) {
+                if (dist[u] + w < dist[v]) {
                     dist[v] = dist[u] + w;
                     pq.offer(new Edge(v, dist[v]));
                     par[v] = u;
