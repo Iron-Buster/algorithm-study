@@ -148,6 +148,10 @@ class FenwickTree2 {
 
     public FenwickTree2(int n) {
         this.n = n;
+//        如果s是维护前缀最值，那么需要初始化s = -INF
+//         for (int i = 0; i <= n; i++) {
+//            s[i] = Integer.MIN_VALUE;
+//         }
     }
 
     public int lowbit(int x) { // 提取x的低位2次幂数（去掉二进制最后一位1）
