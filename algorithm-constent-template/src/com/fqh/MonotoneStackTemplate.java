@@ -2,6 +2,7 @@ package com.fqh;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 /**
  * @Author: vq
@@ -10,6 +11,88 @@ import java.util.Arrays;
  */
 public class MonotoneStackTemplate {
 
+}
+
+/**
+ * 单调栈模板
+ */
+class MonotoneStack {
+
+    /**
+     * left[i]表示左边第一个比a[i]小的下标
+     * @return
+     */
+    static int[] getMinLeft(int[] a) {
+        int n = a.length;
+        int[] left = new int[n + 1];
+        Deque<Integer> stk = new ArrayDeque<>();
+        stk.push(-1);
+        for (int i = 0; i < n; i++) {
+            while (stk.size() > 1 && a[stk.peek()] > a[i]) {
+                stk.pop();
+            }
+            left[i] = stk.peek();
+            stk.push(i);
+        }
+        return left;
+    }
+
+    /**
+     * right[i]表示右边第一个比a[i]小的下标
+     * @return
+     */
+    static int[] getMinRight(int[] a) {
+        int n = a.length;
+        int[] right = new int[n + 1];
+        Deque<Integer> stk = new ArrayDeque<>();
+        stk.push(n);
+        for (int i = n - 1; i >= 0; i--) {
+            while (stk.size() > 1 && a[stk.peek()] > a[i]) {
+                stk.pop();
+            }
+            right[i] = stk.peek();
+            stk.push(i);
+        }
+        return right;
+    }
+
+    /**
+     * left[i]表示左边第一个比a[i]大的下标
+     * @return
+     */
+    static int[] getMaxLeft(int[] a) {
+        int n = a.length;
+        int[] left = new int[n + 1];
+        Deque<Integer> stk = new ArrayDeque<>();
+        stk.push(-1);
+        for (int i = 0; i < n; i++) {
+            while (stk.size() > 1 && a[stk.peek()] < a[i]) {
+                stk.pop();
+            }
+            left[i] = stk.peek();
+            stk.push(i);
+        }
+        return left;
+    }
+
+    /**
+     * right[i]表示右边第一个比a[i]大的下标
+     * @return
+     */
+    static int[] getMaxRight(int[] a) {
+        int n = a.length;
+        int[] right = new int[n + 1];
+        Deque<Integer> stk = new ArrayDeque<>();
+        stk.push(n);
+        for (int i = n - 1; i >= 0; i--) {
+            while (stk.size() > 1 && a[stk.peek()] < a[i]) {
+                stk.pop();
+            }
+            right[i] = stk.peek();
+            stk.push(i);
+        }
+        return right;
+    }
 }
 
 
