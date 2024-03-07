@@ -118,8 +118,6 @@ https://atcoder.jp/contests/abc282/tasks/abc282_g
  */
 
 
-
-
 /**
  * 树形DP
  */
@@ -189,6 +187,7 @@ class TreeDP {
 
         static InputReader in = new InputReader();
         static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+
         static class InputReader {
             private StringTokenizer st;
             private BufferedReader bf;
@@ -249,22 +248,23 @@ class StateCompressDP {
         static int n; // 棋盘行数
         static int k; // 国王总数
         static int cnt; // 同一行的合法状态个数
-        static int[] s = new int[1<<12]; // 同一行的合法状态集
-        static int[] num = new int[1<<12]; // 每个合法状态包含的国王数
-        static long[][][] f = new long[12][144][1<<12];
+        static int[] s = new int[1 << 12]; // 同一行的合法状态集
+        static int[] num = new int[1 << 12]; // 每个合法状态包含的国王数
+        static long[][][] f = new long[12][144][1 << 12];
+
         static void solve() throws Exception {
             n = in.nextInt();
             k = in.nextInt();
             cnt = 0;
-            s = new int[1<<12];
-            num = new int[1<<12];
-            f = new long[12][144][1<<12];
+            s = new int[1 << 12];
+            num = new int[1 << 12];
+            f = new long[12][144][1 << 12];
             // 预处理
-            for (int i = 0; i < (1<<n); i++) { // 枚举一行的所以状态
-                if ((i&i>>1) == 0) { // 如果不存在相邻的1
+            for (int i = 0; i < (1 << n); i++) { // 枚举一行的所以状态
+                if ((i & i >> 1) == 0) { // 如果不存在相邻的1
                     s[cnt++] = i; // 保存一行的合法状态
                     for (int j = 0; j < n; j++) {
-                        num[i] += (i>>j&1); // 统计每个合法状态包含的国王数
+                        num[i] += (i >> j & 1); // 统计每个合法状态包含的国王数
                     }
                 }
             }
@@ -277,13 +277,13 @@ class StateCompressDP {
                             // 可以继续放国王，不存在同列的1，不存在斜角的1
                             if ((j >= c) && ((s[b] & s[a]) == 0)
                                     && ((s[b] & (s[a] << 1)) == 0) && ((s[b] & (s[a] >> 1)) == 0)) {
-                                f[i][j][a] += f[i-1][j-c][b]; // 从第i-1行向第i行转移
+                                f[i][j][a] += f[i - 1][j - c][b]; // 从第i-1行向第i行转移
                             }
                         }
                     }
                 }
             }
-            out.println(f[n+1][k][0]); // 第n+1行什么都不放，相当于只在1~n行放国王
+            out.println(f[n + 1][k][0]); // 第n+1行什么都不放，相当于只在1~n行放国王
         }
 
         public static void main(String[] args) throws Exception {
@@ -344,8 +344,9 @@ class StateCompressDP {
         static int n, m; // 玉米田的行数，列数
         static int[] g = new int[14]; // 各行的状态值
         static int cnt; // 同一行的合法状态个数
-        static int[] s = new int[1<<14]; // 一行的合法状态集
-        static int[][] f = new int[14][1<<14];
+        static int[] s = new int[1 << 14]; // 一行的合法状态集
+        static int[][] f = new int[14][1 << 14];
+
         public static void solve() throws IOException {
             n = in.nextInt();
             m = in.nextInt();
@@ -355,8 +356,8 @@ class StateCompressDP {
                     g[i] = (g[i] << 1) + x; // 保存各行的状态值
                 }
             }
-            for (int i = 0; i < (1<<m); i++) { // 枚举一行所有的状态
-                if ((i&i>>1) == 0) { // 如果不存在相邻的1
+            for (int i = 0; i < (1 << m); i++) { // 枚举一行所有的状态
+                if ((i & i >> 1) == 0) { // 如果不存在相邻的1
                     s[cnt++] = i;   // 保存一行的合法状态
                 }
             }
@@ -366,12 +367,12 @@ class StateCompressDP {
                     for (int b = 0; b < cnt; b++) { // 枚举i-1行的合法状态
                         // a种在合法土地上，a b同列不同时为1
                         if ((s[a] & g[i]) == s[a] && (s[a] & s[b]) == 0) {
-                            f[i][a] = (f[i][a] + f[i-1][b]) % MOD;
+                            f[i][a] = (f[i][a] + f[i - 1][b]) % MOD;
                         }
                     }
                 }
             }
-            out.print(f[n+1][0]); // 相当于只在1-n行种植
+            out.print(f[n + 1][0]); // 相当于只在1-n行种植
         }
 
         public static void main(String[] args) throws Exception {
@@ -384,6 +385,87 @@ class StateCompressDP {
 
         static InputReader in = new InputReader();
         static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+
+        static class InputReader {
+            private StringTokenizer st;
+            private BufferedReader bf;
+
+            public InputReader() {
+                bf = new BufferedReader(new InputStreamReader(System.in));
+                st = null;
+            }
+
+            public String next() throws IOException {
+                while (st == null || !st.hasMoreTokens()) {
+                    st = new StringTokenizer(bf.readLine());
+                }
+                return st.nextToken();
+            }
+
+            public String nextLine() throws IOException {
+                return bf.readLine();
+            }
+
+            public int nextInt() throws IOException {
+                return Integer.parseInt(next());
+            }
+
+            public long nextLong() throws IOException {
+                return Long.parseLong(next());
+            }
+
+            public double nextDouble() throws IOException {
+                return Double.parseDouble(next());
+            }
+        }
+    }
+}
+
+/**
+ * 单调队列优化DP
+ */
+class MotonicQueueOptimizesDP {
+    //    LOJ10180 烽火传递
+//    烽火台是重要的军事防御设施，一般建在交通要道或险要处。一旦有军情发生，则白天用浓烟，晚上有火光传递军情。
+//    在某两个城市之间有 n 座烽火台，每个烽火台发出信号都有一定的代价。
+//    为了使情报准确传递，在连续 m 个烽火台中至少要有一个发出信号。
+//    现在输入 n,m 和每个烽火台的代价，请计算总共最少的代价在两城市之间来准确传递情报。
+    static class LOJ10180 {
+        static final int N = (int) (2e5 + 10);
+        static int[] w = new int[N];
+        static int[] f = new int[N];
+        static int[] q = new int[N];
+        static int n, m;
+
+        public static void solve() throws IOException {
+            n = in.nextInt();
+            m = in.nextInt();
+            for (int i = 1; i <= n; i++) w[i] = in.nextInt();
+            int ans = (int) 2e9;
+            int h = 1, t = 0;           //清空队列
+            for (int i = 1; i <= n; i++) {
+                while (h <= t && f[q[t]] >= f[i - 1]) t--; //队尾出队(队列不空且新元素更优)
+                q[++t] = i - 1;                         //队尾入队(存储下标 方便判断队头出队)
+                if (q[h] < i - m) h++;                   //队头出队(队头元素滑出窗口)
+                f[i] = f[q[h]] + w[i];                  //转移
+                if (i > n - m) ans = Math.min(ans, f[i]);
+            }
+            out.println(ans);
+        }
+
+        static boolean MULTI_CASE = false;
+
+        public static void main(String[] args) throws Exception {
+            int T = MULTI_CASE ? in.nextInt() : 1;
+            while (T-- > 0) {
+                solve();
+            }
+            out.close();
+        }
+
+        static InputReader in = new InputReader();
+        static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+
         static class InputReader {
             private StringTokenizer st;
             private BufferedReader bf;
