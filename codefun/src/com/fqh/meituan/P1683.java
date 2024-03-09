@@ -11,17 +11,20 @@ import java.util.*;
  **/
 public class P1683 {
 
+    // https://codefun2000.com/p/P1684
+    // #P1684. 2024.3.9美团-第五题-塔子哥的人际关系
+
     public static void solve() throws IOException {
         int n = in.nextInt();
         int m = in.nextInt();
         int q = in.nextInt();
         var uf = new UnionFind(n);
-        var map = new HashMap<Integer, HashSet<Integer>>();
+        HashSet<Integer>[] g = new HashSet[n + 1];
+        Arrays.setAll(g, v -> new HashSet<>());
         for (int i = 0; i < m; i++) {
             int x = in.nextInt();
             int y = in.nextInt();
-            map.computeIfAbsent(x, v -> new HashSet<>()).add(y);
-            map.computeIfAbsent(y, v -> new HashSet<>()).add(x);
+            g[x].add(y);
         }
         List<int[]> ops = new ArrayList<>();
         var delSet = new HashSet<String>();
@@ -31,16 +34,16 @@ public class P1683 {
             int y = in.nextInt();
             ops.add(new int[]{op, x, y});
             if (op == 1) {
-                if (map.get(x).contains(y)) {
+                if (g[x].contains(y)) {
                     delSet.add(x + "_" + y);
                 }
-                if (map.get(y).contains(x)) {
+                if (g[y].contains(x)) {
                     delSet.add(y + "_" + x);
                 }
             }
         }
         for (int u = 1; u <= n; u++) {
-            for (int v : map.get(u)) {
+            for (int v : g[u]) {
                 if (delSet.contains(u + "_" + v) || delSet.contains(v + "_" + u)) {
                     continue;
                 }
@@ -53,10 +56,12 @@ public class P1683 {
             if (p[0] == 2) {
                 int x = p[1], y = p[2];
                 if (uf.find(x) == uf.find(y)) {
-                    ans.add("YES");
+                    ans.add("Yes");
                 } else {
-                    ans.add("NO");
+                    ans.add("No");
                 }
+            } else {
+                uf.merge(p[1], p[2]);
             }
         }
         Collections.reverse(ans);
