@@ -123,22 +123,22 @@ class KthGreaterElement {
         for (int i = 0; i < n; i++) {
             // 从最后一个单调栈开始处理
             for (int j = k - 1; j >= 0; j--) {
-                while (!stks[j].isEmpty() && nums[stks[j].peek()] < nums[i]) { // 严格大于
-                    int top = stks[j].pop();
+                while (!stks[j].isEmpty() && nums[stks[j].peekLast()] < nums[i]) { // 严格大于
+                    int top = stks[j].pollLast();
                     if (j == k - 1) {
                         res[top] = nums[i];
                     } else {
-                        tmp.offer(top);
+                        tmp.addLast(top);
                     }
                 }
                 if (j + 1 < k) {
                     // 倒序进入下一个单调栈，保证所有单调栈的单调性
                     while (!tmp.isEmpty()) {
-                        stks[j + 1].offer(tmp.pop());
+                        stks[j + 1].addLast(tmp.pollLast());
                     }
                 }
             }
-            stks[0].offer(i);
+            stks[0].addLast(i);
         }
         return res;
     }
