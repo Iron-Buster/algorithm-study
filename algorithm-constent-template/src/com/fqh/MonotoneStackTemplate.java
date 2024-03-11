@@ -114,7 +114,37 @@ class KthGreaterElement {
      */
 
     public static int[] kthGreaterElement(int[] nums, int k) {
+        int n = nums.length;
+        int[] res = new int[n];
+        Arrays.fill(res, -1);
+        ArrayDeque<Integer>[] stks = new ArrayDeque[k];
+        Arrays.setAll(stks, v -> new ArrayDeque<Integer>());
+        ArrayDeque<Integer> tmp = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) {
+            // 从最后一个单调栈开始处理
+            for (int j = k - 1; j >= 0; j--) {
+                while (!stks[j].isEmpty() && nums[stks[j].peek()] < nums[i]) { // 严格大于
+                    int top = stks[j].pop();
+                    if (j == k - 1) {
+                        res[top] = nums[i];
+                    } else {
+                        tmp.offer(top);
+                    }
+                }
+                if (j + 1 < k) {
+                    // 倒序进入下一个单调栈，保证所有单调栈的单调性
+                    while (!tmp.isEmpty()) {
+                        stks[j + 1].offer(tmp.pop());
+                    }
+                }
+            }
+            stks[0].offer(i);
+        }
+        return res;
+    }
 
-        return null;
+    public static void main(String[] args) {
+        int[] res = kthGreaterElement(new int[]{1, 2, 3, 4, 5}, 2);
+        System.out.println(Arrays.toString(res));
     }
 }
