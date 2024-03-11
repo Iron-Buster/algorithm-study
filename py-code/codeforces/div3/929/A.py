@@ -102,66 +102,11 @@ def PF(a):
 
 # write code here
 def solve():
-    # A
-    # n = II()
-    # a = LII()
-    # ans = sum(abs(x) for x in a)
-    # print(ans)
-
-    # C
-    # lii = LII()
-    # a = lii[0]
-    # b = lii[1]
-    # l = lii[2]
-    # # 2 3 72
-    # st = set()
-    # if l % a != 0 and l % b != 0:
-    #     print(1)
-    #     return
-    # r1 = 100
-    # r2 = 100
-    # for x in range(r1):
-    #     for y in range(r2):
-    #         if l < ((a ** x) * (b ** y)):
-    #             break
-    #         k = l // ((a ** x) * (b ** y))
-    #         if 0 < k <= l:
-    #             if l % k == 0:
-    #                 if ((a ** x) * (b ** y)) * k == l:
-    #                     st.add(k)
-    # print(len(st))
-
-    # B
-    # n = II()
-    # a = LII()
-    # s = sum(a)
-    # if s % 3 == 0:
-    #     print(0)
-    #     return
-    # for x in a:
-    #     if (s-x) % 3 == 0:
-    #         print(1)
-    #         return
-    # if (s+1) % 3 == 0:
-    #     print(1)
-    #     return
-    # if (s+2) % 3 == 0:
-    #     print(2)
-    #     return
-
-    #D
     n = II()
     a = LII()
+    ans = sum(abs(x) for x in a)
+    print(ans)
 
-    a.sort()
-    if a[0] != a[1]:
-        print('YES')
-        return
-    for i in range(1, n):
-        if a[i] % a[0] != 0:
-            print('YES')
-            return
-    print('NO')
 
 def main():
     t = II()  # more than onc case
