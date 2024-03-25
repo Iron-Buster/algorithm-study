@@ -1,6 +1,7 @@
 package com.fqh.greedy;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
@@ -40,6 +41,11 @@ public class CF_1443B {
         int a = in.nextInt();
         int b = in.nextInt();
         char[] s = in.nextLine().toCharArray();
+        if (!Arrays.toString(s).contains("1")) {
+            out.println(0);
+            return;
+        }
+
         int n = s.length;
         int i = 0;
         int ans = a;
