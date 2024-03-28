@@ -1,49 +1,34 @@
 package com.fqh.aliyun;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
  * @author ikun
  * @version v1.0.0
- * @since 2024/3/26 20:22
+ * @since 2024/3/28 20:47
  **/
-public class A {
+public class P1747 {
 
-//    http://101.43.147.120:8888/p/P1746
-//    #P1746. 2024.03.24-阿里云-第一题-塔子哥的彩灯节
-
-    static int n;
-    static int[][] a;
-    static long[][] dp;
+//    http://101.43.147.120:8888/p/P1747
+//    #P1747. 2024.03.24-阿里云-第二题-塔子哥的搭配大赛
 
     public static void solve() throws IOException {
-        n = in.nextInt();
-        a = new int[n][2];
+        int n = in.nextInt();
+        int[] a = new int[n], b = new int[n];
+        for (int i = 0; i < n; i++) a[i] = in.nextInt();
+        for (int i = 0; i < n; i++) b[i] = in.nextInt();
+        int ans = 0, cnt = 0;
         for (int i = 0; i < n; i++) {
-            int x = in.nextInt();
-            int y = in.nextInt();
-            a[i][0] = x;
-            a[i][1] = y;
+            if (a[i] != b[i]) {
+                cnt++;
+            } else {
+                ans += cnt;
+                cnt = 0;
+            }
         }
-        dp = new long[n][3];
-        for (long[] d : dp) {
-            Arrays.fill(d, -1);
-        }
-        // 简单状态机dp
-        // dp[i][0] 表示当前不亮灯的最优解 -> 转移式子 max(dp[i-1][0~2])
-        // dp[i][1] 表示当前亮红灯的最优解 -> 转移式子 max(dp[i-1][0], dp[i-1][2]) + a[i][0]
-        // dp[i][2] 表示当前亮绿灯的最优解 -> 转移式子 max(dp[i-1][0], dp[i-1][1]) + a[i][1]
-        dp[0][0] = 0;
-        dp[0][1] = a[0][0];
-        dp[0][2] = a[0][1];
-        for (int i = 1; i < n; i++) {
-            dp[i][0] = Math.max(dp[i-1][0], Math.max(dp[i-1][1], dp[i-1][2]));
-            dp[i][1] = Math.max(dp[i-1][0], dp[i-1][2]) + a[i][0];
-            dp[i][2] = Math.max(dp[i-1][0], dp[i-1][1]) + a[i][1];
-        }
-        out.println(Math.max(dp[n-1][1], dp[n-1][2]));
+        ans += cnt;
+        out.println(ans);
     }
 
     static boolean MULTI_CASE = false;
