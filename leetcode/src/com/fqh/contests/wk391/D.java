@@ -1,6 +1,7 @@
 package com.fqh.contests.wk391;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
@@ -10,8 +11,33 @@ import java.util.TreeSet;
  **/
 public class D {
 
-
     public int minimumDistance(int[][] points) {
+        TreeMap<Integer, Integer> a = new TreeMap<>();
+        TreeMap<Integer, Integer> b = new TreeMap<>();
+        for (int[] p : points) {
+            int v1 = p[0] - p[1];
+            int v2 = p[0] + p[1];
+            a.merge(v1, 1, Integer::sum);
+            b.merge(v2, 1, Integer::sum);
+        }
+        int ans = Integer.MAX_VALUE;
+        for (int[] p : points) {
+            int v1 = p[0] - p[1];
+            int v2 = p[0] + p[1];
+            if (a.get(v1) == 1) a.remove(v1);
+            else a.merge(v1, -1, Integer::sum);
+            if (b.get(v2) == 1) b.remove(v2);
+            else b.merge(v2, -1, Integer::sum);
+            // a[i] = x - y, b[i] = x + y
+            // n个点的最大曼哈顿距离 = max(a[n]-a[0], b[n]-b[0])
+            ans = Math.min(ans, Math.max(a.lastKey() - a.firstKey(), b.lastKey() - b.firstKey()));
+            a.merge(v1, 1, Integer::sum);
+            b.merge(v2, 1, Integer::sum);
+        }
+        return ans;
+    }
+
+    public int minimumDistance2(int[][] points) {
         int n = points.length;
         var a = new TreeSet<Long>();
         var b = new TreeSet<Long>();
