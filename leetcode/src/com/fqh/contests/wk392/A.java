@@ -1,5 +1,7 @@
 package com.fqh.contests.wk392;
 
+import java.util.Arrays;
+
 /**
  * @author ikun
  * @version v1.0.0
