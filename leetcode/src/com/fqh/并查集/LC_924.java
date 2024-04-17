@@ -11,6 +11,7 @@ import java.util.HashSet;
 public class LC_924 {
 
 
+//    https://leetcode.cn/problems/minimize-malware-spread/?envType=daily-question&envId=2024-04-16
 
     public int minMalwareSpread(int[][] graph, int[] initial) {
         int n = graph.length;
