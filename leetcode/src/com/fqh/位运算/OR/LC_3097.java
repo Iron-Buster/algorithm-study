@@ -1,4 +1,4 @@
-package com.fqh.位运算.AND;
+package com.fqh.位运算.OR;
 
 /**
  * @author ikun
