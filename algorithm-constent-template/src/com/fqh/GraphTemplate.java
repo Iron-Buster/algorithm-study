@@ -420,9 +420,17 @@ class DijkstraTemplate {
     static int[] par;
     static final Long INF = Long.MAX_VALUE;
 
-    static void dijkstra0(int start, int end, List<int[]>[] g, int[] dist, boolean[] vis) {
+    /**
+     * 堆优化dijkstra
+     * @param start 起始节点
+     * @param end   目的节点
+     * @param g     图
+     * @param dist  距离数组
+     */
+    static void dijkstra0(int start, int end, List<int[]>[] g, int[] dist) {
         Arrays.fill(dist, Integer.MAX_VALUE);
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Long.compare(a[1], b[1]));
+        boolean[] vis = new boolean[g.length];
         pq.offer(new int[]{start, 0});
         dist[start] = 0;
         while (!pq.isEmpty()) {
