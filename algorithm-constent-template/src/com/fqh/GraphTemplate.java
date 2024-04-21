@@ -403,6 +403,7 @@ class KthShortestPath {
 //  https://atcoder.jp/contests/arc090/tasks/arc090_c
 
 class DijkstraTemplate {
+
     static class Edge {
         int v;
         long w;
@@ -418,6 +419,28 @@ class DijkstraTemplate {
     static List<Edge>[] g;
     static int[] par;
     static final Long INF = Long.MAX_VALUE;
+
+    static void dijkstra0(int start, int end, List<int[]>[] g, int[] dist, boolean[] vis) {
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Long.compare(a[1], b[1]));
+        pq.offer(new int[]{start, 0});
+        dist[start] = 0;
+        while (!pq.isEmpty()) {
+            int[] p = pq.poll();
+            int u = p[0];
+            if (u == end) return;
+            if (vis[u]) continue;
+            vis[u] = true;
+            for (int[] next : g[u]) {
+                int v = next[0], w = next[1];
+                if (dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    pq.offer(new int[]{v, dist[v]});
+                }
+            }
+        }
+    }
+
 
     static boolean dijkstra(int start, int end) {
         var pq = new PriorityQueue<Edge>((a, b) -> Long.compare(a.w, b.w));
