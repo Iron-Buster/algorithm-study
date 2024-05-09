@@ -3,6 +3,9 @@
 '''
 双指针模拟
 '''
+from typing import List
+
+
 class Solution:
     def minimumRefill(self, plants: List[int], capacityA: int, capacityB: int) -> int:
         n = len(plants)
