@@ -602,3 +602,48 @@ class Bezouts {
         }
     }
 }
+
+
+/**
+ * 模运算
+ */
+class Modulo {
+
+    // 加法和乘法的的取模
+    // (a + b) mod m = ((a mod m) + (b mod m)) mod m
+    // (a * b) mod m = ((a mod m) * (b mod m)) mod m
+
+
+    // 同余
+    // 两个整数 x 和 y，如果(x - y) mod m = 0，则称 x 与 y 关于模 m 同余。
+
+
+    // 负数的取模
+    // 如果 x < 0， y >= 0，则 x mod m + m = y mod m
+    // 例如 -17 mod 10 + 10 = -7 + 10 = 3
+    // 可以直接写成 (x mod m + m) mod m，无论x是否为负数，运算结果都会落在区间[0, m-1]中
+
+
+    static final int MOD = 1_000_000_007;
+
+    static void f(int a, int b, int c) {
+        // 加
+        int v1 = (a + b) % MOD;
+
+        // 减
+        int v2 = (a - b + MOD) % MOD;
+
+        // 乘
+        int v3 = a * b % MOD;
+
+        // 多个数相乘，要步步取模，防止溢出
+        int v4 = a * b % MOD * c % MOD;
+
+        // 除（MOD是 质数且 b不是MOD的倍数）
+        // python写法: a * qpow(b, MOD - 2, MOD) % MOD
+    }
+
+
+
+
+}
