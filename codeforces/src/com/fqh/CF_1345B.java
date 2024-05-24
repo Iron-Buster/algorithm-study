@@ -3,7 +3,7 @@ package com.fqh;
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class CF_1345B {
 
 
 //    http://codeforces.com/problemset/problem/1354/B
