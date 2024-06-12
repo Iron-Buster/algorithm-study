@@ -11,6 +11,16 @@ public class Main {
      * 算法目的：每个课程都有（0~N-1）个先修课程，算法需要找到一个合法的修课顺序。（可能存在多个）
      * 数据输入方式：支持终端输入和文件输入
      * 将所有合法的方案输出到文件
+     *
+     *
+     * 输入课程
+     * A 3 -1
+     * B 3 A
+     * C 3 A
+     *
+     * 应该输出两种方案
+     * 1.完成A后 完成B 再完成C
+     * 2.完成A后 完成C 再完成B
      */
 
 
@@ -101,6 +111,7 @@ public class Main {
     public static void dfs(int now, int k, List<Course> courseList, Map<String, Integer> inDegree, Map<String, List<String>> graph, List<String> path) {
         if (now == k) {
             out.println(path);
+            methods.add(new ArrayList<>(path));
             return;
         }
         for (int i = 0; i < courseList.size(); i++) {
@@ -130,21 +141,25 @@ public class Main {
     static int n; // 学期总数
     static int m; // 一学期学分上限
     static int k; // 课程数
-    static List<Course> courseList; // 课程列表
+    static List<Course> courseList = new ArrayList<>();     // 课程列表
+    static List<List<String>> methods = new ArrayList<>(); // 所有的合法方案
 
 
 
     /**
      * 将结果写入文件的方法
-     * @param strings   需要写入的结果
      * @param filePath  文件路径
      */
-    public static void writeToFile(List<String> strings, String filePath) {
+    public static void writeToFile(String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            int index = 0;
-            for (String str : strings) {
-                writer.write(++index + " "  + str);
-                writer.newLine(); // To add a new line after each string
+            for (int i = 0; i < methods.size(); i++) {
+                writer.write("方案 " + (i + 1));
+                writer.newLine();
+                for (int j = 0; j < methods.get(i).size(); j++) {
+                    writer.write((j + 1) + " "  + methods.get(i).get(j));
+                    writer.newLine(); // To add a new line after each string
+                }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -189,7 +204,7 @@ public class Main {
     //    输入参数包括学期总数、一学期的学分上限、每门课程的课程号、学分和直接先修课的课程号
 
 
-    static boolean READ_FORM_FILE = false; // 是否从终端读取输入数据
+    static boolean READ_FORM_FILE = true; // 是否从终端读取输入数据
     static boolean SAVE_RESULT_TO_FILE = true; // 是否保存结果到文件
 
     public static void main(String[] args) throws IOException {
@@ -223,7 +238,7 @@ public class Main {
         buildGraph(courseList);
         dfs(0, k, courseList, inDegree, graph, new ArrayList<>());
         if (SAVE_RESULT_TO_FILE) {
-
+            writeToFile("output.txt");
         }
         out.close();
     }
