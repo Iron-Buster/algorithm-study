@@ -186,6 +186,7 @@ public class Main {
         courseList = new ArrayList<>();
         for (int i = 3; i < list.size(); i++) {
             String s = list.get(i);
+            if (s.isEmpty() || s.equals("")) continue;
             String[] split = s.split(" ");
 
             Course course = new Course();
@@ -202,7 +203,6 @@ public class Main {
 
 
     //    输入参数包括学期总数、一学期的学分上限、每门课程的课程号、学分和直接先修课的课程号
-
 
     static boolean READ_FORM_FILE = true; // 是否从终端读取输入数据
     static boolean SAVE_RESULT_TO_FILE = true; // 是否保存结果到文件
@@ -239,6 +239,7 @@ public class Main {
         dfs(0, k, courseList, inDegree, graph, new ArrayList<>());
         if (SAVE_RESULT_TO_FILE) {
             writeToFile("output.txt");
+            out.println("方案结果保存成功！！！");
         }
         out.close();
     }
