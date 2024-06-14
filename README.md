@@ -4,6 +4,7 @@
 **算法训练（codeforces, atcoder, 🏀杯, nowcoder, leetcode），仓库包含了一些oj网站的题解，大部分是力扣的。**
 
 **部分模板来源与灵神（0x3f）的仓库翻译**
+**欢迎进行模板的补充，提PR**
 
 
 ## 📖 Templates
