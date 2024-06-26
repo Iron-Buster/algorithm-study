@@ -11,7 +11,7 @@ class LC_2741:
             ans = 0
             pre = nums[i]
             for j, cur in enumerate(nums):
-                # 如果i没有选过 并且满足题目要求的 pre % cur == 0 或 cur % pre == 0
+                # 如果j没有选过 并且满足题目要求的 pre % cur == 0 或 cur % pre == 0
                 if (mask>>j&1) == 0 and (pre % cur == 0 or cur % pre == 0):
                     ans += dfs(j, mask|(1<<j))
             return ans
