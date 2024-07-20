@@ -37,7 +37,7 @@ public class LC_721 {
             String name = accounts.get(i).get(0);
             List<String> p = new ArrayList<>(dsu.size[i]);
             p.sort((a, b) -> a.compareTo(b));
-            p.addFirst(name);
+            p.set(0, name);
             ans.add(p);
         }
         return ans;
