@@ -50,7 +50,7 @@ dx, dy = [0, 1, 0, -1, 1, -1, 1, -1], [1, 0, -1, 0, -1, -1, 1, 1]
 inf = float('inf')
 # RANDOM = random.randint(int(1e9 + 7), int(2e9 + 7)) # 防止卡哈希
 mod = int(1e9 + 7)
-# mod = 998244353
+
 
 # https://codefun2000.com/p/P1846
 
