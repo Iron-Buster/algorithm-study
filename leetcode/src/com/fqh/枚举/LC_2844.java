@@ -1,7 +1,8 @@
 package com.fqh.枚举;
 
+//https://leetcode.cn/problems/minimum-operations-to-make-a-special-number/description/
 public class LC_2844 {
-
+    
     public int minimumOperations(String num) {
         // A number is divisible by 25 if its last two digits are 75, 50, 25, or 00.
         int res1 = num.length() - (num.contains("0") ? 1 : 0); // 01这种case
