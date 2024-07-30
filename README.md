@@ -69,10 +69,11 @@
 1. [得物](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/dewu)
 2. [滴滴](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/didi)
 3. [京东](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/jd)
-4. [美团](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/meituan)
-5. [oppo](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/oppo)
-6. [淘天](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/taotian)
-7. [小红书](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/xiaohongshu)
-8. [携程](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/xiecheng)
+4. [科大讯飞](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/kdxf)
+5. [美团](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/meituan)
+6. [oppo](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/oppo)
+7. [淘天](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/taotian)
+8. [小红书](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/xiaohongshu)
+9. [携程](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/xiecheng)
 
 
