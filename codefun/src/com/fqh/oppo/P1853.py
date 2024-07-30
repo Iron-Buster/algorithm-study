@@ -80,6 +80,7 @@ def solve():
         if (x+1) not in pos:
             continue
         p = pos[x+1]
+        # 二分找p中 大于j的第一个位置
         idx = bisect_right(p, j)
         # print(idx)
         ans += idx * (len(p) - idx)
