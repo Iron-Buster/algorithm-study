@@ -3,7 +3,7 @@
 
 **算法训练（codeforces, atcoder, 🏀杯, nowcoder, leetcode），仓库包含了一些oj网站的题解，大部分是力扣的.**
 
-**部分模板来源与[灵神](https://github.com/EndlessCheng)的仓库Go代码翻译.**
+**部分模板来自 [灵神](https://github.com/EndlessCheng) 的仓库Go代码翻译.**
 
 **🤗欢迎进行模板的补充，提PR.**
 
