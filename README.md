@@ -1,11 +1,11 @@
-# 算法模板库🏀🐔🥲
-**该仓库包括一些常用的算法和数据结构模板，如二分、图论、数论、dp、树状数组、线段树等。**
+# 算法模板库（Algorithm Template）
+**该仓库包括一些常用的算法和数据结构模板，如二分、图论、数论、dp、树状数组、线段树、单调栈、字符串匹配等.**
 
-**算法训练（codeforces, atcoder, 🏀杯, nowcoder, leetcode），仓库包含了一些oj网站的题解，大部分是力扣的。**
+**算法训练（codeforces, atcoder, 🏀杯, nowcoder, leetcode），仓库包含了一些oj网站的题解，大部分是力扣的.**
 
-**部分模板来源与灵神（0x3f）的仓库翻译**
+**部分模板来源与[灵神](https://github.com/EndlessCheng)的仓库Go代码翻译.**
 
-**🤗欢迎进行模板的补充，提PR**
+**🤗欢迎进行模板的补充，提PR.**
 
 
 ## 📖 Templates
