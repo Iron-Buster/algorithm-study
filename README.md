@@ -10,13 +10,13 @@
 
 ## 📖 Templates
 
-0. [二分查找](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/BisectTemplate.java)
-1. [位运算](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/BitsTemplate.java)
-2. [常用算法技巧 前缀和 差分 离散化](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/CommonTemplate.java)
+0. [二分查找 Binary Search](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/BisectTemplate.java)
+1. [位运算 Bit Ops](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/BitsTemplate.java)
+2. [常用算法技巧 前缀和 差分 离散化 Common Skills](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/CommonTemplate.java)
 3. [数位DP](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/DigitalDpTemplate.java)
-4. [DP](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/DP_Template.java)
-5. [树状数组](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/FenwickTreeTemplate.java)
-6. [图论 最短路](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/GraphTemplate.java)
+4. [动态规划 DP](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/DP_Template.java)
+5. [树状数组 FenwickTree](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/FenwickTreeTemplate.java)
+6. [图论 最短路 Graph](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/GraphTemplate.java)
 7. [LCA 最近公共祖先 倍增](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/LcaTemplate.java)
 8. [Make Pal String](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/MakePalString.java)
 9. [组合数学 Comb](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/MathCombTemplate.java)
@@ -24,7 +24,7 @@
 11. [单调栈](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/MonotoneStackTemplate.java)
 12. [搜索 DFS BFS](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/SearchTemplate.java)
 13. [线段树 Lazy Tag SegmentTree](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/SegmentTreeTemplate.java)
-14. [字符串 KMP 字符串哈希](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/StringTemplate.java)
+14. [字符串 KMP 字符串哈希 String Match](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/StringTemplate.java)
 15. [树上差分](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/TreeDiffTemplate.java)
 16. [树形DP 换根DP](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/TreeDP_Template.java)
 17. [字典树 O1Trie Xor Trie](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/TrieTemplate.java)
