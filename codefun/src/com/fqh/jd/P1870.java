@@ -3,7 +3,7 @@ package com.fqh.jd;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class Main {
+public class P1870 {
     // https://codefun2000.com/p/P1870
 
     public static void solve() throws IOException {
