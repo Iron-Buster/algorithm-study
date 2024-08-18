@@ -2,6 +2,9 @@ package com.fqh.滑动窗口;
 
 //https://leetcode.cn/problems/find-the-power-of-k-size-subarrays-ii/
 
+import java.util.HashMap;
+import java.util.TreeSet;
+
 public class BWK_T2 {
     public int[] resultsArray(int[] nums, int k) {
         int n = nums.length;
