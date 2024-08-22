@@ -23,7 +23,6 @@ public class MakePalString {
         // s[l] != s[r] --> f[l][r] = min(f[l+1][r],f[l][r-1]) + 1
         // ans -> f[0][n-1]
         String s = in.nextLine();
-
         int n = s.length();
         int[][] f = new int[n][n];
         for (int i = 1; i < n; i++) {
