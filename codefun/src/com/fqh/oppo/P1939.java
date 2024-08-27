@@ -1,35 +1,35 @@
 package com.fqh.oppo;
 
 import java.io.*;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.TreeMap;
 
 public class P1939 {
 
     // https://codefun2000.com/p/P1939
-    // 卡54
 
     public static void solve() throws IOException {
         int n = in.nextInt();
-        long[] a = new long[n];
-        TreeMap<Long, Integer> tmap = new TreeMap<>();
-        long minV = 0;
-        Integer[] pos = new Integer[n];
-        for (int i = 0; i < n; i++) {
-            a[i] = in.nextInt();
-            tmap.merge(a[i], 1, Integer::sum);
-            if (a[i] == minV) minV++;
-            pos[i] = i;
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) a[i] = in.nextInt();
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int v : a) {
+            if (v < n) map.merge(v, 1, Integer::sum);
         }
-        Arrays.sort(pos, (i, j) -> Long.compare(a[i], a[j]));
-        long[] ans = new long[n];
+        int mex = 0;
         for (int i = 0; i < n; i++) {
-            int p = pos[i];
-            if (tmap.get(a[p]) == 1) {
-                ans[p] = Math.min(a[p], minV);
+            if (map.getOrDefault(i, 0) == 0) {
+                mex = i;
+                break;
+            }
+        }
+        int[] ans = new int[n];
+        for (int i = 0; i < n; i++) {
+            if (a[i] < n && map.get(a[i]) == 1 && mex > a[i]) {
+                ans[i] = a[i];
             } else {
-                ans[p] = minV;
+                ans[i] = mex;
             }
         }
         for (long v : ans) out.print(v + " ");
