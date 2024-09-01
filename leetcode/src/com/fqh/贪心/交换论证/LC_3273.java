@@ -1,8 +1,10 @@
-package com.fqh.contests.bw138;
+package com.fqh.贪心.交换论证;
 
 import java.util.Arrays;
 
-public class D {
+public class LC_3273 {
+
+    // https://leetcode.cn/problems/minimum-amount-of-damage-dealt-to-bob/description/
 
     public long minDamage(int power, int[] damage, int[] health) {
         int n = damage.length;
