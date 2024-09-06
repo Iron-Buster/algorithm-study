@@ -76,5 +76,6 @@
 7. [淘天](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/taotian)
 8. [小红书](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/xiaohongshu)
 9. [携程](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/xiecheng)
+10. [小米](https://github.com/Iron-Buster/algorithm-study/tree/main/codefun/src/com/fqh/xiaomi)
 
 
