@@ -28,33 +28,30 @@ public class P1992 {
         for (int i = 0; i < n; i++) a[i] = in.nextInt();
         for (int i = 0; i < n; i++) b[i] = in.nextInt();
 
-        TreeSet<PII> tset = new TreeSet<>((x, y) -> x.value - y.value);
+        TreeSet<PII> tset1 = new TreeSet<>((x, y) -> x.value - y.value);
+        TreeSet<PII> tset2 = new TreeSet<>((x, y) -> x.value - y.value);
         for (int i = 0; i < n; i++) {
-            tset.add(new PII(b[i], i));
+            tset1.add(new PII(b[i], i));
+            tset2.add(new PII(a[i], i));
         }
         long ans = Long.MAX_VALUE / 2;
         for (int i = 0; i < n; i++) {
             int c1 = a[i] + b[i];
-            PII ceiling = tset.ceiling(new PII(a[i], 0));
+            PII ceiling = tset1.ceiling(new PII(a[i], 0));
             ans = Math.min(ans, c1);
             if (ceiling == null) {
                 ans = Math.min(ans, a[i]);
-            } else if (ceiling.index != i) {
+            }
+            if (ceiling != null && ceiling.index != i) {
                 ans = Math.min(ans, ceiling.value);
             }
-        }
-        tset.clear();
-        for (int i = 0; i < n; i++) {
-            tset.add(new PII(a[i], i));
-        }
-        for (int i = 0; i < n; i++) {
-            int c1 = a[i] + b[i];
-            PII ceiling = tset.ceiling(new PII(b[i], 0));
-            ans = Math.min(ans, c1);
-            if (ceiling == null) {
+
+            PII ceiling2 = tset2.ceiling(new PII(b[i], 0));
+            if (ceiling2 == null) {
                 ans = Math.min(ans, b[i]);
-            } else if (ceiling.index != i) {
-                ans = Math.min(ans, ceiling.value);
+            }
+            if (ceiling2 != null && ceiling2.index != i) {
+                ans = Math.min(ans, ceiling2.value);
             }
         }
         out.println(ans);
@@ -69,7 +66,7 @@ public class P1992 {
         out.close();
     }
 
-    static P1993.InputReader in = new P1993.InputReader();
+    static InputReader in = new InputReader();
     static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
     static class InputReader {
         private StringTokenizer st;
