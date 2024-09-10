@@ -31,7 +31,7 @@
 18. [字典树 O1Trie Xor Trie](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/TrieTemplate.java)
 19. [并查集 DSU](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/UnionFindTemplate.java)
 20. [带权区间选择问题](https://github.com/Iron-Buster/algorithm-study/blob/main/algorithm-constent-template/src/com/fqh/WeightedIntervalScheduling.java)
-## 🥲 LeetCode Problems
+## 🍔 LeetCode Problems
 0. [LCA问题/倍增](https://github.com/Iron-Buster/algorithm-study/tree/main/leetcode/src/com/fqh/LCA%E9%97%AE%E9%A2%98/%E5%80%8D%E5%A2%9E)
 1. [周赛/双周赛](https://github.com/Iron-Buster/algorithm-study/tree/main/leetcode/src/com/fqh/contests)
 2. [hot100题](https://github.com/Iron-Buster/algorithm-study/tree/main/leetcode/src/com/fqh/hot100)
