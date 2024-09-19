@@ -7,7 +7,7 @@ import java.util.TreeSet;
 
 
 public class LC_3288 {
-    // 离散化 + 树状树状维护最值
+    // 离散化 + 树状数组维护最值
     public int maxPathLength(int[][] coordinates, int k) {
         int n = coordinates.length;
         int[][] arr = new int[n][3];
