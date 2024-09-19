@@ -5,9 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
 
+/**
+ * <a href="https://leetcode.cn/problems/length-of-the-longest-increasing-path/description/">题目链接</a>
+ */
 
 public class LC_3288 {
     // 离散化 + 树状数组维护最值
+
     public int maxPathLength(int[][] coordinates, int k) {
         int n = coordinates.length;
         int[][] arr = new int[n][3];
