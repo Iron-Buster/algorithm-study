@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 public class LC_3306 {
 
+    // https://leetcode.cn/problems/count-of-substrings-containing-every-vowel-and-k-consonants-ii/description/
     static final HashSet<Character> set = new HashSet<>() {
         {
             add('a');
