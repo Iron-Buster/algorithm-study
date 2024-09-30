@@ -90,6 +90,14 @@ public class Main {
     }
 
 
+    static class E {
+
+        public static void solve() throws IOException {
+
+        }
+    }
+
+
     static boolean MULTI_CASE = false;
 
     public static void main(String[] args) throws Exception {
