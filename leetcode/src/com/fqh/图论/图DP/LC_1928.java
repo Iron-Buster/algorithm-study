@@ -27,11 +27,13 @@ public class LC_1928 {
             g[u].add(new int[]{v, wt});
             g[v].add(new int[]{u, wt});
         }
-        int[] dist = new int[n];
-        Arrays.fill(dist, -1);
+        int[][] dist = new int[n][maxTime+1];
+        for (int[] row : dist) {
+            Arrays.fill(row, Integer.MAX_VALUE);
+        }
         var pq = new PriorityQueue<int[]>((a, b) -> a[2] - b[2]);
         pq.offer(new int[]{0, 0, passingFees[0]});
-        dist[0] = passingFees[0];
+        dist[0][0] = passingFees[0];
         while (!pq.isEmpty()) {
             var p = pq.poll();
             int u = p[0], wt = p[1], cost = p[2];
@@ -41,12 +43,16 @@ public class LC_1928 {
             for (int[] next : g[u]) {
                 int v = next[0], wt1 = next[1], cost1 = passingFees[v];
                 if (wt + wt1 > maxTime) continue;
-                if (dist[v] != -1 && dist[v] > cost + cost1) {
-                    dist[v] = cost + cost1;
+                if (dist[v][wt+wt1] > cost + cost1) {
+                    dist[v][wt+wt1] = cost + cost1;
                     pq.offer(new int[]{v, wt + wt1, cost + cost1});
                 }
             }
         }
-        return -1;
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0; i <= maxTime; i++) {
+            ans = Math.min(ans, dist[n-1][i]);
+        }
+        return ans == Integer.MAX_VALUE ? -1 : ans;
     }
 }
