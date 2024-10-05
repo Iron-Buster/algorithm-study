@@ -1,7 +1,8 @@
 package com.fqh.动态规划.单调队列优化;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Map;
+import java.util.Deque;
 
 /**
  * @author ikun
@@ -32,19 +33,31 @@ public class LC_1425 {
 
     public int constrainedSubsetSum(int[] nums, int k) {
         int n = nums.length;
-        int[] w = new int[n+1];
-        int[] f = new int[n+1];
-        int[] q = new int[n+1];
-        for (int i = 0; i < n; i++) w[i+1] = nums[i];
-        int h = 1, t = 0;
-        int ans = 0;
-        for (int i = 1; i <= n; i++) {
-            while (h <= t && f[q[t]] <= f[i-1]) t--;
-            q[++t] = i - 1;
-            if (q[h] < i - k) h++;
-            f[i] = f[q[h]] + w[i];
-            if (i > n - k) ans = Math.max(ans, f[i]);
+        int[] dp = new int[n];
+        Deque<int[]> q = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) {
+            dp[i] = nums[i];
+            // 维护差值小于k
+            while (!q.isEmpty() && i - q.getFirst()[0] > k) {
+                q.removeFirst();
+            }
+            // 计算状态转移
+            if (!q.isEmpty()) {
+                dp[i] = Math.max(dp[i], q.getFirst()[1] + nums[i]);
+            }
+            // 维护单调性
+            while (!q.isEmpty() && q.getLast()[1] <= dp[i]) {
+                q.removeLast();
+            }
+            // 入队
+            q.addLast(new int[]{i, dp[i]});
         }
-        return ans;
+        return Arrays.stream(dp).max().getAsInt();
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {-7609,249,-1699,2385,9125,-9037,1107,-8228,856,-9526};
+        int k = 9;
+        System.out.println(new LC_1425().constrainedSubsetSum(nums, k));
     }
 }
