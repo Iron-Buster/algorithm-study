@@ -4,18 +4,18 @@ import java.util.Arrays;
 
 public class C {
 
-    int[][][] f;
+    int[][][] dp;
     static final int MOD = (int) (1e9 + 7);
-    int BIG = 0;
-    char[] al;
+    int OFFSET = 0;
+    char[] a;
 
     public int countWinningSequences(String s) {
         int n = s.length();
-        al = s.toCharArray();
-        BIG = n + 1;
+        a = s.toCharArray();
+        OFFSET = n + 1;
         int m = 'W'-'A';
-        f = new int[n][n+BIG][m];
-        for (int[][] arr : f) {
+        dp = new int[n][n+OFFSET][m+1];
+        for (int[][] arr : dp) {
             for (int[] row : arr) {
                 Arrays.fill(row, -1);
             }
@@ -23,24 +23,24 @@ public class C {
         return dfs(0, 0, 'A');
     }
 
-    public int dfs(int i, int val, char prev) {
-        if (i >= al.length) return val > 0 ? 1 : 0;
-        if (f[i][val+BIG][prev-'A'] != -1) return f[i][val+BIG][prev-'A'];
+    public int dfs(int i, int v, char prev) {
+        if (i >= a.length) return v > 0 ? 1 : 0;
+        if (dp[i][v+OFFSET][prev-'A'] != -1) return dp[i][v+OFFSET][prev-'A'];
         int ret = 0;
-        if (al[i] == 'F') {
-            if (prev != 'E')  ret += dfs(i + 1, val - 1, 'E');  ret %= MOD;
-            if (prev != 'F') ret += dfs(i + 1, val, 'F');           ret %= MOD;
-            if (prev != 'W') ret += dfs(i + 1, val + 1, 'W');   ret %= MOD;
-        } else if (al[i] == 'W') {
-            if (prev != 'F') ret += dfs(i + 1, val - 1, 'F');    ret %= MOD;
-            if (prev != 'W') ret += dfs(i + 1, val, 'W');            ret %= MOD;
-            if (prev != 'E') ret += dfs(i + 1, val + 1, 'E');    ret %= MOD;
+        if (a[i] == 'F') {
+            if (prev != 'E')  ret += dfs(i + 1, v - 1, 'E');  ret %= MOD;
+            if (prev != 'F') ret += dfs(i + 1, v, 'F');           ret %= MOD;
+            if (prev != 'W') ret += dfs(i + 1, v + 1, 'W');   ret %= MOD;
+        } else if (a[i] == 'W') {
+            if (prev != 'F') ret += dfs(i + 1, v - 1, 'F');    ret %= MOD;
+            if (prev != 'W') ret += dfs(i + 1, v, 'W');            ret %= MOD;
+            if (prev != 'E') ret += dfs(i + 1, v + 1, 'E');    ret %= MOD;
         } else {
-            if (prev != 'W') ret += dfs(i + 1, val - 1, 'W');     ret %= MOD;
-            if (prev != 'E') ret += dfs(i + 1, val, 'E');             ret %= MOD;
-            if (prev != 'F') ret += dfs(i + 1, val + 1, 'F');     ret %= MOD;
+            if (prev != 'W') ret += dfs(i + 1, v - 1, 'W');     ret %= MOD;
+            if (prev != 'E') ret += dfs(i + 1, v, 'E');             ret %= MOD;
+            if (prev != 'F') ret += dfs(i + 1, v + 1, 'F');     ret %= MOD;
         }
-        f[i][val+BIG][prev-'A'] = ret;
+        dp[i][v+OFFSET][prev-'A'] = ret;
         return ret;
     }
 }
