@@ -43,28 +43,28 @@ class StringHash {
     void init() {
         p[0] = 1;
         h[0] = 0;
-        for(int i = 1; i <= n; i ++){
-            p[i] = p[i-1]*P;
-            h[i] = h[i-1]*P+s[i];
+        for (int i = 1; i <= n; i++) {
+            p[i] = p[i - 1] * P;
+            h[i] = h[i - 1] * P + s[i];
         }
     }
 
     // 计算s[l~r]的 hash值
     long get(int l, int r) {
-        return h[r]-h[l-1]*p[r-l+1];
+        return h[r] - h[l - 1] * p[r - l + 1];
     }
 
     // 计算串的哈希值
     long calc(char[] s, int n) {
         h[0] = 0;
         for (int i = 1; i <= n; i++) {
-            h[i] = h[i-1]*P+s[i];
+            h[i] = h[i - 1] * P + s[i];
         }
         return h[n];
     }
 
     // 判断两子串是否相同
-    boolean substr(int l1,int r1,int l2,int r2){
+    boolean substr(int l1, int r1, int l2, int r2) {
         return get(l1, r1) == get(l2, r2);
     }
 
@@ -72,7 +72,7 @@ class StringHash {
         this.n = n;
         this.m = m;
         for (int i = 0; i < n; i++) {
-            s[i+1] = str.charAt(i);
+            s[i + 1] = str.charAt(i);
         }
         init();
     }
@@ -88,7 +88,8 @@ class KMP {
     int n, m;
     int[] next;
 
-    public KMP() {}
+    public KMP() {
+    }
 
     /**
      * 返回 b在a中匹配的第一次出现的位置
@@ -101,7 +102,7 @@ class KMP {
 
         this.s = a.toCharArray();
         this.p = b.toCharArray();
-        this.next = new int[m+1];
+        this.next = new int[m + 1];
 
         int[] next = new int[m + 1];
         for (int i = 2, j = 0; i <= m; i++) {
@@ -122,6 +123,7 @@ class KMP {
 
     /**
      * 返回 b在a中匹配的所有位置
+     *
      * @return 如果这些下标会被用来查找，则返回TreeSet。
      */
     List<Integer> matchAllIndex(String a, String b) {
@@ -132,7 +134,7 @@ class KMP {
 
         this.s = a.toCharArray();
         this.p = b.toCharArray();
-        this.next = new int[m+1];
+        this.next = new int[m + 1];
 
         List<Integer> list = new ArrayList<>();
         int[] next = new int[m + 1];
@@ -163,7 +165,7 @@ class KMP {
         int ans = 0;
         this.s = a.toCharArray();
         this.p = b.toCharArray();
-        this.next = new int[m+1];
+        this.next = new int[m + 1];
 
         int[] next = new int[m + 1];
         for (int i = 2, j = 0; i <= m; i++) {
@@ -180,6 +182,35 @@ class KMP {
             }
         }
         return ans;
+    }
+}
+
+/**
+ * Z函数（扩展KMP）
+ */
+class ZFunc {
+    char[] s;
+
+    public ZFunc(String str) {
+        this.s = str.toCharArray();
+    }
+
+    public int[] getZ() {
+        int n = s.length;
+        int[] z = new int[n];
+        for (int i = 0, l = 0, r = 0; i < n; i++) {
+            if (i <= r && z[i - l] < r - i + 1) {
+                z[i] = z[i - 1];
+            } else {
+                z[i] = Math.max(0, r - i + 1);
+                while (i + z[i] < n && s[z[i]] == s[i + z[i]]) z[i]++;
+            }
+            if (i + z[i] - 1 > r) {
+                l = i;
+                r = i + z[i] - 1;
+            }
+        }
+        return z;
     }
 }
 
