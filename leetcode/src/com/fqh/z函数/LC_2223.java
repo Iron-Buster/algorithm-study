@@ -5,9 +5,6 @@ import java.util.Arrays;
 public class LC_2223 {
 
     // https://leetcode.cn/problems/sum-of-scores-of-built-strings/description/
-
-
-
     public long sumScores(String s) {
         ZFunc zFunc = new ZFunc(s);
         int[] z = zFunc.getZ();
