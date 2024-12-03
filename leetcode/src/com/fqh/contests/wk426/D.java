@@ -8,6 +8,7 @@ public class D {
 
     //https://leetcode.cn/post-editor/solution/create/?submissionId=584845176
 
+    // https://leetcode.cn/problems/maximize-the-number-of-target-nodes-after-connecting-trees-ii/solutions/3009164/huan-gen-dpzuo-fa-java-by-meilicat-7lp2
     /**
      * 用dp[i][0]表示以节点i为根，偶数节点的数量。dp[i][1]表示以i为根，奇数节点的数量。
      * 考虑节点0和1，从0转换到1，其实就是0的奇数节点数量变成了1的偶数节点数量，0的偶数节点数量变成了1的奇数节点数量。首先计算出dp[0][0]和dp[0][1]，然后换根dp计算出其他根的数量。
