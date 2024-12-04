@@ -23,6 +23,52 @@ public class LC_743 {
 //
 //    现在，从某个节点 K 发出一个信号。需要多久才能使所有节点都收到信号？如果不能使所有节点收到信号，返回 -1 。
 
+
+    public int networkDelayTime1(int[][] times, int n, int k) {
+        List<int[]>[] g = new List[n + 1];
+        Arrays.setAll(g, v -> new ArrayList<>());
+        for (int[] t : times) {
+            int u = t[0], v = t[1], w = t[2];
+            g[u].add(new int[]{v, w});
+        }
+        int[] dist = new int[n + 1];
+        dijkstra0(k, n, g, dist);
+        int ans = Arrays.stream(dist).max().getAsInt();
+        return ans == Integer.MAX_VALUE ? -1 : ans;
+    }
+
+    /**
+     * 堆优化dijkstra
+     * @param start 起始节点
+     * @param end   目的节点
+     * @param g     图
+     * @param dist  距离数组
+     */
+    static void dijkstra0(int start, int end, List<int[]>[] g, int[] dist) {
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Long.compare(a[1], b[1]));
+        boolean[] vis = new boolean[g.length];
+        pq.offer(new int[]{start, 0});
+        dist[start] = 0;
+        while (!pq.isEmpty()) {
+            int[] p = pq.poll();
+            int u = p[0];
+            if (u == end) return;
+            if (vis[u]) continue;
+            vis[u] = true;
+            for (int[] next : g[u]) {
+                int v = next[0], w = next[1];
+                if (dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    pq.offer(new int[]{v, dist[v]});
+                }
+            }
+        }
+    }
+
+
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
     public int networkDelayTime(int[][] times, int n, int k) {
         g = new ArrayList[n + 1];
         dist = new long[n + 1];
