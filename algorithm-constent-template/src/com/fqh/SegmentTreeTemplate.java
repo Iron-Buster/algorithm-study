@@ -714,3 +714,101 @@ class SegmentTreeIntervalSumMaxMin {
     }
 }
 
+// 01区间翻转线段树模板
+class SegmentTreeO1Flip {
+    static final int MAX = (int) (1e5 + 10);
+
+    int n, m;
+    long[] a;
+    SegmentTreeO1Flip.Node[] tree;
+
+    public SegmentTreeO1Flip(int n) {
+        this.n = n;
+        this.tree = new SegmentTreeO1Flip.Node[MAX << 2];
+        this.a = new long[n + 1];
+    }
+
+    class Node {
+        long sum, lz; // 总和、lazy标记
+        long mx, mn; // 最大值max、最小值min
+
+        public Node() {
+            this.sum = 0;
+            this.lz = 0;
+            this.mx = Long.MIN_VALUE;
+            this.mn = Long.MAX_VALUE;
+        }
+    }
+
+    public void pushUp(int p) {
+        tree[p].sum = tree[2 * p].sum + tree[2 * p + 1].sum;
+    }
+
+    public void pushDown(int s, int t, int mid, int p) {
+        if (tree[p].lz == 0) return;
+        tree[2 * p].sum = (mid - s + 1) - tree[2 * p].sum; // 翻转左子区间的值
+        tree[2 * p].lz ^= 1;                               // 左子节点懒标记翻转
+
+        tree[2 * p + 1].sum = (t - mid) - tree[2 * p + 1].sum; // 翻转右子区间的值
+        tree[2 * p + 1].lz ^= 1;                           // 右子节点懒标记翻转
+
+        tree[p].lz = 0;
+    }
+
+    public void build(int s, int t, int p) {
+        tree[p] = new SegmentTreeO1Flip.Node();
+        tree[p].lz = 0;
+        if (s == t) {
+            tree[p].sum = a[s];
+            return;
+        }
+        int mid = (s + t) / 2;
+        build(s, mid, 2 * p);
+        build(mid + 1, t, 2 * p + 1);
+        pushUp(p);
+    }
+
+    // 如果是单点修改 那么l=r
+    public void update(int l, int r, int s, int t, int p) {
+        if (l <= s && t <= r) {
+            tree[p].sum = (t - s + 1) - tree[p].sum; // 翻转的区间和
+            tree[p].lz ^= 1;                                // 标记区间需要翻转
+            return;
+        }
+        int mid = (s + t) / 2;
+        pushDown(s, t, mid, p);
+        if (l <= mid) {
+            update(l, r, s, mid, 2 * p);
+        }
+        if (r > mid) {
+            update(l, r, mid + 1, t, 2 * p + 1);
+        }
+        pushUp(p);
+    }
+
+    public void update(int l, int r) {
+        update(l, r, 1, n, 1);
+    }
+
+    // l=r表示当前tree[l]的值
+    public long getSum(int l, int r, int s, int t, int p) {
+        if (l <= s && t <= r) {
+            return tree[p].sum;
+        }
+        int mid = (s + t) / 2;
+        pushDown(s, t, mid, p);
+        long sum = 0;
+        if (l <= mid) {
+            sum += getSum(l, r, s, mid, 2 * p);
+        }
+        if (r > mid) {
+            sum += getSum(l, r, mid + 1, t, 2 * p + 1);
+        }
+        return sum;
+    }
+
+    public long getSum(int l, int r) {
+        return getSum(l, r, 1, n, 1);
+    }
+}
+
