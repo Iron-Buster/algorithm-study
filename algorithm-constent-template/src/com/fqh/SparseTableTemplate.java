@@ -15,6 +15,7 @@ public class SparseTableTemplate {
     }
 }
 
+// ST表维护区间最值
 class SparseTable {
     private int[][] st; // st[i][j] 表示区间 [i, i + 2^j - 1] 的最大值
     private int[] log;
@@ -46,5 +47,50 @@ class SparseTable {
     public int query(int L, int R) {
         int j = log[R - L + 1];
         return Math.max(st[L][j], st[R - (1 << j) + 1][j]);
+    }
+}
+
+// ST表维护区间GCD
+class SparseTableGCD {
+    private int[][] st; // st[i][j] 表示区间 [i, i + 2^j - 1] 的最大值
+    private int[] log;
+    private int n;
+
+    public SparseTableGCD(int[] arr) {
+        n = arr.length;
+        int logN = Integer.highestOneBit(n) * 2 - 1; // log2(n)
+        log = new int[n + 1];
+        st = new int[n][20];
+
+        for (int i = 2; i <= n; i++) {
+            log[i] = log[i / 2] + 1;
+        }
+
+        for (int i = 0; i < n; i++) {
+            st[i][0] = arr[i];
+        }
+
+        // 构建 st表
+        for (int j = 1; (1 << j) <= n; j++) {
+            for (int i = 0; i + (1 << j) - 1 < n; i++) {
+                st[i][j] = gcd(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
+            }
+        }
+    }
+
+    // 查询区间 [L, R] 的最大值
+    public int query(int L, int R) {
+        int j = log[R - L + 1];
+        return gcd(st[L][j], st[R - (1 << j) + 1][j]);
+    }
+
+    // 计算两个数的 GCD
+    public int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
     }
 }
