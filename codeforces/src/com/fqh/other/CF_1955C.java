@@ -1,42 +1,45 @@
-package com.fqh;
+package com.fqh.other;
 
 import java.io.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
-public class CF_1345B {
+public class CF_1955C {
 
-
-//    http://codeforces.com/problemset/problem/1354/B
+//    https://codeforces.com/problemset/problem/1955/C
 //
-//    输入 T(≤2e4) 表示 T 组数据。所有数据的字符串长度之和 ≤2e5。
-//    每组数据输入一个长度 ≤2e5 的字符串 s，只包含数字 '1' '2' '3'。
+//    输入 T(≤1e4) 表示 T 组数据。所有数据的 n 之和 ≤2e5。
+//    每组数据输入 n(1≤n≤2e5) k(1≤k≤1e15) 和长为 n 的数组 a(1≤a[i]≤1e9)。
 //
-//    输出 s 中的最短子串的长度，该子串必须包含所有 '1' '2' '3' 三种字符。
-//    如果没有这样的子串，输出 0。
+//    有 n 个石子堆，每堆的石子个数记录在数组 a 中。
+//    按照如下顺序取石子：
+//    从最左边的有石子的堆中取出一颗石子，然后从最右边的有石子的堆中取出一颗石子，重复上述过程，左右左右取石子。
+//    你至多取出 k 颗石子。
+//
+//    你可以把多少堆石子变成空的？
 
-    // 滑动窗口求最短
-    public static void solve() throws Exception {
-        var s = in.nextLine();
-        int n = s.length();
-        int[] map = new int['9'];
-        int j = 0;
-        int ans = Integer.MAX_VALUE;
+    public static void solve() throws IOException {
+        int n = in.nextInt();
+        long k = in.nextLong();
+        long[] a = new long[n];
         for (int i = 0; i < n; i++) {
-            map[s.charAt(i)]++;
-            while (j < i && map['1'] >= 1 && map['2'] >= 1 && map['3'] >= 1) {
-                ans = Math.min(ans, i - j + 1);
-                map[s.charAt(j)]--;
-                j++;
-            }
+            a[i] = in.nextLong();
         }
-        if (ans == Integer.MAX_VALUE) {
-            out.println(0);
-        } else {
-            out.println(ans);
+        if (k >= Arrays.stream(a).sum()) {
+            out.println(n);
+            return;
         }
+        int i = 0, j = n - 1;
+        for (long left = (k + 1) / 2; left >= a[i]; i++) {
+            left -= a[i];
+        }
+        for (long left = k / 2; left >= a[i]; j--) {
+            left -= a[j];
+        }
+        out.println(i + n - 1 - j);
     }
 
-    static boolean MULTI_CASE = true;
+    static boolean MULTI_CASE = false;
 
     public static void main(String[] args) throws Exception {
         int T = MULTI_CASE ? in.nextInt() : 1;

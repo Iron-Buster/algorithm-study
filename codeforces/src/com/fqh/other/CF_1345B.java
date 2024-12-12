@@ -1,38 +1,43 @@
-package com.fqh;
+package com.fqh.other;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.util.*;
 
-/**
- * @author ikun
- * @version v1.0.0
- * @since 2024/5/16 23:47
- **/
-public class CF_1165E {
+public class CF_1345B {
 
 
-    static final long MOD = 998244353;
+//    http://codeforces.com/problemset/problem/1354/B
+//
+//    输入 T(≤2e4) 表示 T 组数据。所有数据的字符串长度之和 ≤2e5。
+//    每组数据输入一个长度 ≤2e5 的字符串 s，只包含数字 '1' '2' '3'。
+//
+//    输出 s 中的最短子串的长度，该子串必须包含所有 '1' '2' '3' 三种字符。
+//    如果没有这样的子串，输出 0。
 
-    public static void solve() throws IOException {
-        int n = in.nextInt();
-        Long[] a = new Long[n];
-        Long[] b = new Long[n];
-        for (int i = 0; i < n; i++) a[i] = in.nextLong();
-        for (int i = 0; i < n; i++) b[i] = in.nextLong();
+    // 滑动窗口求最短
+    public static void solve() throws Exception {
+        var s = in.nextLine();
+        int n = s.length();
+        int[] map = new int['9'];
+        int j = 0;
+        int ans = Integer.MAX_VALUE;
         for (int i = 0; i < n; i++) {
-            a[i] = a[i] * (i + 1) * (n - i);
+            map[s.charAt(i)]++;
+            while (j < i && map['1'] >= 1 && map['2'] >= 1 && map['3'] >= 1) {
+                ans = Math.min(ans, i - j + 1);
+                map[s.charAt(j)]--;
+                j++;
+            }
         }
-        Arrays.sort(a);
-        Arrays.sort(b, (x, y) -> Long.compare(y, x));
-        long ans = 0;
-        for (int i = 0; i < n; i++) {
-            ans = (ans + a[i] % MOD * b[i]) % MOD;
+        if (ans == Integer.MAX_VALUE) {
+            out.println(0);
+        } else {
+            out.println(ans);
         }
-        out.println(ans);
     }
 
-    static boolean MULTI_CASE = false;
+    static boolean MULTI_CASE = true;
+
     public static void main(String[] args) throws Exception {
         int T = MULTI_CASE ? in.nextInt() : 1;
         while (T-- > 0) {
@@ -43,6 +48,7 @@ public class CF_1165E {
 
     static InputReader in = new InputReader();
     static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+
     static class InputReader {
         private StringTokenizer st;
         private BufferedReader bf;

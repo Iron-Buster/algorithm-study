@@ -1,48 +1,62 @@
-package com.fqh;
+package com.fqh.other;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.util.*;
 
-public class CF_1955C {
+/**
+ * @author ikun
+ * @version v1.0.0
+ * @since 2024/1/23 10:15
+ **/
+public class CF_91B {
 
-//    https://codeforces.com/problemset/problem/1955/C
+//    https://codeforces.com/problemset/problem/91/B
 //
-//    输入 T(≤1e4) 表示 T 组数据。所有数据的 n 之和 ≤2e5。
-//    每组数据输入 n(1≤n≤2e5) k(1≤k≤1e15) 和长为 n 的数组 a(1≤a[i]≤1e9)。
+//    输入 n(2≤n≤2e5) 和长为 n 的数组 a(1≤a[i]≤1e9)。
+//    对于每个 i，输出 j-i-1 的最大值，其中 j 满足 j>i 且 a[j]<a[i]。如果不存在这样的 j，输出 -1。
+
+//    输入
+//    6
+//        10 8 5 3 50 45
+//    输出 2 1 0 -1 0 -1
 //
-//    有 n 个石子堆，每堆的石子个数记录在数组 a 中。
-//    按照如下顺序取石子：
-//    从最左边的有石子的堆中取出一颗石子，然后从最右边的有石子的堆中取出一颗石子，重复上述过程，左右左右取石子。
-//    你至多取出 k 颗石子。
+//    输入
+//    7
+//        10 4 6 3 2 8 15
+//    输出 4 2 1 0 -1 -1 -1
 //
-//    你可以把多少堆石子变成空的？
+//    输入
+//    5
+//        10 3 1 10 11
+//    输出 1 0 -1 -1 -1
 
     public static void solve() throws IOException {
         int n = in.nextInt();
-        long k = in.nextLong();
-        long[] a = new long[n];
+        int[] a = new int[n];
         for (int i = 0; i < n; i++) {
-            a[i] = in.nextLong();
+            a[i] = in.nextInt();
         }
-        if (k >= Arrays.stream(a).sum()) {
-            out.println(n);
-            return;
+        int[] ans = new int[n];
+        var tmap = new TreeMap<Integer, Integer>();
+        for (int i = n - 1; i >= 0; i--) {
+            var entry = tmap.lowerEntry(a[i]);
+            if (entry == null) {
+                ans[i] = -1;
+            } else {
+                ans[i] = entry.getValue() - i - 1;
+            }
+            if (tmap.isEmpty() || a[i] < tmap.firstKey()) {
+                tmap.put(a[i], i);
+            }
         }
-        int i = 0, j = n - 1;
-        for (long left = (k + 1) / 2; left >= a[i]; i++) {
-            left -= a[i];
+        for (int i = 0; i < n; i++) {
+            out.print(ans[i] + " ");
         }
-        for (long left = k / 2; left >= a[i]; j--) {
-            left -= a[j];
-        }
-        out.println(i + n - 1 - j);
+        out.println();
     }
 
-    static boolean MULTI_CASE = false;
-
     public static void main(String[] args) throws Exception {
-        int T = MULTI_CASE ? in.nextInt() : 1;
+        int T = 1;
         while (T-- > 0) {
             solve();
         }
@@ -51,7 +65,6 @@ public class CF_1955C {
 
     static InputReader in = new InputReader();
     static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
-
     static class InputReader {
         private StringTokenizer st;
         private BufferedReader bf;

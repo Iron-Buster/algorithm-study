@@ -1,4 +1,4 @@
-package com.fqh;
+package com.fqh.other;
 
 import java.io.*;
 import java.util.StringTokenizer;

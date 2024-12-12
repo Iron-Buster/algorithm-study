@@ -1,63 +1,77 @@
-package com.fqh;
+package com.fqh.other;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
-/**
- * @author ikun
- * @version v1.0.0
- * @since 2024/1/30 09:43
- **/
-public class CF_1717C {
-//    https://codeforces.com/problemset/problem/1717/C
-//
-//    输入 T(≤4e4) 表示 T 组数据。所有数据的 n 之和 ≤2e5。
-//    每组数据输入 n(2≤n≤2e5) 和长为 n 的数组 a(1≤a[i]≤1e9)，长为 n 的数组 b(1≤a[i]≤1e9)。
-//
-//    你可以执行如下操作任意次：
-//    选择一个下标 i，满足 a[i] <= a[(i+1)%n]，然后把 a[i] 增加 1。
-//
-//    能否把 a 变成 b？输出 YES 或 NO。
+public class CF_2008D {
 
-//    输入
-//        5
-//        3
-//        1 2 5
-//        1 2 5
-//        2
-//        2 2
-//        1 3
-//        4
-//        3 4 1 2
-//        6 4 2 5
-//        3
-//        2 4 1
-//        4 5 3
-//        5
-//        1 2 3 4 5
-//        6 5 6 7 6
-//    输出
-//            YES
-//            NO
-//            NO
-//            NO
-//            YES
+//    https://codeforces.com/contest/2008/problem/D
+
     public static void solve() throws IOException {
         int n = in.nextInt();
         int[] a = new int[n];
-        int[] b = new int[n];
-        for (int i = 0; i < n; i++) a[i] = in.nextInt();
-        for (int i = 0; i < n; i++) b[i] = in.nextInt();
         for (int i = 0; i < n; i++) {
-            if (a[i] > b[i] || (a[i] < b[i] && b[i] > b[(i+1)%n] + 1)) {
-                out.println("NO");
-                return;
-            }
+            a[i] = in.nextInt() - 1;
         }
-        out.println("YES");
+        char[] s = in.nextLine().toCharArray();
+        DSU dsu = new DSU(n, s);
+
+        for (int i = 0; i < n; i++) {
+            if (a[i] == i) continue;
+            dsu.union(i, a[i]);
+        }
+
+        // 0-黑色 1-白色
+        int[] ans = new int[n];
+        for (int i = 0; i < n; i++) {
+            int r = dsu.find(i);
+            ans[i] = dsu.size[r];
+        }
+        for (int v : ans) out.print(v + " ");
+        out.println();
     }
 
+
+    static class DSU {
+        int n;
+        int[] fa;
+        int[] size;
+
+        public DSU(int n, char[] c) {
+            this.n = n;
+            this.fa = new int[n];
+            this.size = new int[n]; // 记录黑块数量
+            for (int i = 0; i < n; i++) {
+                fa[i] = i;
+                if (c[i] == '0') size[i] = 1;
+            }
+        }
+
+        public int find(int x) {
+            while (x != fa[x]) {
+                fa[x] = fa[fa[x]];
+                x = fa[x];
+            }
+            return x;
+        }
+
+        public void union(int x, int y) {
+            int rx = find(x);
+            int ry = find(y);
+            if (rx == ry) return;
+            if (size[rx] > size[ry]) {
+                fa[ry] = rx;
+                size[rx] += size[ry];
+            } else {
+                fa[rx] = ry;
+                size[ry] += size[rx];
+            }
+        }
+    }
+
+
     static boolean MULTI_CASE = true;
+
     public static void main(String[] args) throws Exception {
         int T = MULTI_CASE ? in.nextInt() : 1;
         while (T-- > 0) {
@@ -68,6 +82,7 @@ public class CF_1717C {
 
     static InputReader in = new InputReader();
     static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+
     static class InputReader {
         private StringTokenizer st;
         private BufferedReader bf;

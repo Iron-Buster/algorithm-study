@@ -1,54 +1,56 @@
-package com.fqh;
+package com.fqh.other;
 
 import java.io.*;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * @author ikun
  * @version v1.0.0
- * @since 2024/2/5 12:25
+ * @since 2024/4/22 20:07
  **/
-public class CF_1747C {
-
-//    https://codeforces.com/problemset/problem/1747/C
+public class CF_940B {
+//    https://codeforces.com/problemset/problem/940/B
 //
-//    输入 T(≤2e4) 表示 T 组数据。所有数据的 n 之和 ≤2e5。
-//    每组数据输入 n(2≤n≤1e5) 和长为 n 的数组 a(1≤a[i]≤1e9)，下标从 1 开始。
+//    输入 n k a b (1≤n,k,a,b≤2e9)。
 //
-//    Alice 和 Bob 玩回合制游戏，Alice 先。
-//    每回合，如果 a1=0，那么当前玩家输掉游戏，对手获胜。
-//    否则当前玩家把 a1 减少一，然后选择一个下标在 [2,n] 中的数字和 a1 交换。
+//    有两种操作：
+//    花费 a，把 n 减一。
+//    如果 n 是 k 的倍数，花费 b，把 n 变成 n/k。
 //
-//    双方都以最佳方式游戏，输出最后谁赢了。
+//    输出把 n 变成 1 的最小总花费。
+//
+//    相似题目：
+//            1553. 吃掉 N 个橘子的最少天数
+//397. 整数替换
 
-//    输入
-//        3
-//        2
-//        1 1
-//        2
-//        2 1
-//        3
-//        5 4 4
-//    输出
-//            Bob
-//            Alice
-//            Alice
+    static long n, k, a, b;
+    static HashMap<Long, Long> dp;
 
-    public static void solve() throws IOException {
-        int n = in.nextInt();
-        int[] a = new int[n];
-        for (int i = 0; i < n; i++) a[i] = in.nextInt();
-        int x = a[0];
-        int y = Integer.MAX_VALUE;
-        for (int i = 1; i < n; i++) y = Math.min(y, a[i]);
-        if (x > y) {
-            out.println("Alice");
-        } else {
-            out.println("Bob");
-        }
+    public static long dfs(long x) {
+        if (x < k) return (x - 1) * a;
+        if (dp.containsKey(x)) return dp.get(x);
+        long cnt = x % k;                        // 让x是k的倍数所需要的操作次数
+        long res1 = (x - 1) * a;                 // 全部用操作a
+        long res2 = cnt * a + dfs(x / k) + b; // 先cnt个操作a 然后用操作b
+        long ans = Math.min(res1, res2);
+        dp.put(x, ans);
+        return ans;
     }
 
-    static boolean MULTI_CASE = true;
+    public static void solve() throws IOException {
+        n = in.nextLong();
+        k = in.nextLong();
+        a = in.nextLong();
+        b = in.nextLong();
+        dp = new HashMap<>();
+        if (k == 1) {
+            out.println((n - 1) * a);
+            return;
+        }
+        out.println(dfs(n));
+    }
+
+    static boolean MULTI_CASE = false;
     public static void main(String[] args) throws Exception {
         int T = MULTI_CASE ? in.nextInt() : 1;
         while (T-- > 0) {

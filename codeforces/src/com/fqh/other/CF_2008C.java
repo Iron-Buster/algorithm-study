@@ -1,46 +1,31 @@
-package com.fqh.GOOD_BYE2023;
+package com.fqh.other;
+
 
 import java.io.*;
 import java.util.StringTokenizer;
 
-/**
- * @author ikun
- * @version v1.0.0
- * @since 2023/12/30 22:33
- **/
-public class A {
+public class CF_2008C {
 
 
+//    https://codeforces.com/contest/2008/problem/C
 
     public static void solve() throws IOException {
-        int n = in.nextInt();
-        int k = in.nextInt();
-        int[] b = new int[n];
-        for (int i = 0; i < n; i++) {
-            b[i] = in.nextInt();
-
+        int l = in.nextInt();
+        int r = in.nextInt();
+        int p = 1;
+        int ans = 0;
+        while (l <= r) {
+            l += p;
+            p++;
+            ans++;
         }
-        long s = 1;
-        for (int x : b) {
-            s *= x;
-        }
-        if (2023L % s != 0) {
-            out.println("NO");
-        } else {
-            long v = 2023L / s;
-            out.println("YES");
-            for (int i = 1; i <= k; i++) {
-                if (i == k) {
-                    out.print(v + "\n");
-                } else {
-                    out.print(1 + " ");
-                }
-            }
-        }
+        out.println(ans);
     }
 
+    static boolean MULTI_CASE = true;
+
     public static void main(String[] args) throws Exception {
-        int T = in.nextInt();
+        int T = MULTI_CASE ? in.nextInt() : 1;
         while (T-- > 0) {
             solve();
         }
@@ -49,6 +34,7 @@ public class A {
 
     static InputReader in = new InputReader();
     static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+
     static class InputReader {
         private StringTokenizer st;
         private BufferedReader bf;

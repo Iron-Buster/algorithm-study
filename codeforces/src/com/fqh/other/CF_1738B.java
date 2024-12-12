@@ -1,55 +1,66 @@
-package com.fqh;
+package com.fqh.other;
+
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class CF_1082B {
+/**
+ * @author ikun
+ * @version v1.0.0
+ * @since 2024/2/12 10:52
+ **/
+public class CF_1738B {
 
-    // https://codeforces.com/problemset/problem/1082/B
-    // 贪心：枚举S 求下S左右两边连续G的个数
+//    https://codeforces.com/problemset/problem/1738/B
+//
+//    输入 T(≤1e5) 表示 T 组数据。所有数据的 n 之和 ≤1e5。
+//    每组数据输入 n k (1≤k≤n≤1e5) 和 k 个整数，范围 [-1e9,1e9]。
+//
+//    这 k 个数是一个长为 n 的非降数组的前缀和的最后 k 项（从左到右）。
+//    是否存在这样的非降数组？输出 Yes 或 No。
+
+//    输入
+//4
+//        5 5
+//        1 2 3 4 5
+//        7 4
+//        -6 -5 -3 0
+//        3 3
+//        2 3 4
+//        3 2
+//        3 4
+//    输出
+//            Yes
+//    Yes
+//            No
+//    No
+//            解释
+//    这四组数据，对应的数组分别可能是
+//[1,1,1,1,1]
+//        [-3,-2,-1,0,1,2,3]
+//        [2,1,1]
+//        [1,2,1]
+//    后两个数组不是非降数组
+
+
     public static void solve() throws IOException {
         int n = in.nextInt();
-        char[] s = in.nextLine().toCharArray();
-        int gcnt = 0, scnt = 0;
-        for (char c : s) {
-            if (c == 'G') gcnt++;
-            else scnt++;
-        }
-        if (scnt == 0) {
-            out.println(gcnt);
+        int k = in.nextInt();
+        long[] s = new long[k];
+        for (int i = 0; i < k; i++) s[i] = in.nextLong();
+        if (k > 1 && s[0] > (n - k + 1) * (s[1] - s[0])) {
+            out.println("NO");
             return;
         }
-        if (gcnt == 0) {
-            out.println(0);
-            return;
-        }
-        int[] left = new int[n];
-        int[] right = new int[n];
-        left[0] = s[0] == 'G' ? 1 : 0;
-        int cnt = left[0];
-        for (int i = 1; i < n; i++) {
-            if (s[i] == 'S') cnt = 0;
-            else left[i] = ++cnt;
-        }
-        right[n-1] = s[n-1] == 'G' ? 1 : 0;
-        cnt = right[n-1];
-        for (int i = n - 2; i >= 0; i--) {
-            if (s[i] == 'S') cnt = 0;
-            else right[i] = ++cnt;
-        }
-        int ans = 0;
-        for (int i = 0; i < n; i++) {
-            if (s[i] == 'S') {
-                int c1 = i - 1 >= 0 ? left[i-1] : 0;
-                int c2 = i + 1 < n ? right[i+1] : 0;
-                boolean flag = c1 + c2 == gcnt;
-                ans = Math.max(ans, c1 + c2 + (flag ? 0 : 1));
+        for (int i = 2; i < k; i++) {
+            if (s[i-1] * 2 > s[i] + s[i-2]) {
+                out.println("NO");
+                return;
             }
         }
-        out.println(ans);
+        out.println("YES");
     }
 
-    static boolean MULTI_CASE = false;
-
+    static boolean MULTI_CASE = true;
     public static void main(String[] args) throws Exception {
         int T = MULTI_CASE ? in.nextInt() : 1;
         while (T-- > 0) {
@@ -60,7 +71,6 @@ public class CF_1082B {
 
     static InputReader in = new InputReader();
     static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
-
     static class InputReader {
         private StringTokenizer st;
         private BufferedReader bf;

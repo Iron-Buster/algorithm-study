@@ -1,66 +1,50 @@
-package com.fqh;
+package com.fqh.other;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-/**
- * @author ikun
- * @version v1.0.0
- * @since 2024/2/12 10:52
- **/
-public class CF_1738B {
+public class CF_2008E {
 
-//    https://codeforces.com/problemset/problem/1738/B
-//
-//    输入 T(≤1e5) 表示 T 组数据。所有数据的 n 之和 ≤1e5。
-//    每组数据输入 n k (1≤k≤n≤1e5) 和 k 个整数，范围 [-1e9,1e9]。
-//
-//    这 k 个数是一个长为 n 的非降数组的前缀和的最后 k 项（从左到右）。
-//    是否存在这样的非降数组？输出 Yes 或 No。
-
-//    输入
-//4
-//        5 5
-//        1 2 3 4 5
-//        7 4
-//        -6 -5 -3 0
-//        3 3
-//        2 3 4
-//        3 2
-//        3 4
-//    输出
-//            Yes
-//    Yes
-//            No
-//    No
-//            解释
-//    这四组数据，对应的数组分别可能是
-//[1,1,1,1,1]
-//        [-3,-2,-1,0,1,2,3]
-//        [2,1,1]
-//        [1,2,1]
-//    后两个数组不是非降数组
-
+//    https://codeforces.com/contest/2008/problem/E
 
     public static void solve() throws IOException {
         int n = in.nextInt();
-        int k = in.nextInt();
-        long[] s = new long[k];
-        for (int i = 0; i < k; i++) s[i] = in.nextLong();
-        if (k > 1 && s[0] > (n - k + 1) * (s[1] - s[0])) {
-            out.println("NO");
-            return;
-        }
-        for (int i = 2; i < k; i++) {
-            if (s[i-1] * 2 > s[i] + s[i-2]) {
-                out.println("NO");
-                return;
+        int[] a = in.nextLine().chars().map(x -> x - 'a').toArray();
+        if (n % 2 == 0) {
+            int[][] g = new int[2][26];
+            for (int i = 0; i < n; i++) g[i % 2][a[i]]++;
+            int v1 = Arrays.stream(g[0]).max().getAsInt();
+            int v2 = Arrays.stream(g[1]).max().getAsInt();
+            out.println(n - v1 - v2);
+        } else {
+            // 枚举删除 i
+            // abcdefg
+            // 010 010
+            // 0101 10
+            int[][] g1 = new int[2][26];
+            int[][] g2 = new int[2][26];
+            for (int i = 0; i < n; i++) g2[i % 2][a[i]]++;
+            int res = n;
+            for (int i = 0; i < n; i++) {
+                g2[i % 2][a[i]]--;
+                int m1 = 0, m2 = 0;
+                for (int j = 0; j < 26; j++) {
+                    // 删除i后，右边的奇偶性变化
+                    // m1:左边的偶数 + 右边的偶数
+                    // m2:左边的奇数 + 右边的奇数
+                    m1 = Math.max(m1, g1[0][j] + g2[1][j]);
+                    m2 = Math.max(m2, g1[1][j] + g2[0][j]);
+                }
+                res = Math.min(res, n - m1 - m2);
+                g1[i % 2][a[i]]++;
             }
+            out.println(res);
         }
-        out.println("YES");
     }
 
     static boolean MULTI_CASE = true;
+
     public static void main(String[] args) throws Exception {
         int T = MULTI_CASE ? in.nextInt() : 1;
         while (T-- > 0) {
@@ -71,6 +55,7 @@ public class CF_1738B {
 
     static InputReader in = new InputReader();
     static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+
     static class InputReader {
         private StringTokenizer st;
         private BufferedReader bf;

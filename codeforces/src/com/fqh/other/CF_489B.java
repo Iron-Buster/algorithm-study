@@ -1,4 +1,4 @@
-package com.fqh;
+package com.fqh.other;
 
 import java.io.*;
 import java.util.*;
@@ -6,50 +6,58 @@ import java.util.*;
 /**
  * @author ikun
  * @version v1.0.0
- * @since 2024/1/23 17:09
+ * @since 2024/1/29 10:33
  **/
-public class CF_1921D {
+public class CF_489B {
 
-    // WAWAWAWA
+//    https://codeforces.com/problemset/problem/489/B
+//
+//    输入 n(1≤n≤100) 和长为 n 的数组 a(1≤a[i]≤100)。
+//    输入 m(1≤m≤100) 和长为 m 的数组 b(1≤b[i]≤100)。
+//
+//    你可以从 a b 中各选一个数字，组成一个数对 (a[i],b[j])，要求 |a[i]-b[j]|<=1。
+//    选过的数字不能再选，最多可以选出多少个数对？
+
+//    输入
+//        4
+//        1 4 6 2
+//        5
+//        5 1 5 7 9
+//    输出 3
+
     public static void solve() throws IOException {
         int n = in.nextInt();
-        int m = in.nextInt();
         int[] a = new int[n];
-        TreeMap<Integer, Integer> b = new TreeMap<>();
-        for (int i = 0; i < n; i++) a[i] = in.nextInt();
-        for (int i = 0; i < m; i++) {
-            int v = in.nextInt();
-            b.merge(v, 1, Integer::sum);
+        for (int i = 0; i < n; i++) {
+            a[i] = in.nextInt();
         }
         Arrays.sort(a);
-        long ans = 0;
-        int i = 0, j = n - 1;
-        while (i <= j) {
-            if (i == j) {
-                Integer mx = b.lastKey();
-                Integer mn = b.firstKey();
-                ans += Math.max(Math.abs(mx - a[i]), Math.abs(mn - a[i]));
-                break;
+        int m = in.nextInt();
+        int[] b = new int[m];
+        for (int i = 0; i < m; i++) {
+            b[i] = in.nextInt();
+        }
+        Arrays.sort(b);
+        int ans = 0;
+        int i = 0, j = 0;
+        // 1 2 4 6
+        // 1 5 5 7 9
+        while (i < n) {
+            while (i < n && j < m && Math.abs(a[i] - b[j]) > 1) {
+                if (a[i] > b[j]) j++;
+                else i++;
             }
-            Integer mx = b.lastKey();
-            if (mx != null) {
-                ans += Math.abs(mx - a[i]);
-                b.merge(mx, -1, Integer::sum);
-                if (b.get(mx) == 0) b.remove(mx);
-            }
-            Integer mn = b.firstKey();
-            if (mn != null) {
-                ans += Math.abs(mn - a[j]);
-                b.merge(mn, -1, Integer::sum);
-                if (b.get(mn) == 0) b.remove(mn);
-            }
-            i++; j--;
+            if (i >= n || j >= m) break;
+            ans++;
+            i++;
+            j++;
         }
         out.println(ans);
     }
 
+    static boolean MULTI_CASE = false;
     public static void main(String[] args) throws Exception {
-        int T = in.nextInt();
+        int T = MULTI_CASE ? in.nextInt() : 1;
         while (T-- > 0) {
             solve();
         }

@@ -1,63 +1,65 @@
-package com.fqh;
+package com.fqh.other;
 
 import java.io.*;
-import java.util.*;
-import java.util.stream.IntStream;
+import java.util.StringTokenizer;
 
 /**
  * @author ikun
  * @version v1.0.0
- * @since 2024/1/23 10:15
+ * @since 2024/1/30 09:43
  **/
-public class CF_91B {
-
-//    https://codeforces.com/problemset/problem/91/B
+public class CF_1717C {
+//    https://codeforces.com/problemset/problem/1717/C
 //
-//    输入 n(2≤n≤2e5) 和长为 n 的数组 a(1≤a[i]≤1e9)。
-//    对于每个 i，输出 j-i-1 的最大值，其中 j 满足 j>i 且 a[j]<a[i]。如果不存在这样的 j，输出 -1。
+//    输入 T(≤4e4) 表示 T 组数据。所有数据的 n 之和 ≤2e5。
+//    每组数据输入 n(2≤n≤2e5) 和长为 n 的数组 a(1≤a[i]≤1e9)，长为 n 的数组 b(1≤a[i]≤1e9)。
+//
+//    你可以执行如下操作任意次：
+//    选择一个下标 i，满足 a[i] <= a[(i+1)%n]，然后把 a[i] 增加 1。
+//
+//    能否把 a 变成 b？输出 YES 或 NO。
 
 //    输入
-//    6
-//        10 8 5 3 50 45
-//    输出 2 1 0 -1 0 -1
-//
-//    输入
-//    7
-//        10 4 6 3 2 8 15
-//    输出 4 2 1 0 -1 -1 -1
-//
-//    输入
-//    5
-//        10 3 1 10 11
-//    输出 1 0 -1 -1 -1
-
+//        5
+//        3
+//        1 2 5
+//        1 2 5
+//        2
+//        2 2
+//        1 3
+//        4
+//        3 4 1 2
+//        6 4 2 5
+//        3
+//        2 4 1
+//        4 5 3
+//        5
+//        1 2 3 4 5
+//        6 5 6 7 6
+//    输出
+//            YES
+//            NO
+//            NO
+//            NO
+//            YES
     public static void solve() throws IOException {
         int n = in.nextInt();
         int[] a = new int[n];
+        int[] b = new int[n];
+        for (int i = 0; i < n; i++) a[i] = in.nextInt();
+        for (int i = 0; i < n; i++) b[i] = in.nextInt();
         for (int i = 0; i < n; i++) {
-            a[i] = in.nextInt();
-        }
-        int[] ans = new int[n];
-        var tmap = new TreeMap<Integer, Integer>();
-        for (int i = n - 1; i >= 0; i--) {
-            var entry = tmap.lowerEntry(a[i]);
-            if (entry == null) {
-                ans[i] = -1;
-            } else {
-                ans[i] = entry.getValue() - i - 1;
-            }
-            if (tmap.isEmpty() || a[i] < tmap.firstKey()) {
-                tmap.put(a[i], i);
+            if (a[i] > b[i] || (a[i] < b[i] && b[i] > b[(i+1)%n] + 1)) {
+                out.println("NO");
+                return;
             }
         }
-        for (int i = 0; i < n; i++) {
-            out.print(ans[i] + " ");
-        }
-        out.println();
+        out.println("YES");
     }
 
+    static boolean MULTI_CASE = true;
     public static void main(String[] args) throws Exception {
-        int T = 1;
+        int T = MULTI_CASE ? in.nextInt() : 1;
         while (T-- > 0) {
             solve();
         }

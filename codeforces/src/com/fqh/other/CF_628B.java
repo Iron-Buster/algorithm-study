@@ -1,62 +1,55 @@
-package com.fqh.CF400_499;
+package com.fqh.other;
+
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.List;
 import java.util.StringTokenizer;
 
-/**
- * @Author: vq
- * @Date: 2023/11/17 14:14
- * @Version V1.0
- */
-public class CF_492B {
+public class CF_628B {
 
 
-    static final int MAXN = 200010;
-    static int[] a = new int[MAXN];
-    static int[] b = new int[MAXN];
-    static boolean[] vis = new boolean[MAXN];
-    static List<Integer>[] g;
-    static int n;
-    static int m;
+//    https://codeforces.com/problemset/problem/628/B
+//
+//    输入一个长度 ≤3e5 的数字字符串 s。
+//    输出 s 有多少个连续且非空的子串是 4 的倍数。
+//    允许子串有前导零。
 
+//    输入 124
+//    输出 4
+//    解释 12,4,24,24
+//
+//    输入 04
+//    输出 3
+//    解释 0,4,04
+//
+//    输入 5810438174
+//    输出 9
 
-    static void solve() throws Exception {
-        n = in.nextInt();
-        int l = in.nextInt();
-        for (int i = 0; i < n; ++i) a[i] = in.nextInt();
-        double ans = Math.max(a[0], l - a[n - 1]);
-        for (int i = 1; i < n; ++i) {
-            ans = Math.max(ans, a[i] - a[i - 1] / 2.0);
+    public static void solve() throws IOException {
+        String s = in.nextLine();
+        // 4的倍数最后两位数字一定能被4整除
+        int n = s.length();
+        long ans = 0;
+        // 考虑长度为2的子串
+        for (int i = 0; i < n - 1; i++) {
+            String t = s.substring(i, i + 2);
+            // 计算的是以t结尾的子串数量 所有要乘上左边的字符个数 (i+1)
+            ans += (Integer.parseInt(t) % 4 == 0 ? 1 : 0) * (i + 1);
+        }
+        // 考虑长度为1的子串
+        for (int i = 0; i < n; i++) {
+            ans += (s.charAt(i) - '0') % 4 == 0 ? 1 : 0;
         }
         out.println(ans);
     }
 
+    static boolean MULTI_CASE = false;
+
     public static void main(String[] args) throws Exception {
-        int T = 1;
+        int T = MULTI_CASE ? in.nextInt() : 1;
         while (T-- > 0) {
             solve();
         }
         out.close();
-    }
-
-    static class Pair implements Comparable<Pair> {
-        int x;
-        int y;
-
-        public Pair(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        @Override
-        public int compareTo(Pair o) {
-            if (this.x == o.x) {
-                return this.y - o.y;
-            }
-            return this.x - o.x;
-        }
     }
 
     static InputReader in = new InputReader();

@@ -1,51 +1,69 @@
-package com.fqh;
-
+package com.fqh.other;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class CF_628B {
+/**
+ * @author ikun
+ * @version v1.0.0
+ * @since 2024/1/22 10:46
+ **/
+public class CF_1748B {
+
+//    https://codeforces.com/problemset/problem/1748/B
+//
+//    输入 T(≤1e4) 表示 T 组数据。所有数据的 n 之和 ≤1e5。
+//    每组数据输入 n(1≤n≤1e5) 和长为 n 字符串 s，只包含字符 '0' 到 '9'。
+//
+//    输出 s 有多少个连续子串 t，满足 t 中每个字符的出现次数，都不超过 t 中的字符种类数。
 
 
-//    https://codeforces.com/problemset/problem/628/B
-//
-//    输入一个长度 ≤3e5 的数字字符串 s。
-//    输出 s 有多少个连续且非空的子串是 4 的倍数。
-//    允许子串有前导零。
-
-//    输入 124
-//    输出 4
-//    解释 12,4,24,24
-//
-//    输入 04
-//    输出 3
-//    解释 0,4,04
-//
-//    输入 5810438174
-//    输出 9
+//    输入
+//        7
+//        1
+//        7
+//        2
+//        77
+//        4
+//        1010
+//        5
+//        01100
+//        6
+//        399996
+//        5
+//        23456
+//        18
+//        789987887987998798
+//    输出
+//        1
+//        2
+//        10
+//        12
+//        10
+//        15
+//        106
 
     public static void solve() throws IOException {
+        int n = in.nextInt();
         String s = in.nextLine();
-        // 4的倍数最后两位数字一定能被4整除
-        int n = s.length();
-        long ans = 0;
-        // 考虑长度为2的子串
-        for (int i = 0; i < n - 1; i++) {
-            String t = s.substring(i, i + 2);
-            // 计算的是以t结尾的子串数量 所有要乘上左边的字符个数 (i+1)
-            ans += (Integer.parseInt(t) % 4 == 0 ? 1 : 0) * (i + 1);
-        }
-        // 考虑长度为1的子串
+        int ans = 0;
         for (int i = 0; i < n; i++) {
-            ans += (s.charAt(i) - '0') % 4 == 0 ? 1 : 0;
+            int[] map = new int[10];
+            int cnt = 0; // 种类数 最多10种
+            int mxC = 0; // 出现次数最多的
+            for (int j = 0; j < Math.min(100, n - i); j++) { // 最坏情况是的子串长度 < 100
+                char c = s.charAt(j+i);
+                map[c-'0']++;
+                if (map[c-'0'] == 1) cnt++;
+                mxC = Math.max(mxC, map[c-'0']);
+                if (cnt >= mxC) ans++;
+            }
         }
         out.println(ans);
     }
 
-    static boolean MULTI_CASE = false;
-
     public static void main(String[] args) throws Exception {
-        int T = MULTI_CASE ? in.nextInt() : 1;
+        int T = in.nextInt();
         while (T-- > 0) {
             solve();
         }
@@ -54,7 +72,6 @@ public class CF_628B {
 
     static InputReader in = new InputReader();
     static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
-
     static class InputReader {
         private StringTokenizer st;
         private BufferedReader bf;

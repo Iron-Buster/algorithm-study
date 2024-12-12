@@ -1,10 +1,8 @@
-package com.fqh;
+package com.fqh.other;
 
 import java.io.*;
-import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class CF_1029C {
 
